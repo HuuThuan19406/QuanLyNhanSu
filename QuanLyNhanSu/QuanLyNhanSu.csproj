@@ -174,7 +174,6 @@
   <ItemGroup>
     <Resource Include="PICTURE\menuIcon.png" />
     <Resource Include="PICTURE\IntroPicture.gif" />
-    <Resource Include="19729.png" />
     <Resource Include="DangNhap\19729.png" />
     <Content Include="MODULE\Database\Database.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
