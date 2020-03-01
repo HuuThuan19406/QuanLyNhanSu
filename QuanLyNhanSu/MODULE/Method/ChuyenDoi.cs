@@ -18,7 +18,7 @@ using System.IO;
 using System.Data.OleDb;
 using System.Data.SqlClient;
 
-namespace BaiTapNhom
+namespace QuanLyNhanSu
 {
     class ChuyenDoi
     {

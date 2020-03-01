@@ -38,12 +38,24 @@
                     <GradientStop Color="DeepSkyBlue" Offset="0.9"/>
                 </LinearGradientBrush>
             </Setter.Value>
-        </Setter>
+        </Setter>        
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="Width" Value="200"/>
         <Setter Property="Height" Value="50"/>
-    </Style>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Foreground">
+                    <Setter.Value>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="{DynamicResource {x:Static SystemColors.MenuHighlightColorKey}}" Offset="0"/>
+                            <GradientStop Color="DeepSkyBlue" Offset="0.9"/>
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>    
     <Style TargetType="ProgressBar">
         <Setter Property="Foreground">
             <Setter.Value>
@@ -53,5 +65,9 @@
                 </LinearGradientBrush>
             </Setter.Value>
         </Setter>
+    </Style>
+    <Style TargetType="MenuItem">
+        <Setter Property="Foreground" Value="MediumBlue"/>
+        <Setter Property="FontSize" Value="12"/>
     </Style>
    </ResourceDictionary>

@@ -19,7 +19,7 @@ using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.Collections.ObjectModel;
 
-namespace BaiTapNhom
+namespace QuanLyNhanSu
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -224,12 +224,7 @@ namespace BaiTapNhom
             lstvThongTin.ItemsSource = null;
             lstvThongTin.Items.Clear();
             lstvThongTin.ItemsSource = ListFilter;
-        }
-
-        private void sliderFontSize_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            FontSize = sliderFontSize.Value;
-        }
+        }               
 
         private void btnThemNhanSu_Click(object sender, RoutedEventArgs e)
         {
@@ -375,25 +370,7 @@ namespace BaiTapNhom
             }
             catch { }
         }
-
-
-        private void TabMain_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            for (var i = 0; i < TabMain.Items.Count; i++)
-            {
-                var tab = TabMain.Items[i];
-                var t = tab as TabItem;
-                if (t.IsSelected)
-                {
-                    Binding binding = new Binding("Background");
-                    binding.Source = btnDangXuat;
-                    t.SetBinding(TabItem.ForegroundProperty, binding);
-                }
-                else
-                    t.Foreground = Brushes.White;
-            }
-        }
-
+                       
         private void txtHoVaTen_TextChanged(object sender, TextChangedEventArgs e)
         {
             KiemTra.isHoTen(txtHoVaTen);
@@ -461,7 +438,6 @@ namespace BaiTapNhom
             HienThi.ThongTinList(lstvThongTin, danhSachNhanSu);
             txbSoNhanSu.Text = "Hiện tại có  " + lstvThongTin.Items.Count.ToString() + "  nhân sự trong danh sách";
             lstvThongTin.SelectedItem = nhanSu;
-
         } 
     }    
 }

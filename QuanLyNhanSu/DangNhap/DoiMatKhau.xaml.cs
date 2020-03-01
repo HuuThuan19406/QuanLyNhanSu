@@ -18,7 +18,7 @@ using System.IO;
 using System.Data.OleDb;
 using System.Data.SqlClient;
 
-namespace BaiTapNhom
+namespace QuanLyNhanSu
 {
     /// <summary>
     /// Interaction logic for DoiMatKhau.xaml
@@ -47,7 +47,7 @@ namespace BaiTapNhom
             Hashtable AccountList = new Hashtable();
             while (dr.Read())
             {
-                AccountList.Add(dr["Id"].ToString().ToLower(), dr["Password"].ToString());
+                AccountList.Add(dr["Id"].ToString().ToLower(), MaHoa.BinaryCode_GiaiMa(dr["Password"].ToString()));
             }
             con.Close();
             if (AccountList.ContainsKey((txtTaiKhoan.Text.ToLower())))
@@ -61,7 +61,7 @@ namespace BaiTapNhom
                     query = "UPDATE [dbo].[TaiKhoan] SET Password=@Password WHERE Id=@Id";
                     con.Open();
                     cmd = new SqlCommand(query, con);                
-                    cmd.Parameters.AddWithValue("@Password", pwbMatKhau2.Password);
+                    cmd.Parameters.AddWithValue("@Password", MaHoa.BinaryCode(pwbMatKhau2.Password));
                     cmd.Parameters.AddWithValue("@Id", txtTaiKhoan.Text.ToLower());
                     cmd.ExecuteNonQuery();
                     con.Close();

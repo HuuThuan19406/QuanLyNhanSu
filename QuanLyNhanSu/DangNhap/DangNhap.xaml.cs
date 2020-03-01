@@ -18,7 +18,7 @@ using System.IO;
 using System.Data.OleDb;
 using System.Data.SqlClient;
 
-namespace BaiTapNhom
+namespace QuanLyNhanSu
 {
     /// <summary>
     /// Interaction logic for Window1.xaml
@@ -51,7 +51,7 @@ namespace BaiTapNhom
             AccountList = new Hashtable();
             while (dr.Read())
             {
-                AccountList.Add(dr["Id"].ToString().ToLower(), dr["Password"].ToString());
+                AccountList.Add(dr["Id"].ToString().ToLower(), MaHoa.BinaryCode_GiaiMa(dr["Password"].ToString()));
             }
             con.Close();
         }

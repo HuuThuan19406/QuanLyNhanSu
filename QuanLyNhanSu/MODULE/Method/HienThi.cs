@@ -18,7 +18,7 @@ using System.IO;
 using System.Data.OleDb;
 using System.Data.SqlClient;
 
-namespace BaiTapNhom
+namespace QuanLyNhanSu
 {
     class HienThi
     {
@@ -45,7 +45,7 @@ namespace BaiTapNhom
         {
             try
             {
-                NhanSu nhanSu = (NhanSu)dsUsers[DangNhap.idDangNhap];
+                NhanSu nhanSu = (NhanSu)dsUsers[DangNhap.idDangNhap.ToUpper()];
                 return nhanSu.HoTen.ToUpper();
             }
             catch { return DangNhap.idDangNhap; }
@@ -54,7 +54,7 @@ namespace BaiTapNhom
         {
             try
             {
-                NhanSu nhanSu = (NhanSu)dsUsers[id.ToUpper()];
+                NhanSu nhanSu = (NhanSu)dsUsers[id.ToLower()];
                 return nhanSu.HoTen.ToUpper();
             }
             catch { return DangNhap.idDangNhap.ToUpper(); }
