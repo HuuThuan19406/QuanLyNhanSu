@@ -165,7 +165,7 @@
                                 </ToolTip>
                             </Label.ToolTip>
                         </Label>
-                        <TextBox x:Name="txtMaNhanVien" Background="WhiteSmoke" IsEnabled="False" HorizontalAlignment="Left" Margin="309,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="208">
+                        <TextBox x:Name="txtMaNhanVien" Background="WhiteSmoke" IsEnabled="False" HorizontalAlignment="Left" Margin="309,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="181">
                             <TextBox.ToolTip>
                                 Mã nhân viên được cấp tự động, không thể thay đổi
                             </TextBox.ToolTip>
@@ -251,6 +251,9 @@
                         <TextBox x:Name="txtChucVu" Background="WhiteSmoke" IsEnabled="False" HorizontalAlignment="Left" Margin="548,170,0,0" VerticalAlignment="Top" Width="193"/>
                         <Label Width="90" HorizontalAlignment="Left" Margin="751,165,0,0" Content="Ngày vào" VerticalAlignment="Top"/>
                         <DatePicker x:Name="dtpNgayVao" FontSize="18" HorizontalAlignment="Left" Margin="841,170,0,0" VerticalAlignment="Top" Height="25" Width="140"/>
+                        <Button x:Name="btnCopyMaNhanVien" HorizontalAlignment="Left" Margin="495,70,0,0" VerticalAlignment="Top" Width="22" Height="22" Click="btnCopyMaNhanVien_Click">
+                            <Image Source="/PICTURE/copyIcon.png" Margin="1"/>
+                        </Button>
                     </Grid>
                 </Grid>
             </TabItem>
@@ -271,7 +274,7 @@
             </TabItem>
             <TabItem Header="CẤU HÌNH">
                 <Grid VerticalAlignment="Top" HorizontalAlignment="Center">
-                     <Slider x:Name="sliderFontSize" HorizontalAlignment="Right" 
+                    <Slider x:Name="sliderFontSize" HorizontalAlignment="Right" 
                              Minimum="10" Maximum="17" Value="17"
                              Margin="0,119,204,0" Width="334"  VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}"/>
                     <ComboBox Name="cboKieuChu" Width="334" VerticalAlignment="top" HorizontalAlignment="Right" Margin="0,215,204,0" />
@@ -279,14 +282,8 @@
                         <TextBlock Foreground="white" Text="ĐĂNG XUẤT"/>
                     </Button>
                     <Label x:Name="lblDangNhapHienTai" Content="TÀI KHOẢN ĐĂNG NHẬP" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontWeight="SemiBold" Foreground="MediumBlue" Margin="368,465,365,181" Height="60" Width="291" />
-                    <Label Name="lblThongTin" Content="Thông tin ghi chú ở đây" FontSize="12" FontWeight="Light" Foreground="White" Padding="15,5" VerticalAlignment="Bottom" Height="60" Margin="0">
-                        <Label.Background>
-                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="{DynamicResource {x:Static SystemColors.MenuHighlightColorKey}}" Offset="0"/>
-                                <GradientStop Color="DeepSkyBlue" Offset="0.9"/>
-                            </LinearGradientBrush>
-                        </Label.Background>
-                    </Label>
+                    <Label Name="lblThongTin" Content="This is footer" FontSize="12" Padding="15,5" 
+                           VerticalAlignment="Bottom" Height="60" Margin="0" Style="{StaticResource lableFooter}"/>
                     <Label Content="Kích cỡ chữ" HorizontalAlignment="Left" Margin="144,111,0,0" VerticalAlignment="Top"/>
                     <Label Content="Kiểu chữ" HorizontalAlignment="Left" Margin="144,209,0,0" VerticalAlignment="Top"/>
                 </Grid>

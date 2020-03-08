@@ -28,7 +28,7 @@ namespace QuanLyNhanSu
         WaitForLoading frmWait;
         public static Hashtable AccountList;
         public static string idDangNhap { get; set; }
-        public string connection = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\D\QuanLyNhanSu\QuanLyNhanSu\QuanLyNhanSu\MODULE\Database\Database.mdf;Integrated Security=True";
+        public string connection = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + System.IO.Directory.GetCurrentDirectory() + @"\MODULE\Database\Database.mdf;Integrated Security=True";
 
         public DangNhap()
         {
@@ -103,11 +103,28 @@ namespace QuanLyNhanSu
             lblDoiMatKhau.Foreground = Brushes.Black;
             lblDoiMatKhau.FontSize -= 2;
         }
+       
+        private void menuItem_Thoat_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
 
-        private void lblQuenMatKhau_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void lblQuenMatKhau_MouseDown(object sender, MouseButtonEventArgs e)
         {
             DoiMatKhau frmquenMatKhau = new DoiMatKhau();
             frmquenMatKhau.ShowDialog();
+        }       
+
+        private void menuItem_DoiMatKhau_Click(object sender, RoutedEventArgs e)
+        {
+            DoiMatKhau frmquenMatKhau = new DoiMatKhau();
+            frmquenMatKhau.ShowDialog();
+        }
+
+        private void menuItem_ThongTinPhanMem_Click(object sender, RoutedEventArgs e)
+        {
+            ThongTinPhanMem frmThongTinPhanMem = new ThongTinPhanMem();
+            frmThongTinPhanMem.Show();            
         }
     }
 }

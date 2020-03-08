@@ -28,12 +28,12 @@
                 <ToolTip Content="Nhập lại mật khẩu mới"/>
             </PasswordBox.ToolTip>
         </PasswordBox>
-        <Button FontSize="20"  Height="50" Width="150" Margin="20,190,20,20" Click="Button_Click">
-            <TextBlock Foreground="White" Text="XÁC NHẬN"/>
-        </Button>
+        <Button FontSize="20" Height="50" Width="150" 
+                Margin="20,190,20,20" Content="XÁC NHẬN" 
+                Click="Button_Click" IsDefault="True"/>
         <Label Margin="20,20,184.6,215.4">Tài khoản:</Label>
         <Label Margin="20,60,184.6,175.4">MK cũ:</Label>
-        <Label Margin="20,100,184.6,130.4">MK mới:</Label>
-        <Label Margin="20,140,179.6,92.4">Nhập lại MK:</Label>
+        <Label Margin="20,100,170.6,130.4">MK mới:</Label>
+        <Label Margin="20,140,170.6,92.4">Nhập lại MK:</Label>
     </Grid>
 </Window>

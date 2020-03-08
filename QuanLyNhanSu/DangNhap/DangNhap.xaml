@@ -13,7 +13,7 @@
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0">
+        <Grid x:Name="gridIntro" Grid.Column="0">
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="{DynamicResource {x:Static SystemColors.MenuHighlightColorKey}}" Offset="0"/>
@@ -26,27 +26,26 @@
             </StackPanel>
             <Image gif:ImageBehavior.AnimatedSource="/PICTURE/IntroPicture.gif" Margin="0,65,-0.2,23.4"
                    gif:ImageBehavior.RepeatBehavior="Forever"/>
-            <Menu HorizontalAlignment="Left" Height="34"  VerticalAlignment="Top" Width="38" Background="{x:Null}" Margin="-4,0,0,0">
-                <MenuItem Header="☰" Foreground="White" FontSize="25">                    
-                    <MenuItem Header="Đổi mật khẩu"></MenuItem>
-                    <MenuItem Header="Quên mật khẩu"></MenuItem>
-                    <MenuItem Header="Tạo tài khoản"></MenuItem>
-                    <MenuItem Header="Thông tin phần mềm"></MenuItem>
+            <Menu HorizontalAlignment="Left" Height="34"  VerticalAlignment="Top" Width="38" Background="{x:Null}">
+                <MenuItem Header="☰" Foreground="White" FontSize="25">
+                    <MenuItem Header="Đổi mật khẩu" Name="menuItem_DoiMatKhau" Click="menuItem_DoiMatKhau_Click"/>
+                    <MenuItem Header="Quên mật khẩu" Name="menuItem_QuenMatKhau"/>
+                    <MenuItem Header="Thông tin phần mềm" Name="menuItem_ThongTinPhanMem" Click="menuItem_ThongTinPhanMem_Click"/>
                     <Separator/>
-                    <MenuItem Header="Thoát"></MenuItem>
-                </MenuItem>             
+                    <MenuItem Header="Thoát" Name="menuItem_Thoat" Click="menuItem_Thoat_Click"/>
+                </MenuItem>
             </Menu>
         </Grid>
         <Grid Grid.Column="1" HorizontalAlignment="Center" Height="194" Width="268">
-            <TextBlock Height="25" Width="100" VerticalAlignment="Top" Margin="10,15,150,115.4">Tài khoản:</TextBlock>
+            <TextBlock Height="25" VerticalAlignment="Top" Margin="14,15,168,0">Tài khoản:</TextBlock>
             <TextBox x:Name="txtTaiKhoan" VerticalAlignment="Top" FontSize="15" Height="25" Margin="100,17,20,118"/>
-            <TextBlock x:Name="txbMatKhau" VerticalAlignment="Top" Height="25" Width="100" Margin="10,65,150,61.4">Mật khẩu:</TextBlock>
+            <TextBlock x:Name="txbMatKhau" VerticalAlignment="Top" Height="25" Margin="14,65,168,0">Mật khẩu:</TextBlock>
             <PasswordBox x:Name="pwbMatKhau" VerticalAlignment="Top" FontSize="15" Height="25" Margin="100,65,20,71"/>
-            <Button x:Name="btnDangNhap" Height="32" Width="105" 
+            <Button x:Name="btnDangNhap" Height="32" Width="105" IsDefault="True"
                 Margin="80,110,80,25.2" VerticalAlignment="Top" Click="DangNhap_Click">
                 <TextBlock Foreground="White" Text="ĐĂNG NHẬP"/>
             </Button>
-            <Label Name="lblDoiMatKhau" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="12" Margin="0,155,0,0" FontStyle="Italic" MouseEnter="lblQuenMatKhau_MouseEnter" MouseLeave="lblQuenMatKhau_MouseLeave" MouseDoubleClick="lblQuenMatKhau_MouseDoubleClick">Đổi mật khẩu</Label>
+            <Label Name="lblDoiMatKhau" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="12" Margin="0,155,0,0" FontStyle="Italic" MouseEnter="lblQuenMatKhau_MouseEnter" MouseLeave="lblQuenMatKhau_MouseLeave" MouseDown="lblQuenMatKhau_MouseDown">Đổi mật khẩu</Label>
         </Grid>
     </Grid>
 </Window>

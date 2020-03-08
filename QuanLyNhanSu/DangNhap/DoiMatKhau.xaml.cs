@@ -29,8 +29,7 @@ namespace QuanLyNhanSu
         SqlCommand cmd;
         SqlDataReader dr;
         string query;
-        string connection = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\D\QuanLyNhanSu\QuanLyNhanSu\QuanLyNhanSu\MODULE\Database\Database.mdf;Integrated Security=True";
-
+        string connection = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + System.IO.Directory.GetCurrentDirectory() + @"\MODULE\Database\Database.mdf;Integrated Security=True";
         public DoiMatKhau()
         {
             InitializeComponent();

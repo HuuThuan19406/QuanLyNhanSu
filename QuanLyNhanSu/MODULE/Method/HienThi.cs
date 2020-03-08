@@ -22,13 +22,25 @@ namespace QuanLyNhanSu
 {
     class HienThi
     {
+        #region Thông tin phần mềm
+        public static string version { get; } = "1.0.0";
+        public static string updateDay { get; } = "4/3/2020";
+        public static string author { get; } = "AmonCoding Team - K19406";
+        public static string hotline { get; } = "090.999.9999";
+        public static string email { get; } = "amoncodingteam@gmail.com";
+        public static string diaChiTruSo { get; } = "Quận Thủ Đức, Thành phố Hồ Chí Minh";
+        /// <summary>
+        /// 0: Miễn phí, 1: Dùng thử, 2: Trả phí, 3: Đầy đủ
+        /// </summary>
+        public static string[] level { get; } = { "Miễn phí", "Dùng thử", "Trả phí", "Đầy đủ" };
+        #endregion
+
         /// <summary>
         /// Hiển thị thông tin từ Hashtable lên ListView
         /// <para>Nếu Listview có chứa dữ liệu trước đó sẽ bị xóa sạch</para>
         /// </summary>
         /// <param name="listView">Tên Listview cần đưa thông tin vào</param>
-        /// <param name="source">Nguồn chứa thông tin</param>
-        
+        /// <param name="source">Nguồn chứa thông tin</param>        
         public static void ThongTinList(ListView listView, Hashtable source)
         {
             listView.ItemsSource = null;
@@ -133,6 +145,12 @@ namespace QuanLyNhanSu
             }
             value += "ngày " + DateTime.Today.Day + " tháng " + DateTime.Today.Month + " năm " + DateTime.Today.Year;
             return value;
+        }
+        public static string FooterInfo()
+        {
+            return HienThi.NgayThang()
+                   + "\nPhần mềm QUẢN LÝ NHÂN SỰ được tạo và phát triển bởi " + author
+                   + "\nLiên hệ hỗ trợ: " + hotline;
         }
     }
 }
