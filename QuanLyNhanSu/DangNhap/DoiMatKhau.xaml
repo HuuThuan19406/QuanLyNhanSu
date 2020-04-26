@@ -6,29 +6,33 @@
         xmlns:local="clr-namespace:QuanLyNhanSu"
         mc:Ignorable="d"
         Title="Đổi Mật Khẩu" FontSize="15" Height="300" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
-   
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+    </Window.Resources>
     <Grid>
-        <TextBox x:Name="txtTaiKhoan" FontSize="15" Height="25" Margin="128,20,19.6,0" VerticalAlignment="Top">
+        <TextBox x:Name="txtTaiKhoan" Foreground="MediumBlue" FontSize="15" Height="25" Margin="128,20,19.6,0" VerticalAlignment="Top">
             <TextBox.ToolTip>
                 <ToolTip>Tài khoản</ToolTip>
             </TextBox.ToolTip>
         </TextBox>
-        <PasswordBox x:Name="pwbMatKhauCu" FontSize="15" Height="25" Margin="128,60,19.6,0" VerticalAlignment="Top">
+        <PasswordBox x:Name="pwbMatKhauCu" Foreground="MediumBlue" FontSize="15" Height="25" Margin="128,60,19.6,0" VerticalAlignment="Top">
             <PasswordBox.ToolTip>
                 <ToolTip>Mật khẩu cũ</ToolTip>
             </PasswordBox.ToolTip>
         </PasswordBox>
-        <PasswordBox x:Name="pwbMatKhau1" FontSize="15" Height="25" Margin="128,100,19.6,0" VerticalAlignment="Top">
+        <PasswordBox x:Name="pwbMatKhau1" Foreground="MediumBlue" FontSize="15" Height="25" Margin="128,100,19.6,0" VerticalAlignment="Top">
             <PasswordBox.ToolTip>
                 <ToolTip>Mật khẩu mới</ToolTip>
             </PasswordBox.ToolTip>
         </PasswordBox>
-        <PasswordBox x:Name="pwbMatKhau2" FontSize="15" Height="25" Margin="128,140,19.6,0" VerticalAlignment="Top">
+        <PasswordBox x:Name="pwbMatKhau2" Foreground="MediumBlue" FontSize="15" Height="25" Margin="128,140,19.6,0" VerticalAlignment="Top">
             <PasswordBox.ToolTip>
                 <ToolTip Content="Nhập lại mật khẩu mới"/>
             </PasswordBox.ToolTip>
         </PasswordBox>
-        <Button FontSize="20" Height="50" Width="150" 
+        <Button FontSize="20" Height="40" Width="140" 
                 Margin="20,190,20,20" Content="XÁC NHẬN" 
                 Click="Button_Click" IsDefault="True"/>
         <Label Margin="20,20,184.6,215.4">Tài khoản:</Label>

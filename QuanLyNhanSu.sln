@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuanLyNhanSu", "QuanLyNhanS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TEST_PROGRAM", "TEST_PROGRAM\TEST_PROGRAM.csproj", "{FFA19394-7468-4C1D-A8CC-BC18E47675AB}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetUp_QuanLyNhanSu", "SetUp_QuanLyNhanSu\SetUp_QuanLyNhanSu.vdproj", "{5132B641-6AA2-4290-A1B2-EEAF13CB3E09}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,8 @@ Global
 		{FFA19394-7468-4C1D-A8CC-BC18E47675AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFA19394-7468-4C1D-A8CC-BC18E47675AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFA19394-7468-4C1D-A8CC-BC18E47675AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5132B641-6AA2-4290-A1B2-EEAF13CB3E09}.Debug|Any CPU.ActiveCfg = Debug
+		{5132B641-6AA2-4290-A1B2-EEAF13CB3E09}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

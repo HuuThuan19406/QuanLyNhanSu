@@ -1,0 +1,6 @@
+D:\D\QuanLyNhanSu\QuanLyNhanSu\TEST_PROGRAM\bin\Debug\TEST_PROGRAM.exe.config
+D:\D\QuanLyNhanSu\QuanLyNhanSu\TEST_PROGRAM\bin\Debug\TEST_PROGRAM.exe
+D:\D\QuanLyNhanSu\QuanLyNhanSu\TEST_PROGRAM\bin\Debug\TEST_PROGRAM.pdb
+D:\D\QuanLyNhanSu\QuanLyNhanSu\TEST_PROGRAM\obj\Debug\TEST_PROGRAM.exe
+D:\D\QuanLyNhanSu\QuanLyNhanSu\TEST_PROGRAM\obj\Debug\TEST_PROGRAM.pdb
+D:\D\QuanLyNhanSu\QuanLyNhanSu\TEST_PROGRAM\obj\Debug\TEST_PROGRAM.csprojAssemblyReference.cache

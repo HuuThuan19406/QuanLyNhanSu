@@ -8,7 +8,7 @@
         Title="Tra Cứu" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Height="370" Width="370" >
     <Grid Height="350" Width="370">
         <Image x:Name="imgBackGround" Opacity="0.15" Height="300" Width="300"/>
-        <TextBlock FontSize="30" FontWeight="Bold" Foreground="MediumBlue" HorizontalAlignment="Center" TextWrapping="Wrap" Text="TRA CỨU NHÂN SỰ" VerticalAlignment="Top" Margin="0,30,0,0"/>
+        <Label FontSize="30" Style="{StaticResource lableTitle}" HorizontalAlignment="Center" Content="TRA CỨU NHÂN SỰ" VerticalAlignment="Top" Margin="0,30,0,0"/>
         <TextBox x:Name="txtTraCuu" FontSize="30" Width="300" Margin="35,86,35,226"   />
         <!--Tren nay em phai co GroupName giong nhau. De chi chon dc 1 trong 3 type do. 
         Tuc la chi chon 1. Vi dang la Radio

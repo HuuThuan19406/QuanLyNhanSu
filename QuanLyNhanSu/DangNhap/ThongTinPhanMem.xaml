@@ -7,10 +7,14 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="Thông tin phần mềm" Height="550" Width="400" FontSize="16" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="Black"/>
+        </Style>
+    </Window.Resources>
     <Grid>
         <StackPanel>
-            <Label Style="{StaticResource lableTitle}" Content="THÔNG TIN PHẦN MỀM" FontSize="25" FontWeight="ExtraBold" HorizontalAlignment="Center" Margin="10"/>
+            <Label Style="{StaticResource lableTitle}" Content="THÔNG TIN PHẦN MỀM" FontSize="25" HorizontalAlignment="Center" Margin="10"/>
             <Label Content="Thông tin" FontWeight="Bold" FontStyle="Italic" Margin="5,0"/>
             <TextBlock x:Name="txbTacGia" TextWrapping="Wrap" Text="Tác giả: " Margin="25,0"/>
             <Label Name="lblPhienBan" Content="Phiên bản phần mềm: " Margin="25,0"/>

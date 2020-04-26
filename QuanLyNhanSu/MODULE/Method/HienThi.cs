@@ -8,22 +8,28 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 using System.Data.OleDb;
 using System.Data.SqlClient;
+using System.Deployment.Application;
+using System.Reflection;
 
 namespace QuanLyNhanSu
 {
     class HienThi
     {
         #region Thông tin phần mềm
-        public static string version { get; } = "1.0.0";
+        public static string version
+        {
+            get
+            {
+                return ApplicationDeployment.IsNetworkDeployed
+               ? ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString()
+               : Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            }
+        }
         public static string updateDay { get; } = "4/3/2020";
         public static string author { get; } = "AmonCoding Team - K19406";
         public static string hotline { get; } = "090.999.9999";
@@ -43,16 +49,23 @@ namespace QuanLyNhanSu
         /// <param name="source">Nguồn chứa thông tin</param>        
         public static void ThongTinList(ListView listView, Hashtable source)
         {
+            if (source == null)
+                return;
             listView.ItemsSource = null;
             //Xóa List trước khi tải vào
             if (listView.Items.Count > 0)
                 listView.Items.Clear();
+            List<NhanSu> list = new List<NhanSu>();
             foreach (DictionaryEntry VALUE in source)
             {
-                listView.Items.Add(VALUE.Value);
+                list.Add(VALUE.Value as NhanSu);
+            }
+            list.Sort();
+            foreach(NhanSu nhanSu in list)
+            {
+                listView.Items.Add(nhanSu);
             }
         }
-
         public static string TenNguoiDung(Hashtable dsUsers)
         {
             try
@@ -146,11 +159,26 @@ namespace QuanLyNhanSu
             value += "ngày " + DateTime.Today.Day + " tháng " + DateTime.Today.Month + " năm " + DateTime.Today.Year;
             return value;
         }
+        public static string GioPhutGiay()
+        {
+            if (DateTime.Now.ToString("tt")=="AM")
+                return DateTime.Now.ToString("hh") + " giờ " + DateTime.Now.ToString("mm") + " phút " + DateTime.Now.ToString("ss") + " giây";
+            else
+                return (int.Parse(DateTime.Now.ToString("hh")) + 12).ToString() + " giờ " + DateTime.Now.ToString("mm") + " phút " + DateTime.Now.ToString("ss") + " giây";
+        }
+        public static string NowTime()
+        {
+            return DateTime.Now.ToString("hh:mm:ss dd/MM/yyyy");
+        }
         public static string FooterInfo()
         {
             return HienThi.NgayThang()
                    + "\nPhần mềm QUẢN LÝ NHÂN SỰ được tạo và phát triển bởi " + author
                    + "\nLiên hệ hỗ trợ: " + hotline;
+        }
+        public static string DuongDanHienTai()
+        {
+            return System.IO.Directory.GetCurrentDirectory();
         }
     }
 }

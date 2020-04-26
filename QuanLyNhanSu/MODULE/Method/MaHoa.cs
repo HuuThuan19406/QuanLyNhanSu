@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace QuanLyNhanSu
 {
-    class MaHoa
+    public class MaHoa
     {
         public static string BinaryCode(string data)
         {
@@ -93,6 +93,6 @@ namespace QuanLyNhanSu
                 deci += int.Parse(binary[i].ToString()) * (int)Math.Pow(2, 8 - i - 1);
             }
             return deci;
-        }
+        }        
     }
 }

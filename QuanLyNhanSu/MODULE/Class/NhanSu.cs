@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace QuanLyNhanSu
 {
-    class NhanSu
+    class NhanSu : IComparable
     {
         public NhanSu()
         {
@@ -26,7 +26,19 @@ namespace QuanLyNhanSu
             this.NgayVao = NgayVao;
             this.Avatar = Avatar;
         }
-        public string HoTen { get; set; }
+        private string hoTen;
+        public string HoTen 
+        {
+            get
+            {
+                return hoTen;
+            }
+            set 
+            {
+                hoTen = value;
+                GetTen();
+            }
+        }
         public string CMND { get; set; }
         public string MaNhanVien { get; set; }
         public string GioiTinh { get; set; }
@@ -37,5 +49,15 @@ namespace QuanLyNhanSu
         public string ChucVu { get; set; }
         public string NgayVao { get; set; }
         public string Avatar { get; set; }
+        public string Ten { get; set; }
+        public int CompareTo(object obj)
+        {
+            NhanSu nhanSu = obj as NhanSu;
+            return string.Compare(this.HoTen, nhanSu.HoTen) * (-1);
+        }
+        public void GetTen()
+        {
+            Ten = hoTen.Split(' ')[hoTen.Split(' ').Length - 1];
+        }
     }
 }

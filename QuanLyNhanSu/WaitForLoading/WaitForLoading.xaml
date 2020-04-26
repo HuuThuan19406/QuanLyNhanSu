@@ -8,6 +8,6 @@
         Title="WaitForLoading" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" IsEnabled="False" Height="200" Width="400">
     <Grid>
         <Label Content="Chương trình đang được tải, vui lòng đợi..." Foreground="MediumBlue" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="25"/>
-        <ProgressBar x:Name="ProgressBar" IsIndeterminate="True" VerticalAlignment="Center" Margin="25,50,25,25" Height = "15" />
+        <ProgressBar x:Name="ProgressBar" IsIndeterminate="True" VerticalAlignment="Center" Margin="50,50,50,25" Height = "15"   />
     </Grid>
 </Window>

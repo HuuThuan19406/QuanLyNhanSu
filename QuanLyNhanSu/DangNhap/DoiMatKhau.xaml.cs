@@ -29,7 +29,7 @@ namespace QuanLyNhanSu
         SqlCommand cmd;
         SqlDataReader dr;
         string query;
-        string connection = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + System.IO.Directory.GetCurrentDirectory() + @"\MODULE\Database\Database.mdf;Integrated Security=True";
+        string connection = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + System.IO.Directory.GetCurrentDirectory() + @"\MODULE\Database\CSDL.mdf;Integrated Security=True";
         public DoiMatKhau()
         {
             InitializeComponent();
@@ -54,7 +54,24 @@ namespace QuanLyNhanSu
                 if (AccountList[txtTaiKhoan.Text.ToLower()].ToString() == pwbMatKhauCu.Password)
                 {
                     if (pwbMatKhau1.Password != pwbMatKhau2.Password)
-                        MessageBox.Show("Mật khẩu xác nhận không khớp", "LỖI", MessageBoxButton.OK, MessageBoxImage.Error);
+                    {
+                        new Message("LỖI", "Mật khẩu xác nhận không khớp", true, Message.Options.Error);
+                        pwbMatKhau1.Clear();
+                        pwbMatKhau2.Clear();
+                        pwbMatKhau1.Focus();
+                        return;
+                    }
+                    if (pwbMatKhauCu.Password == pwbMatKhau2.Password)
+                    {
+                        new MessageYesNo("CẢNH BÁO", "Mật khẩu mới giống hệt mật khẩu hiện tại, không có sự thay đổi ", MessageYesNo.Options.Warning);
+                        if (!MessageYesNo.Yes)
+                        {
+                            pwbMatKhau1.Clear();
+                            pwbMatKhau2.Clear();
+                            pwbMatKhau1.Focus();
+                            return;
+                        }
+                    }
                     con = new SqlConnection();
                     con.ConnectionString = connection;
                     query = "UPDATE [dbo].[TaiKhoan] SET Password=@Password WHERE Id=@Id";
@@ -64,17 +81,24 @@ namespace QuanLyNhanSu
                     cmd.Parameters.AddWithValue("@Id", txtTaiKhoan.Text.ToLower());
                     cmd.ExecuteNonQuery();
                     con.Close();
-                    MessageBox.Show("Cập nhật thành công, vui lòng đăng nhập lại", "YÊU CẦU", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    new Message("THÔNG BÁO", "Cập nhật thành công, vui lòng đăng nhập lại", false, Message.Options.Successful);
                     Close();
                 }
                 else
                 {
-                    MessageBox.Show("Sai mật khẩu!", "LỖI", MessageBoxButton.OK, MessageBoxImage.Error);
+                    new Message("LỖI", "Sai mật khẩu", true, Message.Options.Error);
+                    pwbMatKhauCu.Clear();
+                    pwbMatKhauCu.Focus();
                 }
             }
             else
             {
-                MessageBox.Show("Tài khoản không tồn tại!", "LỖI", MessageBoxButton.OK, MessageBoxImage.Error);
+                new Message("LỖI", "Tài khoản không tồn tại", true, Message.Options.Warning);
+                txtTaiKhoan.Clear();
+                pwbMatKhauCu.Clear();
+                pwbMatKhau1.Clear();
+                pwbMatKhau2.Clear();
+                txtTaiKhoan.Focus();
             }
         }        
     }

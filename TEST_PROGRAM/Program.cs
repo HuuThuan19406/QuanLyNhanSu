@@ -1,52 +1,150 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using QuanLyNhanSu;
 
 namespace TEST_PROGRAM
 {
     class Program
     {
-        static string connectString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\D\QuanLyNhanSu\QuanLyNhanSu\QuanLyNhanSu\DATABASE\Database.mdf;Integrated Security=True";
-           
+        static string connectString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + System.IO.Directory.GetCurrentDirectory() + @"\MODULE\Database\CSDL.mdf;Integrated Security=True";
         static void Main(string[] args)
         {
             try
             {
-                string key;
+                DoMain();
+            }
+            catch(Exception e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+                Console.ForegroundColor = ConsoleColor.White;
+                DoMain();
+            }
+            finally
+            {
+                Console.ReadKey();
+            }
+        }
+        private static void DoMain()
+        {
+            try
+            {
                 do
                 {
+                    string key;
                     Console.WriteLine("Let's enter your command or -1 to exit");
                     key = Console.ReadLine();
+                    Console.WriteLine("Loading....");
                     switch (key.ToLower())
                     {
                         case "add":
                             Add();
+                            Console.WriteLine("Done!");
                             break;
-                        case "remove all":
-                        case "delete all":
-                            RemoveAll();
+                        case "remove staffs":
+                        case "delete staffs":
+                            RemoveStaffs();
+                            Console.WriteLine("Done!");
+                            break;
+                        case "new account":
+                            NewAccount();
+                            Console.WriteLine("Done!");
+                            break;
+                        case "show list accounts":
+                        case "list id":
+                            ShowListAccounts();
+                            Console.WriteLine("Done!");
+                            break;
+                        case "remove account":
+                        case "delete account":
+                            RemoveAccount();
+                            Console.WriteLine("Done!");
                             break;
                         case "-1":
                             return;
                         default:
                             Console.WriteLine("Your command's format is not correct");
                             break;
-                    }
-
+                    }                    
                 }
-                while (true);                              
+                while (true);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(e.Message);
+                Console.ForegroundColor = ConsoleColor.White;
+                DoMain();
             }
             finally
             {
                 Console.ReadKey();
             }
+        }
+        private static void RemoveAccount()
+        {
+            string query = "DELETE FROM [dbo].[TaiKhoan] WHERE Id=@Id";
+            SqlConnection con = new SqlConnection();
+            con.ConnectionString = connectString;
+            con.Open();
+            Console.WriteLine("Id need remove: ");
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@Id", Console.ReadLine());
+            cmd.ExecuteNonQuery();
+            con.Close();
+        }
+        private static void ShowListAccounts()
+        {
+            SqlConnection con = new SqlConnection();
+            con.ConnectionString = connectString;
+            con.Open();
+            string query = "SELECT * FROM [dbo].[TaiKhoan]";
+            SqlCommand cmd = new SqlCommand(query, con);
+            SqlDataReader dr = cmd.ExecuteReader();
+            int i = 1;
+            Console.WriteLine("List id accounts:");
+            while (dr.Read())
+            {
+                Console.WriteLine("{0}/ {1}", i, dr["Id"]);
+            }
+        }
+        private static void NewAccount()
+        {
+            string id = "", password = "";
+            Console.Write("Id: ");
+            id = Console.ReadLine();
+            SqlConnection con = new SqlConnection();
+            con.ConnectionString = connectString;
+            con.Open();
+            string query = "SELECT * FROM [dbo].[TaiKhoan]";
+            SqlCommand cmd = new SqlCommand(query, con);
+            SqlDataReader dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                if (id.CompareTo(dr["Id"].ToString()) == 0)
+                {
+                    Console.WriteLine("This id already exist");
+                    Console.WriteLine("Call [new acccount] again, please!");
+                    return;
+                }
+            }
+            con.Close();
+            Console.Write("Password: ");
+            password = Console.ReadLine();
+            query = "INSERT INTO [dbo].[TaiKhoan] (Id,Password) VALUES (@Id,@Password)";
+            con = new SqlConnection();
+            con.ConnectionString = connectString;
+            con.Open();
+            cmd = new SqlCommand(query, con);
+            cmd.Parameters.AddWithValue("@Id", id);
+            cmd.Parameters.AddWithValue("@Password", MaHoa.BinaryCode(password));
+            cmd.ExecuteNonQuery();
+            con.Close();
         }
         private static void Add()
         {
@@ -61,7 +159,6 @@ namespace TEST_PROGRAM
             con.Open();
             string query = "INSERT INTO [dbo].[ThongTin] (HoVaTen,CMND,MaNhanVien,GioiTinh,NgaySinh,QueQuan,SoDienThoai,BoPhan,ChucVu,NgayVao,Avatar) VALUES (@HoVaTen,@CMND,@MaNhanVien,@GioiTinh,@NgaySinh,@QueQuan,@SoDienThoai,@BoPhan,@ChucVu,@NgayVao,@Avatar)";
 
-            Console.WriteLine("Doing....");
             for (int i = start; i <= n + start; i++)
             {
                 SqlCommand cmd = new SqlCommand(query, con);
@@ -79,18 +176,15 @@ namespace TEST_PROGRAM
                 cmd.ExecuteNonQuery();
             }
             con.Close();
-            Console.WriteLine("Done!");
         }
-        private static void RemoveAll()
+        private static void RemoveStaffs()
         {
             string query = "DELETE FROM [dbo].[ThongTin]";
             SqlConnection con = new SqlConnection();
             con.ConnectionString = connectString;
             con.Open();
-            Console.WriteLine("Doing....");
             SqlCommand cmd = new SqlCommand(query, con);
             con.Close();
-            Console.WriteLine("Done!");
         }
     }
 }

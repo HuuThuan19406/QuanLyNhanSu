@@ -10,6 +10,13 @@ namespace QuanLyNhanSu
 {
     class KiemTra
     {
+        private static string TrimAll(string st)
+        {
+            st = st.Trim();
+            while (st.Contains("  "))
+                st = st.Replace("  ", " ");
+            return st;
+        }
         /// <summary>
         /// Thông báo nếu chuỗi truyền vào textbox không phải là Tên hợp lệ
         /// </summary>
@@ -23,11 +30,17 @@ namespace QuanLyNhanSu
                    (HoTen.Text[i] >= '!' && HoTen.Text[i] <= '.') || 
                    (HoTen.Text[i] >= ':' && HoTen.Text[i] <= '@')) 
                 {
-                    MessageBox.Show("Giá trị phải là từ ngữ có nghĩa", "LỖI DỮ LIỆU", MessageBoxButton.OK, MessageBoxImage.Error);
+                    //MessageBox.Show("Giá trị phải là từ ngữ có nghĩa", "LỖI DỮ LIỆU", MessageBoxButton.OK, MessageBoxImage.Error);
+                    new Message("LỖI DỮ LIỆU", "Giá trị phải là từ ngữ có nghĩa", true, Message.Options.Warning);
                     HoTen.Text = HoTen.Text.Remove(i, 1);
-                    HoTen.CaretIndex = i;
+                    HoTen.CaretIndex = i;                    
                     try { } catch { }
                 }
+            HoTen.KeyDown += (s, a) =>
+            {
+                if ((a.Key == System.Windows.Input.Key.Enter) || (a.Key == System.Windows.Input.Key.Tab))
+                    HoTen.Text = TrimAll(HoTen.Text);
+            };
         }
         /// <summary>
         /// Kiểm tra chuỗi truyền vào textbox có phải chỉ chứa mỗi số hay không
@@ -43,7 +56,8 @@ namespace QuanLyNhanSu
                 {
                     if (!Char.IsDigit(So.Text[i]))
                     {
-                        MessageBox.Show("Giá trị chỉ được là số", "LỖI DỮ LIỆU", MessageBoxButton.OK, MessageBoxImage.Error);
+                        //MessageBox.Show("Giá trị chỉ được là số", "LỖI DỮ LIỆU", MessageBoxButton.OK, MessageBoxImage.Error);
+                        new Message("LỖI DỮ LIỆU", "Giá trị chỉ được là số", true, Message.Options.Warning);
                         So.Text = So.Text.Remove(i, 1);
                         So.CaretIndex = i;
                         try { } catch { }
@@ -78,6 +92,5 @@ namespace QuanLyNhanSu
             }
             return true;
         }
-
     }
 }
