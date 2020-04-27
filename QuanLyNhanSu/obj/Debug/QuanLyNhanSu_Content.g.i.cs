@@ -8,7 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("module/module/database/csdl.mdf")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("module/module/database/csdl_log.ldf")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("picture/icondefault.ico")]
 
 

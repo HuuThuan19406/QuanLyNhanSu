@@ -1,11 +1,12 @@
-﻿using System;
+﻿using QuanLyNhanSu;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using QuanLyNhanSu;
+using MaHoa;
 
 namespace TEST_PROGRAM
 {
@@ -13,7 +14,7 @@ namespace TEST_PROGRAM
     {
         static string connectString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + System.IO.Directory.GetCurrentDirectory() + @"\MODULE\Database\CSDL.mdf;Integrated Security=True";
         static void Main(string[] args)
-        {
+        {            
             try
             {
                 DoMain();
@@ -65,6 +66,28 @@ namespace TEST_PROGRAM
                             RemoveAccount();
                             Console.WriteLine("Done!");
                             break;
+                        case "binary code":
+                        case "binarycode":
+                            BinaryCode();
+                            Console.WriteLine("Done!");
+                            break;
+                        case "decryption binarycode":
+                        case "decryption binary code":
+                        case "decryption binary":
+                            DecryptionBinaryCode();
+                            Console.WriteLine("Done!");
+                            break;
+                        case "mix code":
+                        case "mixcode":
+                            MixCode();
+                            Console.WriteLine("Done!");
+                            break;
+                        case "decryption mixcode":
+                        case "decryption mix code":
+                        case "decryption mix":
+                            DecryptionMixCode();
+                            Console.WriteLine("Done!");
+                            break;
                         case "-1":
                             return;
                         default:
@@ -83,8 +106,34 @@ namespace TEST_PROGRAM
             }
             finally
             {
-                Console.ReadKey();
+                Console.ReadKey(); 
             }
+        }
+        private static string connectTaiKhoan = @"MODULE\DATABASE\DanhSachTaiKhoan.xml";
+        public static Hashtable dsTaiKhoan { get; set; } = new Hashtable();
+        private static void MixCode()
+        {
+            Console.OutputEncoding = Encoding.Unicode;
+            Console.InputEncoding = Encoding.Unicode;
+            Console.WriteLine("Enter your string: ");
+            Console.WriteLine("=> " + MaHoa.MixCode.MaHoa(Console.ReadLine()));
+        }
+        private static void DecryptionMixCode()
+        {
+            Console.OutputEncoding = Encoding.Unicode;
+            Console.InputEncoding = Encoding.Unicode;
+            Console.WriteLine("Enter your string: ");
+            Console.WriteLine("=> " + MaHoa.MixCode.GiaiMa(Console.ReadLine()));
+        }
+        private static void DecryptionBinaryCode()
+        {
+            Console.WriteLine("Enter your string: ");
+            Console.WriteLine("=> " + MaHoa.BinaryCode.GiaiMa(Console.ReadLine()));
+        }
+        private static void BinaryCode()
+        {
+            Console.WriteLine("Enter your string: ");
+            Console.WriteLine("=> " + MaHoa.BinaryCode.MaHoa(Console.ReadLine()));
         }
         private static void RemoveAccount()
         {
@@ -115,36 +164,74 @@ namespace TEST_PROGRAM
         }
         private static void NewAccount()
         {
-            string id = "", password = "";
-            Console.Write("Id: ");
-            id = Console.ReadLine();
-            SqlConnection con = new SqlConnection();
-            con.ConnectionString = connectString;
-            con.Open();
-            string query = "SELECT * FROM [dbo].[TaiKhoan]";
-            SqlCommand cmd = new SqlCommand(query, con);
-            SqlDataReader dr = cmd.ExecuteReader();
-            while (dr.Read())
+            string id = "", password = "";       
+            LoadData_TaiKhoan();
+            do
             {
-                if (id.CompareTo(dr["Id"].ToString()) == 0)
-                {
-                    Console.WriteLine("This id already exist");
-                    Console.WriteLine("Call [new acccount] again, please!");
-                    return;
-                }
+                Console.Write("Id: ");
+                id = Console.ReadLine().ToLower();
+                if (dsTaiKhoan.ContainsKey(id))
+                    Console.WriteLine("Account already exists");
             }
-            con.Close();
+            while (dsTaiKhoan.ContainsKey(id));
             Console.Write("Password: ");
             password = Console.ReadLine();
-            query = "INSERT INTO [dbo].[TaiKhoan] (Id,Password) VALUES (@Id,@Password)";
-            con = new SqlConnection();
-            con.ConnectionString = connectString;
-            con.Open();
-            cmd = new SqlCommand(query, con);
-            cmd.Parameters.AddWithValue("@Id", id);
-            cmd.Parameters.AddWithValue("@Password", MaHoa.BinaryCode(password));
-            cmd.ExecuteNonQuery();
-            con.Close();
+            TaiKhoan taiKhoan = new TaiKhoan() { Id = id, Password = password };
+            dsTaiKhoan.Add(taiKhoan.Id, taiKhoan);
+            WriteData_TaiKhoan();
+            Console.WriteLine("Loading....");
+        }
+        public static void LoadData_TaiKhoan()
+        {
+            if (dsTaiKhoan.Count > 0)
+                return;
+            GiaiMaFile(connectTaiKhoan, MaHoaOptions.MixCode, 1);
+            GiaiMaFile(connectTaiKhoan, MaHoaOptions.Binary, 2);
+            List<TaiKhoan> taiKhoans = ThaoTacFile.XmlFile<TaiKhoan>.DocList(connectTaiKhoan);
+            foreach (TaiKhoan taiKhoan in taiKhoans)
+                dsTaiKhoan.Add(taiKhoan.Id, taiKhoan);
+            MaHoaFile(connectTaiKhoan, MaHoaOptions.Binary, 2);
+            MaHoaFile(connectTaiKhoan, MaHoaOptions.MixCode, 1);
+        }
+        public static void WriteData_TaiKhoan()
+        {
+            ThaoTacFile.XmlFile<TaiKhoan>.GhiList(connectTaiKhoan, 
+                                                 ChuyenDoi.Collections<TaiKhoan>.Hashtable_to_List(dsTaiKhoan));
+            MaHoaFile(connectTaiKhoan, MaHoaOptions.Binary, 2);
+            MaHoaFile(connectTaiKhoan, MaHoaOptions.MixCode, 1);
+        }
+        public enum MaHoaOptions
+        {
+            MixCode,
+            Binary
+        }
+        public static void MaHoaFile(string namePath, MaHoaOptions options, int level)
+        {
+            switch (options)
+            {
+                case MaHoaOptions.MixCode:
+                    for (int i = 0; i < level; i++)
+                        ThaoTacFile.TextFile.Ghi(namePath, MaHoa.MixCode.MaHoa(ThaoTacFile.TextFile.Doc(namePath)));
+                    break;
+                case MaHoaOptions.Binary:
+                    for (int i = 0; i < level; i++)
+                        ThaoTacFile.TextFile.Ghi(namePath, MaHoa.BinaryCode.MaHoa(ThaoTacFile.TextFile.Doc(namePath)));
+                    break;
+            }
+        }
+        public static void GiaiMaFile(string namePath, MaHoaOptions options, int level)
+        {
+            switch (options)
+            {
+                case MaHoaOptions.MixCode:
+                    for (int i = 0; i < level; i++)
+                        ThaoTacFile.TextFile.Ghi(namePath, MaHoa.MixCode.GiaiMa(ThaoTacFile.TextFile.Doc(namePath)));
+                    break;
+                case MaHoaOptions.Binary:
+                    for (int i = 0; i < level; i++)
+                        ThaoTacFile.TextFile.Ghi(namePath, MaHoa.BinaryCode.GiaiMa(ThaoTacFile.TextFile.Doc(namePath)));
+                    break;
+            }
         }
         private static void Add()
         {
