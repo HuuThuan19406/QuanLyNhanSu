@@ -55,11 +55,20 @@
     <ApplicationIcon>1791-_Converted_-01.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ChatAI_Simple">
+      <HintPath>..\..\..\Học C#\Library\ChatAI_Simple\ChatAI_Simple\bin\Debug\ChatAI_Simple.dll</HintPath>
+    </Reference>
     <Reference Include="IdentityModel, Version=4.1.1.0, Culture=neutral, PublicKeyToken=e7877f4675df049f, processorArchitecture=MSIL">
       <HintPath>..\packages\IdentityModel.4.1.1\lib\net472\IdentityModel.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.5.5.13.1\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="KiemTra">
+      <HintPath>..\..\..\Học C#\Library\KiemTra\KiemTra\bin\Debug\KiemTra.dll</HintPath>
+    </Reference>
+    <Reference Include="MaHoa">
+      <HintPath>..\..\..\Học C#\Library\MaHoa\MaHoa\bin\Debug\MaHoa.dll</HintPath>
     </Reference>
     <Reference Include="MaterialDesignColors, Version=1.2.2.920, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.1.2.2\lib\net45\MaterialDesignColors.dll</HintPath>
@@ -96,6 +105,7 @@
     <Reference Include="System.Text.Encodings.Web, Version=4.0.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encodings.Web.4.6.0\lib\netstandard2.0\System.Text.Encodings.Web.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -104,6 +114,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="ThaoTacFile">
+      <HintPath>..\..\..\Học C#\Library\ThaoTacFile\ThaoTacFile\bin\Debug\ThaoTacFile.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -120,8 +133,21 @@
     <Compile Include="DangNhap\ThongTinPhanMem.xaml.cs">
       <DependentUpon>ThongTinPhanMem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MODULE\Method\MaHoa.cs" />
-    <Compile Include="MODULE\Method\ThaoTacFile.cs" />
+    <Compile Include="MainWindow\CaiDat\ThemSuaPhongBan.xaml.cs">
+      <DependentUpon>ThemSuaPhongBan.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow\XuatFile.xaml.cs">
+      <DependentUpon>XuatFile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MODULE\Class\ChamCong.cs" />
+    <Compile Include="MODULE\Class\KhenThuong.cs" />
+    <Compile Include="MODULE\Class\PhongBan.cs" />
+    <Compile Include="MODULE\Class\SetUp.cs" />
+    <Compile Include="MODULE\Class\TaiKhoan.cs" />
+    <Compile Include="MODULE\Method\ChuyenDoi.cs" />
+    <Compile Include="MODULE\XyLuDatabase\ChuyenDoi.cs" />
+    <Compile Include="MODULE\XyLuDatabase\MainDatabase.cs" />
+    <Compile Include="MODULE\XyLuDatabase\Person.cs" />
     <Compile Include="ResourceDictionary.xaml.cs">
       <DependentUpon>ResourceDictionary.xaml</DependentUpon>
     </Compile>
@@ -149,9 +175,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MODULE\Method\ChuyenDoi.cs" />
     <Compile Include="MODULE\Method\HienThi.cs" />
-    <Compile Include="MODULE\Method\KiemTra.cs" />
     <Compile Include="MODULE\Class\NhanSu.cs" />
     <Compile Include="DangNhap\DangNhap.xaml.cs">
       <DependentUpon>DangNhap.xaml</DependentUpon>
@@ -163,6 +187,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MainWindow\CaiDat\ThemSuaPhongBan.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -170,6 +198,10 @@
     <Page Include="MainWindow\ThongTin\TraCuu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow\XuatFile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ResourceDictionary.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -254,16 +286,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="1791-_Converted_-01.ico" />
-    <Content Include="MODULE\Database\CSDL.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MODULE\Database\CSDL_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>CSDL.mdf</DependentUpon>
-    </Content>
     <Resource Include="PICTURE\avatar.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="PICTURE\IconDefault.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.3.0.1\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.3.0.1\build\MaterialDesignThemes.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

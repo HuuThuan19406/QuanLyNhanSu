@@ -4,20 +4,23 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:QuanLyNhanSu"
+             xmlns:local="clr-namespace:QuanLyNhanSu"       
              mc:Ignorable="d"
              d:DesignHeight="350" d:DesignWidth="200" FontSize="12">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition Height="8*"/>
+            <RowDefinition Height="8.6*"/>
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0">
             <!--<Label Foreground="Black" FontWeight="SemiBold" VerticalContentAlignment="Center">Phòng ban</Label>-->
             <materialDesign:PackIcon Kind="AccountSearch" Foreground="Black"
-             HorizontalAlignment="Center" VerticalAlignment="Center"
-             Height="25" Width="25" Margin="5"/>
-            <ComboBox x:Name="comBoBox" FontSize="14" VerticalContentAlignment="Center" Height="25"></ComboBox>
+             HorizontalAlignment="Center" VerticalAlignment="Top"
+             Height="25" Width="25" Margin="5,0" />            
+            <ComboBox x:Name="comBoBox" FontSize="14" Height="25"
+                      SelectedValuePath="Content"
+                      VerticalContentAlignment="Center" VerticalAlignment="Top"
+                      SelectionChanged="comBoBox_SelectionChanged"></ComboBox>
         </DockPanel>        
         <ListView x:Name="listView" Grid.Row="1">
             <ListView.View>
