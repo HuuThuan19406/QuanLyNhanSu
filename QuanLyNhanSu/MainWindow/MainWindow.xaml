@@ -405,13 +405,12 @@
                     <TextBox x:Name="CC_txtSoNgayVeSom" Height="Auto" TextWrapping="Wrap" Text="" Margin="630,94,441,548"/>
                     <TextBox x:Name="CC_txtSoNgayDiMuon" Height="Auto" TextWrapping="Wrap" Text="" Margin="1023,57,10,585"/>
                 </Grid>
-
             </TabItem>
             <TabItem Name="tabKhenThuong" Header="KHEN THƯỞNG">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
-                        <RowDefinition Height="1.35*"/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0" Margin="0,0,22,0">
                         <!--dòng 1-->
@@ -425,7 +424,7 @@
                         </Grid>
                         <Grid Grid.Column="2" Margin="15,0,0,0">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="4*"/>
+                                <RowDefinition Height="5*"/>
                                 <RowDefinition/>
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0">
@@ -457,8 +456,7 @@
                                                 Mã nhân viên được cấp tự động, không thể thay đổi
                                             </TextBox.ToolTip>
                                         </TextBox>
-                                        <Button x:Name="KT_btnCopyMaNhanVien" HorizontalAlignment="Right" Margin="2.5" 
-                                                VerticalAlignment="Center" Width="22" Height="22" Click="btnCopyMaNhanVien_Click">
+                                        <Button HorizontalAlignment="Right" Margin="2.5" VerticalAlignment="Center" Width="22" Height="22" Click="btnCopyMaNhanVien_Click">
                                             <Image Source="/PICTURE/copyIcon.png" Margin="1"/>
                                         </Button>
                                     </StackPanel>
@@ -467,12 +465,12 @@
                                         <TextBox x:Name="KT_txtBoPhan" HorizontalAlignment="Right" TextWrapping="Wrap" IsEnabled="False" Background="WhiteSmoke" VerticalAlignment="Center" Width="250"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Grid.Row="3">
-                                        <CheckBox VerticalAlignment="Center">Có quyết định</CheckBox>
+                                        <CheckBox VerticalAlignment="Center" x:Name="KT_chkCoQuyetDinh">Có quyết định</CheckBox>
                                     </StackPanel>
                                     <StackPanel Orientation ="Horizontal" Grid.Row="3" Margin="180,0,0,0">
-                                        <Label Foreground="Black" VerticalAlignment="Center">Số vào sổ</Label>
+                                        <Label Foreground="Black" VerticalAlignment="Center" >Số vào sổ</Label>
                                         <TextBox HorizontalAlignment="Right" TextWrapping="Wrap" VerticalAlignment="Center" Width="60" 
-                                                 Foreground="Red" FontWeight="Bold"/>
+                                                 Foreground="Red" FontWeight="Bold" x:Name="KT_txtSoVaoSo" />
                                     </StackPanel>
                                 </Grid>
                                 <Grid Grid.Column="2">
@@ -483,18 +481,18 @@
                                     </Grid.RowDefinitions>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2" Margin="0,20,0,0">
                                         <Label Foreground="Black" Margin="0,-3,0,0">Lí do</Label>
-                                        <TextBox HorizontalAlignment="Right" VerticalAlignment="Stretch" VerticalContentAlignment="Top"                                                  
-                                                 Height="auto" Width="300" Margin="0,0,0,22"/>
+                                        <TextBox HorizontalAlignment="Right" 
+                                                 VerticalAlignment="Stretch" VerticalContentAlignment="Top" 
+                                                 Height="auto" Width="300" Margin="0,0,0,22" x:Name="KT_txtLiDo"/>
                                     </StackPanel>
                                     <StackPanel Orientation ="Horizontal" HorizontalAlignment="Right" Grid.Row="1">
-                                        <Label Foreground="Black" VerticalAlignment="Center">Hình thức khen</Label>
-                                        <TextBox HorizontalAlignment="Right" TextWrapping="Wrap" VerticalAlignment="Center" Width="225"/>
+                                        <Label Foreground="Black" VerticalAlignment="Center" >Hình thức khen</Label>
+                                        <TextBox HorizontalAlignment="Right" TextWrapping="Wrap" VerticalAlignment="Center" Width="225" x:Name="KT_txtHinhThucKhen"/>
                                     </StackPanel>
                                     <StackPanel Orientation ="Horizontal" HorizontalAlignment="Right" Grid.Row="0">
-                                        <Label Foreground="Black" VerticalAlignment="Center" Margin="0,0,14
-                                               ,0">Ngày xét khen thưởng</Label>
-                                        <DatePicker VerticalAlignment="Center" Width="160"/>
-                                    </StackPanel>                                    
+                                        <Label Foreground="Black" VerticalAlignment="Center">Ngày xét khen thưởng</Label>
+                                        <DatePicker VerticalAlignment="Center" Width="160" x:Name="KT_dtpNgayXet"/>
+                                    </StackPanel>
                                 </Grid>
                             </Grid>
                             <Grid Grid.Row="1" Margin="0,0,0,22">
@@ -505,36 +503,36 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Button Grid.Column="0" Margin="0,0,2.5,0" Style="{StaticResource LinkButton}">
+                                <Button x:Name="KT_btnThem" Grid.Column="0" Margin="0,0,2.5,0" Style="{StaticResource LinkButton}">
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Height="30" Width="30" Kind="DatabasePlus" />
-                                        <Label VerticalAlignment="Center">_THÊM THÔNG TIN</Label>                                        
+                                        <Label VerticalAlignment="Center">_THÊM THÔNG TIN</Label>
                                     </StackPanel>
                                 </Button>
-                                <Button Grid.Column="1" Margin="2.5,0" Style="{StaticResource LinkButton}">
+                                <Button x:Name="KT_btnXoa" Grid.Column="1" Margin="2.5,0" Style="{StaticResource LinkButton}">
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Height="30" Width="30" Kind="DeleteEmpty" />
                                         <Label VerticalAlignment="Center">_XÓA THÔNG TIN</Label>
                                     </StackPanel>
                                 </Button>
-                                <Button Grid.Column="2" Margin="2.5,0" Style="{StaticResource LinkButton}">
+                                <Button x:Name="KT_btnSua" Grid.Column="2" Margin="2.5,0" Style="{StaticResource LinkButton}">
                                     <StackPanel Orientation="Horizontal">
                                         <Image Source="pack://application:,,,/QuanLyNhanSu;component/PICTURE/revisionIcon.png" Height="30"/>
                                         <Label VerticalAlignment="Center">_SỬATHÔNG TIN</Label>
                                     </StackPanel>
                                 </Button>
-                                <Button Grid.Column="3" Margin="2.5,0,0,0" Style="{StaticResource LinkButton}">
+                                <Button x:Name="KT_btnXuat" Grid.Column="3" Margin="2.5,0,0,0" Style="{StaticResource LinkButton}">
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Height="30" Width="30" Kind="FilePdf" />
                                         <Label VerticalAlignment="Center">_XUẤT THÔNG TIN</Label>
                                     </StackPanel>
                                 </Button>
                             </Grid>
-                        </Grid>                        
+                        </Grid>
                     </Grid>
                     <Grid Grid.Row="2">
                         <!--dòng 3-->
-                        <ListView  Margin="22,0,22,66"  SelectionChanged="lstvThongTin_SelectionChanged"  >
+                        <ListView x:Name="lvKhenThuong" Margin="22,0,22,66">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="Ngày xét" Width="130">
@@ -546,14 +544,22 @@
                                     <GridViewColumn Header="Lý do khen thưởng" Width="300">
                                     </GridViewColumn>
                                     <GridViewColumn Header="Hình thức khen" Width="200">
-                                    </GridViewColumn>                                   
-                                    
+                                    </GridViewColumn>
                                     <GridViewColumn Header="Ghi chú" Width="200">
                                     </GridViewColumn>
                                 </GridView>
                             </ListView.View>
                         </ListView>
                     </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="THỐNG KÊ">
+                <Grid Width="1024" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="369*"/>
+                        <ColumnDefinition Width="655*"/>
+                    </Grid.ColumnDefinitions>
+
                 </Grid>
             </TabItem>
             <TabItem Name="tabThongKe" Header="THỐNG KÊ">
