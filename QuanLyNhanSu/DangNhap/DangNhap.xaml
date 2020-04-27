@@ -7,7 +7,7 @@
         xmlns:gif="http://wpfanimatedgif.codeplex.com"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Đăng nhập" Height="300" Width="600" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Title="Đăng nhập" Height="310" Width="650" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
                           FontFamily="Tahoma" FontSize="15">
     <Window.Resources>
         <ResourceDictionary>
@@ -32,11 +32,12 @@
                     <GradientStop Color="DeepSkyBlue" Offset="0.9"/>
                 </LinearGradientBrush>
             </Grid.Background>
-            <StackPanel Margin="50,15,50,210.4">
+            <StackPanel Margin="50,25,50,210.4">
                 <TextBlock Text="PHẦN MỀM" TextAlignment="Center" FontSize="12" Foreground="White" FontWeight="Thin"/>
                 <TextBlock Text="QUẢN LÝ NHÂN SỰ" FontSize="17" TextAlignment="Center" Foreground="White" FontWeight="Bold"/>
             </StackPanel>
-            <Image gif:ImageBehavior.AnimatedSource="/PICTURE/IntroPicture.gif" Margin="0,65,-0.2,23.4"
+            <Image Height="170" Width="170"
+                   gif:ImageBehavior.AnimatedSource="/PICTURE/IntroPicture.gif" Margin="66,69,65.6,21.8"
                    gif:ImageBehavior.RepeatBehavior="Forever"/>
             <Menu Height="30" Width="30" Background="{x:Null}" Margin="20,57,246.8,183.4"/>
             <Menu HorizontalAlignment="Left" Height="34"  VerticalAlignment="Top" Width="38" Background="{x:Null}">
@@ -59,19 +60,37 @@
             <Grid Grid.Row="0">
                 <materialDesign:PackIcon Kind="Account" Height="39" Width="34" Style="{StaticResource ForegroundGradient}"/>
             <TextBox Foreground="MediumBlue"
-  Width="200" Height="30"
-  x:Name="txtTaiKhoan"
-  materialDesign:HintAssist.Hint="Tài khoản" />
+             Width="200" Height="30" x:Name="txtTaiKhoan"
+             materialDesign:HintAssist.Hint="Tài khoản" />
             </Grid>
             <StackPanel Grid.Row="1">
                 <Grid>
                     <materialDesign:PackIcon Kind="Key" Height="39" Width="29" Style="{StaticResource ForegroundGradient}" />
-                    <PasswordBox Foreground="MediumBlue"
+                    <PasswordBox Foreground="MediumBlue"    
+                         Visibility="{Binding ElementName=btnHienMatKhau, Path=Visibility, Mode=OneWay}"
                          Width="{Binding ElementName=txtTaiKhoan, Path=Width}" Height="{Binding ElementName=txtTaiKhoan, Path=Height}"
-  x:Name="pwbMatKhau"
-  materialDesign:HintAssist.Hint="Password" />
-                </Grid>
-                <CheckBox FontSize="12" x:Name="checkLuuDangNhap" Margin="0,5,0,0">
+                         x:Name="pwbMatKhau"  materialDesign:HintAssist.Hint="Password" />
+                    <TextBox Name="txtHienThiMatKhau"
+                         Foreground="MediumBlue"                 
+                         Visibility="{Binding ElementName=btnAnMatKhau, Path=Visibility}"
+                         Width="{Binding ElementName=txtTaiKhoan, Path=Width}" Height="{Binding ElementName=txtTaiKhoan, Path=Height}"
+                         materialDesign:HintAssist.Hint="Password" />
+                    <Button x:Name="btnHienMatKhau" Click="btnHienMatKhau_Click"
+                            Height="30" Width="30"
+                            Background="{x:Null}" BorderBrush="{x:Null}"
+                            HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <materialDesign:PackIcon Kind="EyeOffOutline"
+                                                 Foreground="Black"/>
+                    </Button>
+                    <Button x:Name="btnAnMatKhau" Click="btnAnMatKhau_Click"                            
+                            Height="30" Width="30"
+                            Background="{x:Null}" BorderBrush="{x:Null}" Visibility="Hidden"
+                            HorizontalAlignment="Right" VerticalAlignment="Center">
+                        <materialDesign:PackIcon Kind="EyeOutline"                                             
+                                             Style="{StaticResource ForegroundGradient}"/>
+                    </Button>
+                </Grid>                
+                    <CheckBox FontSize="12" x:Name="checkLuuDangNhap" Margin="0,5,0,0">
                     Lưu đăng nhập
                     <CheckBox.ToolTip>
                         <ToolTip>Người khác sử dụng máy tính này cũng có thể đăng nhập.</ToolTip>
@@ -79,7 +98,7 @@
                 </CheckBox>
             </StackPanel>
             <Button x:Name="btnDangNhap" Grid.Row="2" 
-                    Height="32" Width="105" IsDefault="True" Click="DangNhap_Click"
+                    Height="35" Width="120" IsDefault="True" Click="DangNhap_Click"
                     Style="{StaticResource LinkButton}">
                 <Label Foreground="White" Content="ĐĂNG _NHẬP"/>
             </Button>

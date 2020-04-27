@@ -15,6 +15,11 @@ using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.Deployment.Application;
 using System.Reflection;
+using System.Windows.Controls.Primitives;
+using System.Windows.Forms;
+using System.Drawing;
+using QuanLyNhanSu.MODULE.XyLuDatabase;
+using ChatAI_Simple;
 
 namespace QuanLyNhanSu
 {
@@ -25,9 +30,10 @@ namespace QuanLyNhanSu
         {
             get
             {
-                return ApplicationDeployment.IsNetworkDeployed
+                string result = ApplicationDeployment.IsNetworkDeployed
                ? ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString()
                : Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                return result.Remove(result.Length - 2);
             }
         }
         public static string updateDay { get; } = "4/3/2020";
@@ -45,35 +51,52 @@ namespace QuanLyNhanSu
         /// Hiển thị thông tin từ Hashtable lên ListView
         /// <para>Nếu Listview có chứa dữ liệu trước đó sẽ bị xóa sạch</para>
         /// </summary>
-        /// <param name="listView">Tên Listview cần đưa thông tin vào</param>
+        /// <param name="listControl">Tên Listview cần đưa thông tin vào</param>
         /// <param name="source">Nguồn chứa thông tin</param>        
-        public static void ThongTinList(ListView listView, Hashtable source)
+        public static void ThongTin<T>(Selector listControl, Hashtable source, bool sort)
         {
             if (source == null)
                 return;
-            listView.ItemsSource = null;
+            listControl.ItemsSource = null;
             //Xóa List trước khi tải vào
-            if (listView.Items.Count > 0)
-                listView.Items.Clear();
-            List<NhanSu> list = new List<NhanSu>();
+            if (listControl.Items.Count > 0)
+                listControl.Items.Clear();
+            List<T> list = new List<T>();
             foreach (DictionaryEntry VALUE in source)
             {
-                list.Add(VALUE.Value as NhanSu);
+                list.Add((T)VALUE.Value);
             }
-            list.Sort();
-            foreach(NhanSu nhanSu in list)
+            if (sort == true)
+                list.Sort();
+            foreach(T t in list)
             {
-                listView.Items.Add(nhanSu);
+                listControl.Items.Add(t);
             }
         }
+        public static void ThongTin<T>(Selector listControl, List<T> source, bool sort)
+        {
+            if (source == null)
+                return;
+            listControl.ItemsSource = null;
+            //Xóa List trước khi tải vào
+            if (listControl.Items.Count > 0)
+                listControl.Items.Clear();
+            if (sort == true)
+                source.Sort();
+            foreach(T t in source)
+            {
+                listControl.Items.Add(t);
+            }
+        }
+       
         public static string TenNguoiDung(Hashtable dsUsers)
         {
             try
             {
-                NhanSu nhanSu = (NhanSu)dsUsers[DangNhap.idDangNhap.ToUpper()];
-                return nhanSu.HoTen.ToUpper();
+                NhanSu nhanSu = (NhanSu)dsUsers[MainDatabase.idDangNhap.ToUpper()];
+                return nhanSu.Ten;
             }
-            catch { return DangNhap.idDangNhap; }
+            catch { return MainDatabase.idDangNhap; }
         }
         public static string TenNguoiDung(string id, Hashtable dsUsers)
         {
@@ -82,7 +105,7 @@ namespace QuanLyNhanSu
                 NhanSu nhanSu = (NhanSu)dsUsers[id.ToLower()];
                 return nhanSu.HoTen.ToUpper();
             }
-            catch { return DangNhap.idDangNhap.ToUpper(); }
+            catch { return MainDatabase.idDangNhap.ToUpper(); }
         }
 
         /// <summary>
@@ -98,25 +121,25 @@ namespace QuanLyNhanSu
             switch (ngayThang.DayOfWeek.ToString())
             {
                 case "Monday":
-                    value = "Thứ Hai, ";
+                    value = "Thứ Hai ";
                     break;
                 case "Tuesday":
-                    value = "Thứ Ba, ";
+                    value = "Thứ Ba ";
                     break;
                 case "Wednesday":
-                    value = "Thứ Tư, ";
+                    value = "Thứ Tư ";
                     break;
                 case "Thursday":
-                    value = "Thứ Năm, ";
+                    value = "Thứ Năm ";
                     break;
                 case "Friday":
-                    value = "Thứ Sáu, ";
+                    value = "Thứ Sáu ";
                     break;
                 case "Saturday":
-                    value = "Thứ Bảy, ";
+                    value = "Thứ Bảy ";
                     break;
                 case "Sunday":
-                    value = "Chủ Nhật, ";
+                    value = "Chủ Nhật ";
                     break;
             }
             value += "ngày " + ngayThang.Day + " tháng " + ngayThang.Month + " năm " + ngayThang.Year;
@@ -179,6 +202,20 @@ namespace QuanLyNhanSu
         public static string DuongDanHienTai()
         {
             return System.IO.Directory.GetCurrentDirectory();
+        }
+
+        public static void NotifySignin(Hashtable dsUser)
+        {
+            string loiChao = "Xin chào ";
+            NotifyIcon notify = new NotifyIcon();
+            notify.Icon = new Icon(@".\MODULE\IconDefault.ico");
+            notify.BalloonTipTitle = "ĐĂNG NHẬP THÀNH CÔNG";
+            if (!MainDatabase.dsNhanSu.ContainsKey(MainDatabase.idDangNhap.ToUpper()))
+                loiChao += "tài khoản ";
+            loiChao += TenNguoiDung(dsUser) + "\n" + ChaoXaGiao.LoiChuc(HoanCanh.ThoiGian);
+            notify.BalloonTipText = loiChao;
+            notify.Visible = true;
+            notify.ShowBalloonTip(1500);
         }
     }
 }

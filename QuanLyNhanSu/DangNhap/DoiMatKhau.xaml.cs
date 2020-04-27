@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Data.OleDb;
 using System.Data.SqlClient;
+using QuanLyNhanSu.MODULE.XyLuDatabase;
 
 namespace QuanLyNhanSu
 {
@@ -25,33 +26,16 @@ namespace QuanLyNhanSu
     /// </summary>
     public partial class DoiMatKhau : Window
     {
-        SqlConnection con;
-        SqlCommand cmd;
-        SqlDataReader dr;
-        string query;
-        string connection = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + System.IO.Directory.GetCurrentDirectory() + @"\MODULE\Database\CSDL.mdf;Integrated Security=True";
         public DoiMatKhau()
         {
             InitializeComponent();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            con = new SqlConnection();
-            con.ConnectionString = connection;
-            query = "SELECT * FROM [dbo].[TaiKhoan]";
-            con.Open();
-            cmd = new SqlCommand(query, con);
-            dr = cmd.ExecuteReader();
-            Hashtable AccountList = new Hashtable();
-            while (dr.Read())
+        {          
+            if (MainDatabase.dsTaiKhoan.ContainsKey((txtTaiKhoan.Text.ToLower())))
             {
-                AccountList.Add(dr["Id"].ToString().ToLower(), MaHoa.BinaryCode_GiaiMa(dr["Password"].ToString()));
-            }
-            con.Close();
-            if (AccountList.ContainsKey((txtTaiKhoan.Text.ToLower())))
-            {
-                if (AccountList[txtTaiKhoan.Text.ToLower()].ToString() == pwbMatKhauCu.Password)
+                if (((TaiKhoan)MainDatabase.dsTaiKhoan[txtTaiKhoan.Text.ToLower()]).Password == pwbMatKhauCu.Password)
                 {
                     if (pwbMatKhau1.Password != pwbMatKhau2.Password)
                     {
@@ -72,16 +56,14 @@ namespace QuanLyNhanSu
                             return;
                         }
                     }
-                    con = new SqlConnection();
-                    con.ConnectionString = connection;
-                    query = "UPDATE [dbo].[TaiKhoan] SET Password=@Password WHERE Id=@Id";
-                    con.Open();
-                    cmd = new SqlCommand(query, con);                
-                    cmd.Parameters.AddWithValue("@Password", MaHoa.BinaryCode(pwbMatKhau2.Password));
-                    cmd.Parameters.AddWithValue("@Id", txtTaiKhoan.Text.ToLower());
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                    new Message("THÔNG BÁO", "Cập nhật thành công, vui lòng đăng nhập lại", false, Message.Options.Successful);
+                    MainDatabase.dsTaiKhoan[txtTaiKhoan.Text.ToLower()] = new TaiKhoan()
+                    {
+                        ThongTin = ((TaiKhoan)MainDatabase.dsTaiKhoan[txtTaiKhoan.Text.ToLower()]).ThongTin,
+                        Id = ((TaiKhoan)MainDatabase.dsTaiKhoan[txtTaiKhoan.Text.ToLower()]).Id,
+                        Password = pwbMatKhau2.Password
+                    };
+                    MainDatabase.WriteData_TaiKhoan();
+                    new Message("THÔNG BÁO", "Cập nhật thành công, vui lòng đăng nhập lại", true, Message.Options.Successful);
                     Close();
                 }
                 else

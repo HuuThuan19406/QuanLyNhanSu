@@ -5,21 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:QuanLyNhanSu"
         mc:Ignorable="d"
-        Title="Tra Cứu" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Height="370" Width="370" >
-    <Grid Height="350" Width="370">
-        <Image x:Name="imgBackGround" Opacity="0.15" Height="300" Width="300"/>
-        <Label FontSize="30" Style="{StaticResource lableTitle}" HorizontalAlignment="Center" Content="TRA CỨU NHÂN SỰ" VerticalAlignment="Top" Margin="0,30,0,0"/>
-        <TextBox x:Name="txtTraCuu" FontSize="30" Width="300" Margin="35,86,35,226"   />
-        <!--Tren nay em phai co GroupName giong nhau. De chi chon dc 1 trong 3 type do. 
-        Tuc la chi chon 1. Vi dang la Radio
-        Neu chon nhieu thi dung checkbox-->
-        <Grid Height="90" HorizontalAlignment="Center" Margin="0,142,0,118" Background="{x:Null}"> 
+        Title="Tra Cứu" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Height="340" Width="300">
+    <Grid Height="340" Width="300" HorizontalAlignment="Center">
+        <Image x:Name="imgBackGround" Opacity="0.15" Height="280" Width="280"/>
+        <Label Name="lblTitle" FontSize="25" Style="{StaticResource lableTitle}" HorizontalAlignment="Center" Content="TRA CỨU NHÂN SỰ" VerticalAlignment="Top" Margin="0,20,0,0"/>
+        <TextBox x:Name="txtTraCuu" FontSize="25" Width="{Binding ElementName=lblTitle, Path=ActualWidth}" Margin="0,76,0,226"   />
+       <Grid Height="90" HorizontalAlignment="Center" Margin="0,100,0,80" Background="{x:Null}"> 
             <RadioButton GroupName="Type" x:Name="rdoCMND" VerticalAlignment="Top" Content="Tra theo CMND/CCCD"/>
             <RadioButton GroupName="Type" x:Name="rdoMaNhanVien" VerticalAlignment="Center" Content="Tra theo Mã Nhân Viên"/>
             <RadioButton GroupName="Type" x:Name="rdoSoDienThoai" VerticalAlignment="Bottom" Content="Tra theo Số Điện Thoại"/>
         </Grid>
-        <Button x:Name="btnTraCuu" Click="btnTraCuu_Click"
-                Width="145" Height="45" FontSize="25" Margin="0,240,0,45">
+        <Button x:Name="btnTraCuu" Click="btnTraCuu_Click" FontWeight="SemiBold"
+                Width="145" Height="40" FontSize="25" Margin="0,0,0,55" VerticalAlignment="Bottom">
             <TextBlock Foreground="White" Text="TRA CỨU"/>
         </Button>
     </Grid>

@@ -18,6 +18,7 @@ using System.IO;
 using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.ComponentModel;
+using QuanLyNhanSu.MODULE.XyLuDatabase;
 
 namespace QuanLyNhanSu
 {
@@ -26,65 +27,23 @@ namespace QuanLyNhanSu
     /// </summary>
     public partial class DangNhap : Window
     {
-        public static Hashtable danhSachNhanSu;
-        public static Hashtable AccountList;
-        public static string idDangNhap { get; set; }
-        public string connection = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + System.IO.Directory.GetCurrentDirectory() + @"\MODULE\Database\CSDL.mdf;Integrated Security=True";
-
+        public static Hashtable danhSachNhanSu;  
         public DangNhap()
         {
             InitializeComponent();
+            MainDatabase.LoadData_TaiKhoan();
+            MainDatabase.LoadData_SetUp();
+            DienThongTin();
             Icon = ChuyenDoi.BitMapImage(MainWindow.base64_defaultAvatar);
-            string[] r = new string[] { "\n" };
-            string[] s = ThaoTacFile.Doc("signin.txt").Split(r, StringSplitOptions.RemoveEmptyEntries);
-            if (s == null)
-            {
-                txtTaiKhoan.Text = "tester";
-                pwbMatKhau.Password = "123456";
-                return;
-            }
-            string[] execute;
-            int j = 0;
-            for (int i = 0; i < s.Length; i++)
-            {
-                if ((s[i].Trim() == "%SignIn") && (i + 1 < s.Length))
-                {
-                    j = i + 1;
-                    while ((j < s.Length) && (s[j] != "SignIn%"))
-                    {
-                        execute = s[j].Split(new string[] { " <- " }, StringSplitOptions.RemoveEmptyEntries);
-                        switch (execute[0].Trim())
-                        {
-                            case "Id":
-                                txtTaiKhoan.Text = execute[1];
-                                break;
-                            case "Password":
-                                pwbMatKhau.Password = MaHoa.BinaryCode_GiaiMa(MaHoa.BinaryCode_GiaiMa(execute[1]));
-                                break;
-                        }
-                        j++;
-                    }
-                }
-            }            
-            //frmWait = new WaitForLoading();
-            //frmWait.Hide();            
         }
 
-        private void Tai_dsTaiKhoan()
+        private void DienThongTin()
         {
-            string active = "SELECT * FROM [dbo].[TaiKhoan]";
-            SqlConnection con = new SqlConnection();
-            con.ConnectionString = connection;
-            con.Open();
-            SqlCommand cmd = new SqlCommand(active, con);
-            SqlDataReader dr = cmd.ExecuteReader();
-            AccountList = new Hashtable();
-            while (dr.Read())
-            {
-                AccountList.Add(dr["Id"].ToString().ToLower(), MaHoa.BinaryCode_GiaiMa(dr["Password"].ToString()));
-            }
-            con.Close();
+            txtTaiKhoan.Text = MainDatabase.setUp.DangNhapMacDinh.Id;
+            pwbMatKhau.Password = MainDatabase.setUp.DangNhapMacDinh.Password;
+            txtHienThiMatKhau.Text = pwbMatKhau.Password;
         }
+
         private void DangNhap_Click(object sender, RoutedEventArgs e)
         {
             if(txtTaiKhoan.Text=="")
@@ -98,41 +57,68 @@ namespace QuanLyNhanSu
                 new Message("NHẮC NHỞ", "Chưa nhập mật khẩu", true, Message.Options.Warning);
                 pwbMatKhau.Focus();
                 return;
-            }
-            if (AccountList == null) 
-                Tai_dsTaiKhoan();
-            if (AccountList.ContainsKey((txtTaiKhoan.Text.ToLower())))
+            }            
+            if (MainDatabase.dsTaiKhoan.ContainsKey((txtTaiKhoan.Text.ToLower())))
             {
-                if (AccountList[txtTaiKhoan.Text.ToLower()].ToString() == pwbMatKhau.Password)
+                if (((TaiKhoan)MainDatabase.dsTaiKhoan[txtTaiKhoan.Text.ToLower()]).Password  == pwbMatKhau.Password)
                 {
                     if (checkLuuDangNhap.IsChecked == true)
                     {
-                        string s = "";
-                        s += "%SignIn\n \tId <- " + txtTaiKhoan.Text + "\n";
-                        s += "\tPassword <- " + MaHoa.BinaryCode(MaHoa.BinaryCode(pwbMatKhau.Password));
-                        s += "\nSignIn%";
-                        s += "\n*Created <- Time = " + HienThi.NowTime();
-                        ThaoTacFile.Ghi("signin.txt", s);
+                        MainDatabase.setUp.DangNhapMacDinh.Id = txtTaiKhoan.Text;
+                        MainDatabase.setUp.DangNhapMacDinh.Password = pwbMatKhau.Password;
                     }
                     WaitForLoading frmWait = new WaitForLoading();
                     frmWait.Show();
+                    frmWait.timer.Interval = TimeSpan.FromMilliseconds(1);
+                    frmWait.timer.Tick += (s, a) =>
+                    {
+                        try
+                        {
+                            FileStream file = new FileStream(MainDatabase.connectSetUp, FileMode.Open);
+                            file.Close();
+                        }
+                        catch (IOException)
+                        {
+                            frmWait.txbThongTin.Text = "Đang lưu Thông tin đăng nhập mặc định ....";
+                        }
+                        try
+                        {
+                            FileStream file = new FileStream(MainDatabase.connectNhanSu, FileMode.Open);
+                            file.Close();
+                        }
+                        catch (IOException)
+                        {
+                            frmWait.txbThongTin.Text = "Đang tải Danh sách nhân sự ....";
+                        }
+                        try
+                        {
+                            FileStream file = new FileStream(MainDatabase.connectPhongBan, FileMode.Open);
+                            file.Close();
+                        }
+                        catch (IOException)
+                        {
+                            frmWait.txbThongTin.Text = "Đang tải tài nguyên Phòng ban ....";
+                        }
+                    };
+                    frmWait.timer.Start();
                     var working = new BackgroundWorker();
                     working.DoWork += (s, a) =>
                     {
-                        Thread.Sleep(1000);
-                        danhSachNhanSu = InsertDataToNhanSu(connection, "[dbo].[ThongTin]");
+                        Thread.Sleep(500);
+                        MainDatabase.WriteData_SetUp();
+                        MainDatabase.LoadData_NhanSu();                        
+                        MainDatabase.LoadData_PhongBan();                        
                     };
                     working.RunWorkerCompleted += (s, a) =>
                     {
                         MainWindow frmMain = new MainWindow();
-                        frmMain.Show();
+                        frmWait.timer.Stop();
                         frmWait.Close();
+                        frmMain.Show();                               
                     };
                     working.RunWorkerAsync();
-                    //frmWait.Show();
-                    idDangNhap = txtTaiKhoan.Text.ToLower();
-
-                    //frmWait.Close();
+                 
+                    MainDatabase.idDangNhap = txtTaiKhoan.Text.ToLower();                    
                     Close();
                 }
                 else
@@ -188,33 +174,20 @@ namespace QuanLyNhanSu
             DoiMatKhau frmquenMatKhau = new DoiMatKhau();
             frmquenMatKhau.ShowDialog();
         }
-        public Hashtable InsertDataToNhanSu(string connection, string SELECT_FROM)
+
+        private void btnHienMatKhau_Click(object sender, RoutedEventArgs e)
         {
-            SqlConnection con = new SqlConnection(); //Tạo mới connection
-            con.ConnectionString = connection;
-            con.Open(); //Mở kết nối Database
-            string query = "SELECT * FROM " + SELECT_FROM; //Lệnh truy vấn
-            SqlCommand cmd = new SqlCommand(query, con); //Thực hiện truy vấn
-            SqlDataReader dr = cmd.ExecuteReader(); //Thực hiện đọc (truyền tạm vào dr là trung gian)
-            Hashtable danhSachNhanSu = new Hashtable();
-            while (dr.Read())
-            {
-                NhanSu nhanSu = new NhanSu();
-                nhanSu.HoTen = dr["HoVaTen"].ToString();
-                nhanSu.CMND = dr["CMND"].ToString();
-                nhanSu.MaNhanVien = dr["MaNhanVien"].ToString();
-                nhanSu.GioiTinh = dr["GioiTinh"].ToString();
-                nhanSu.NgaySinh = Convert.ToDateTime(dr["NgaySinh"].ToString()).ToString("dd/MM/yyyy");
-                nhanSu.NgayVao = Convert.ToDateTime(dr["NgayVao"].ToString()).ToString("dd/MM/yyyy");
-                nhanSu.QueQuan = dr["QueQuan"].ToString();
-                nhanSu.SoDienThoai = dr["SoDienThoai"].ToString();
-                nhanSu.ChucVu = dr["ChucVu"].ToString();
-                nhanSu.BoPhan = dr["BoPhan"].ToString();
-                nhanSu.Avatar = dr["Avatar"].ToString();
-                danhSachNhanSu.Add(nhanSu.MaNhanVien, nhanSu);
-            }
-            con.Close(); //Ngắt kết nối
-            return danhSachNhanSu;
+            txtHienThiMatKhau.Text = pwbMatKhau.Password;
+            txtHienThiMatKhau.Focus();
+            btnAnMatKhau.Visibility = Visibility.Visible;
+            btnHienMatKhau.Visibility = Visibility.Hidden;
+        }
+
+        private void btnAnMatKhau_Click(object sender, RoutedEventArgs e)
+        {
+            pwbMatKhau.Password = txtHienThiMatKhau.Text;
+            btnHienMatKhau.Visibility = Visibility.Visible;
+            btnAnMatKhau.Visibility = Visibility.Hidden;
         }
     }
 }
