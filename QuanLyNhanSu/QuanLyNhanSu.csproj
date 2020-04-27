@@ -141,10 +141,12 @@
     </Compile>
     <Compile Include="MODULE\Class\ChamCong.cs" />
     <Compile Include="MODULE\Class\KhenThuong.cs" />
+    <Compile Include="MODULE\Class\NhanSu.cs" />
     <Compile Include="MODULE\Class\PhongBan.cs" />
     <Compile Include="MODULE\Class\SetUp.cs" />
     <Compile Include="MODULE\Class\TaiKhoan.cs" />
     <Compile Include="MODULE\Method\ChuyenDoi.cs" />
+    <Compile Include="MODULE\Method\HienThi.cs" />
     <Compile Include="MODULE\XyLuDatabase\ChuyenDoi.cs" />
     <Compile Include="MODULE\XyLuDatabase\MainDatabase.cs" />
     <Compile Include="MODULE\XyLuDatabase\Person.cs" />
@@ -175,8 +177,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MODULE\Method\HienThi.cs" />
-    <Compile Include="MODULE\Class\NhanSu.cs" />
     <Compile Include="DangNhap\DangNhap.xaml.cs">
       <DependentUpon>DangNhap.xaml</DependentUpon>
     </Compile>
