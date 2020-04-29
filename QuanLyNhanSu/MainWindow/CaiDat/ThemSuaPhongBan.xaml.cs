@@ -23,6 +23,7 @@ namespace QuanLyNhanSu
         {
             InitializeComponent();
             Icon = ChuyenDoi.BitMapImage(MainWindow.base64_defaultAvatar);
+            txtPhongBan.Focus();
             this.DataContext = this;
         }
         public string tenPhongBan { get; set; }

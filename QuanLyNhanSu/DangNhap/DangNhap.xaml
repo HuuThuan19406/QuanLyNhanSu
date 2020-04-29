@@ -36,11 +36,11 @@
                 <TextBlock Text="PHẦN MỀM" TextAlignment="Center" FontSize="12" Foreground="White" FontWeight="Thin"/>
                 <TextBlock Text="QUẢN LÝ NHÂN SỰ" FontSize="17" TextAlignment="Center" Foreground="White" FontWeight="Bold"/>
             </StackPanel>
-            <Image Height="170" Width="170"
+            <Image Height="165" Width="165"
                    gif:ImageBehavior.AnimatedSource="/PICTURE/IntroPicture.gif" Margin="66,69,65.6,21.8"
                    gif:ImageBehavior.RepeatBehavior="Forever"/>
-            <Menu Height="30" Width="30" Background="{x:Null}" Margin="20,57,246.8,183.4"/>
-            <Menu HorizontalAlignment="Left" Height="34"  VerticalAlignment="Top" Width="38" Background="{x:Null}">
+            <Menu Height="30" Width="30" Background="{x:Null}" Margin="20,57,246.8,183.4" Visibility="Collapsed"/>
+            <Menu HorizontalAlignment="Left" Height="34"  VerticalAlignment="Top" Width="38" Background="{x:Null}" Visibility="Collapsed">
                 <MenuItem Header="☰" Foreground="White" FontSize="25">
                     <MenuItem Header="Đổi mật khẩu" Name="menuItem_DoiMatKhau" Click="menuItem_DoiMatKhau_Click"/>
                     <MenuItem Header="Quên mật khẩu" Name="menuItem_QuenMatKhau"/>
@@ -49,6 +49,25 @@
                     <MenuItem Header="Thoát" Name="menuItem_Thoat" Click="menuItem_Thoat_Click"/>
                 </MenuItem>
             </Menu>
+            <materialDesign:ColorZone              
+                Mode="Dark" Background="Transparent"
+                VerticalAlignment="Top" HorizontalAlignment="Left">
+                <ToggleButton x:Name="btnMenuList" 
+                    Click="btnMenuList_Click"
+                    Style="{DynamicResource MaterialDesignHamburgerToggleButton}" />
+            </materialDesign:ColorZone>
+            <ListBox x:Name="lbMenu" Width="115" Height="130" Opacity="0"
+                     SelectionChanged="lbMenu_SelectionChanged"
+                     Foreground="MediumBlue" FontSize="12" Visibility="Hidden"
+                     HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,40,0,0">
+                <ListBox.Background>
+                    <SolidColorBrush Color="White" Opacity="0.75"/>
+                </ListBox.Background>
+                <ListBoxItem>Đổi mật khẩu</ListBoxItem>
+                <ListBoxItem>Quên mật khẩu</ListBoxItem>
+                <ListBoxItem>Thông tin</ListBoxItem>
+                <ListBoxItem>Thoát</ListBoxItem>
+            </ListBox>
         </Grid>
         <Grid Grid.Column="1" HorizontalAlignment="Center" Height="220" Width="268">
             <Grid.RowDefinitions>
@@ -93,7 +112,11 @@
                     <CheckBox FontSize="12" x:Name="checkLuuDangNhap" Margin="0,5,0,0">
                     Lưu đăng nhập
                     <CheckBox.ToolTip>
-                        <ToolTip>Người khác sử dụng máy tính này cũng có thể đăng nhập.</ToolTip>
+                        <TextBlock>
+                            Người khác sử dụng máy tính này 
+                            <LineBreak/>
+                            cũng có thể đăng nhập
+                        </TextBlock>
                     </CheckBox.ToolTip>
                 </CheckBox>
             </StackPanel>

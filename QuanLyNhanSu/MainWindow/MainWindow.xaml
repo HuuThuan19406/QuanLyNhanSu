@@ -73,12 +73,11 @@
                                 </StackPanel>
                             </Button>
                         </Grid>
-                        <ListView x:Name="lvThongTin" Margin="22,60,22,66" Foreground="MediumBlue"  
+                        <ListView x:Name="lvThongTin" Margin="22,60,22,66"  
                                   SelectionChanged="lstvThongTin_SelectionChanged" MouseDoubleClick="lstvThongTin_MouseDoubleClick" >
-                            <ListView.View>
+                            <ListView.View>                               
                                 <GridView>
-                                    <GridViewColumn Header="Họ và tên" Width="150" DisplayMemberBinding="{Binding HoTen}">                                        
-                                    </GridViewColumn>
+                                    <GridViewColumn Header="Họ và tên" Width="150" DisplayMemberBinding="{Binding HoTen}"/>
                                     <GridViewColumn Header="CMND/CCCD" Width="130">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
@@ -121,7 +120,7 @@
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>
-                                    <GridViewColumn Header="Bộ phận" Width="120">
+                                    <GridViewColumn Header="Bộ phận" Width="250">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
                                                 <TextBlock Text="{Binding BoPhan}" TextWrapping="Wrap"/>
@@ -144,6 +143,34 @@
                                     </GridViewColumn>
                                 </GridView>
                             </ListView.View>
+                            <ListView.GroupStyle>
+                                <GroupStyle>
+                                    <GroupStyle.ContainerStyle>
+                                        <Style TargetType="GroupItem">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate>
+                                                        <Expander IsExpanded="True" Margin="5">
+                                                            <Expander.Header>
+                                                                <StackPanel Orientation="Horizontal">
+                                                                    <TextBlock Text="{Binding Name}" Foreground="White" Padding="10,2.5"
+                                                                               Style="{StaticResource TextblockBackgroundGradient}"
+                                                                       FontSize="18" FontWeight="SemiBold" TextDecorations="Underline"/>
+                                                                    <TextBlock Text="{Binding ItemCount}" Foreground="Gray" Margin="15,0,0,0"
+                                                                       FontSize="18" FontWeight="SemiBold" FontStyle="Italic"/>
+                                                                    <TextBlock Text=" nhân sự" Foreground="Gray"
+                                                                       FontSize="18" FontWeight="SemiBold" FontStyle="Italic"/>
+                                                                </StackPanel>
+                                                            </Expander.Header>                                                            
+                                                            <ItemsPresenter/>
+                                                        </Expander>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </GroupStyle.ContainerStyle>
+                                </GroupStyle>
+                            </ListView.GroupStyle>
                         </ListView>
                         <StackPanel VerticalAlignment="Bottom" Margin="22"
                             Orientation="Horizontal" HorizontalAlignment="Right">
@@ -151,12 +178,21 @@
                             <Label Foreground="MediumBlue" Content="{Binding ElementName=lvThongTin, Path=Items.Count, Mode=OneWay}"/>
                             <Label Foreground="MediumBlue">nhân sự trong danh sách</Label>
                         </StackPanel>
-                        <Button x:Name="btnNapLaiNhanSu" Height="50" Width="50" VerticalAlignment="Bottom" HorizontalAlignment="Left" 
+                        <StackPanel Orientation="Horizontal"
+                            VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                            <Button x:Name="btnNapLaiNhanSu" Height="50" Width="50"  
                                 Background="{x:Null}" BorderBrush="{x:Null}" Padding="0"
-                                Click="btnNapLaiNhanSu_Click" Margin="22,0,0,11">
-                            <materialDesign:PackIcon Height="50" Width="50" 
+                                Click="btnNapLaiNhanSu_Click" Margin="22,0,0,11" ToolTip="Nạp lại danh sách">
+                                <materialDesign:PackIcon Height="50" Width="50" 
                                 Kind="Autorenew" Style="{StaticResource ForegroundGradient}" />
-                        </Button>
+                            </Button>
+                            <Button x:Name="btnGroupTheoBoPhan" Height="50" Width="50"  
+                                Background="{x:Null}" BorderBrush="{x:Null}" Padding="0"
+                                Click="btnGroupTheoBoPhan_Click" Margin="22,0,0,11" ToolTip="Gom nhóm theo bộ phận">
+                                <materialDesign:PackIcon Height="50" Width="50" 
+                                Kind="ServerNetwork" Style="{StaticResource ForegroundGradient}" />
+                            </Button>
+                        </StackPanel>
                     </Grid>
                     <Grid Grid.Row="0" Margin="22">
                         <Grid.ColumnDefinitions>
@@ -341,69 +377,193 @@
             </TabItem>           
             <TabItem Name="tabChamCong" Header="CHẤM CÔNG">
                 <Grid>
-                    <TextBox x:Name="CC_txtHoVaTen" Height="Auto" TextWrapping="Wrap" Text="" Margin="173,10,860,632"/>
-                    <ComboBox x:Name="CC_cboThang" Margin="10,160,1128,485">
-                        <ComboBoxItem Content="Tháng 1"/>
-                        <ComboBoxItem Content="Tháng 2"/>
-                        <ComboBoxItem Content="Tháng 3"/>
-                        <ComboBoxItem Content="Tháng 4"/>
-                        <ComboBoxItem Content="Tháng 5"/>
-                        <ComboBoxItem Content="Tháng 6"/>
-                        <ComboBoxItem Content="Tháng 7"/>
-                        <ComboBoxItem Content="Tháng 8"/>
-                        <ComboBoxItem Content="Tháng 9"/>
-                        <ComboBoxItem Content="Tháng 10"/>
-                        <ComboBoxItem Content="Tháng 11"/>
-                        <ComboBoxItem Content="Tháng 12"/>
-                    </ComboBox>
-                    <ListView  Margin="0,200,10,0"  SelectionChanged="lstvThongTin_SelectionChanged"  >
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Họ và tên" Width="250">
-                                </GridViewColumn>
-                                <GridViewColumn Header="Chức vụ" Width="250">
-                                </GridViewColumn>
-                                <GridViewColumn Header="Mã nhân viên" Width="180">
-                                </GridViewColumn>
-                                <GridViewColumn Header="Lương nhân được" Width="200">
-                                </GridViewColumn>
-                                <GridViewColumn Header="Ghi chú" Width="400">
-                                </GridViewColumn>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                    <ComboBox Margin="133,160,1071,484">
-                        <ComboBoxItem Content="2016"/>
-                        <ComboBoxItem Content="2017"/>
-                        <ComboBoxItem Content="2018"/>
-                        <ComboBoxItem Content="2019"/>
-                        <ComboBoxItem Content="2020"/>
-                    </ComboBox>
-                    <Button x:Name="CC_btnTraCuu" Content="Tra cứu" HorizontalAlignment="Left" Margin="190,160,0,0" VerticalAlignment="Top" Width="98" Height="35" FontSize="20"/>
-                    <Label x:Name="CC_lblHoVaTen" Content="Họ và tên" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="158" Foreground="DeepSkyBlue" VerticalContentAlignment="Center" FontSize="20"/>
-                    <Label x:Name="CC_lblChucVu" Content="Chức vụ" HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top" Width="158" Foreground="DeepSkyBlue" VerticalContentAlignment="Center" FontSize="20"/>
-                    <Label x:Name="CC_lblMaNhanVien" Content="Mã Nhân Viên" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top" Width="158" Foreground="DeepSkyBlue" VerticalContentAlignment="Center" FontSize="20"/>
-                    <TextBox x:Name="CC_txtChucVu" Height="Auto" TextWrapping="Wrap" Text="" Margin="173,47,860,595"/>
-                    <TextBox x:Name="CC_txtMaNhanVien" Height="Auto" TextWrapping="Wrap" Text="" Margin="173,89,860,553"/>
-                    <Label x:Name="CC_lblLuongCoBan" Content="Lương cơ bản" HorizontalAlignment="Left" Margin="458,10,0,0" VerticalAlignment="Top" Width="146" Foreground="DeepSkyBlue" VerticalContentAlignment="Center" FontSize="20" RenderTransformOrigin="0.5,0.5">
-                        <Label.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform/>
-                                <RotateTransform Angle="-0.161"/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </Label.RenderTransform>
-                    </Label>
-                    <Label x:Name="CC_lblSoGioTangCa" Content="Số giờ tăng ca" HorizontalAlignment="Left" Margin="457,52,0,0" VerticalAlignment="Top" Width="149" Foreground="DeepSkyBlue" VerticalContentAlignment="Center" FontSize="20"/>
-                    <Label x:Name="CC_lblTroCapHangThang" Content="Trợ cấp hàng tháng" HorizontalAlignment="Left" Margin="820,10,0,0" VerticalAlignment="Top" Width="194" Foreground="DeepSkyBlue" VerticalContentAlignment="Center" FontSize="20"/>
-                    <Label x:Name="CC_lblSoNgayVeSom" Content="Số ngày về sớm" HorizontalAlignment="Left" Margin="457,89,0,0" VerticalAlignment="Top" Width="164" Foreground="DeepSkyBlue" VerticalContentAlignment="Center" FontSize="20"/>
-                    <Label x:Name="CC_lblSoNgayDiMuon" Content="Số ngày đi muộn" HorizontalAlignment="Left" Margin="820,57,0,0" VerticalAlignment="Top" Width="194" Foreground="DeepSkyBlue" VerticalContentAlignment="Center" FontSize="20"/>
-                    <TextBox x:Name="CC_txtLuongCoBan" Height="Auto" TextWrapping="Wrap" Text="" Margin="630,10,441,632"/>
-                    <TextBox x:Name="CC_txtSoGioTangCa" Height="Auto" TextWrapping="Wrap" Text="" Margin="631,52,441,590"/>
-                    <TextBox x:Name="CC_txtTroCapHangThang" Height="Auto" TextWrapping="Wrap" Text="" Margin="1023,10,10,632"/>
-                    <TextBox x:Name="CC_txtSoNgayVeSom" Height="Auto" TextWrapping="Wrap" Text="" Margin="630,94,441,548"/>
-                    <TextBox x:Name="CC_txtSoNgayDiMuon" Height="Auto" TextWrapping="Wrap" Text="" Margin="1023,57,10,585"/>
+                    <Grid Margin="22">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <!--dòng lớn 0-->
+                            <RowDefinition/>
+                            <!--dòng lớn 1-->
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0" >
+                                    <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                        <Label Foreground="Black" VerticalAlignment="Center">Họ tên</Label>
+                                        <TextBox x:Name="CC_txtHoTen" HorizontalAlignment="Right" Background="WhiteSmoke" IsEnabled="False" TextWrapping="Wrap" VerticalAlignment="Center" Width="302" Margin="0,20" Height="24"/>
+                                    </StackPanel>
+                                </Grid>
+                                <Grid Grid.Column="1" >
+                                    <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                        <Label Foreground="Black" VerticalAlignment="Center">Lương Cơ Bản</Label>
+                                        <TextBox x:Name="CC_txtLuongCoBan" HorizontalAlignment="Right" Background="WhiteSmoke" IsEnabled="False" TextWrapping="Wrap" VerticalAlignment="Center" Width="260"/>
+                                    </StackPanel>
+                                </Grid>
+                                <Grid Grid.Column="2" >
+                                    <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                        <Label Foreground="Black" VerticalAlignment="Center">Trợ cấp hàng tháng</Label>
+                                        <TextBox x:Name="CC_txtTroCapHangThang" HorizontalAlignment="Right" Background="WhiteSmoke" IsEnabled="False" TextWrapping="Wrap" VerticalAlignment="Center" Width="260"/>
+                                    </StackPanel>
+                                </Grid>
+
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                        <Label Foreground="Black" VerticalAlignment="Center">Chức vụ</Label>
+                                        <TextBox x:Name="CC_txtChucVu" HorizontalAlignment="Right" Background="WhiteSmoke" IsEnabled="False" TextWrapping="Wrap" VerticalAlignment="Center" Width="295" Height="24" Margin="0,20"/>
+                                    </StackPanel>
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                        <Label Foreground="Black" VerticalAlignment="Center">Số ngày đi sớm</Label>
+                                        <TextBox x:Name="CC_txtSoNgayDiSom" HorizontalAlignment="Right" Background="WhiteSmoke" IsEnabled="False" TextWrapping="Wrap" VerticalAlignment="Center" Width="260"/>
+                                    </StackPanel>
+                                </Grid>
+                                <Grid Grid.Column="2">
+                                    <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                        <Label Foreground="Black" VerticalAlignment="Center">Số ngày đi muộn</Label>
+                                        <TextBox x:Name="CC_txtSoNgayDiMuon" HorizontalAlignment="Right" Background="WhiteSmoke" IsEnabled="False" TextWrapping="Wrap" VerticalAlignment="Center" Width="278" Height="24" Margin="0,20"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                            <Grid Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                        <Label Foreground="Black" VerticalAlignment="Center">Mã nhân viên</Label>
+                                        <TextBox x:Name="CC_txtMaNhanVien" HorizontalAlignment="Right" Background="WhiteSmoke" IsEnabled="False" TextWrapping="Wrap" VerticalAlignment="Center" Width="260"/>
+                                    </StackPanel>
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                        <Label Foreground="Black" VerticalAlignment="Center">Số giờ tăng ca</Label>
+                                        <TextBox x:Name="CC_txtSoGioTangCa" HorizontalAlignment="Right" Background="WhiteSmoke" IsEnabled="False" TextWrapping="Wrap" VerticalAlignment="Center" Width="260"/>
+                                    </StackPanel>
+                                </Grid>
+                                <Grid Grid.Column="2">
+                                    <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                        <Label Foreground="Black" VerticalAlignment="Center" Margin="0,17" Width="108">Ghi chú</Label>
+                                        <TextBox x:Name="CC_txtGhiChu" HorizontalAlignment="Right" Background="WhiteSmoke" IsEnabled="False" TextWrapping="Wrap" VerticalAlignment="Center" Width="298" Height="24" Margin="0,20"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                            <Grid Grid.Row="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0">
+                                        <StackPanel>
+                                            <ComboBox x:Name="CC_cbThang" Height="44" Margin="10">
+                                                <ComboBoxItem Content="Tháng 1"/>
+                                                <ComboBoxItem Content="Tháng 2"/>
+                                                <ComboBoxItem Content="Tháng 3"/>
+                                                <ComboBoxItem Content="Tháng 4"/>
+                                                <ComboBoxItem Content="Tháng 5"/>
+                                                <ComboBoxItem Content="Tháng 6"/>
+                                                <ComboBoxItem Content="Tháng 7"/>
+                                                <ComboBoxItem Content="Tháng 8"/>
+                                                <ComboBoxItem Content="Tháng 9"/>
+                                                <ComboBoxItem Content="Tháng 10"/>
+                                                <ComboBoxItem Content="Tháng 11"/>
+                                                <ComboBoxItem Content="Tháng 12"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                    </Grid>
+                                    <Grid Grid.Column="1">
+                                        <ComboBox x:Name="CC_btnNam" Margin="10">
+                                            <ComboBoxItem Content="2016"/>
+                                            <ComboBoxItem Content="2017"/>
+                                            <ComboBoxItem Content="2018"/>
+                                            <ComboBoxItem Content="2019"/>
+                                            <ComboBoxItem Content="2020"/>
+                                        </ComboBox>
+                                    </Grid>
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <StackPanel VerticalAlignment="Center" Margin="120,18,120,19" Height="27">
+                                        <Button x:Name="CC_btnXuatDuLieu" Content="Xuất dữ liệu"></Button>
+                                    </StackPanel>
+                                </Grid>
+                                <Grid Grid.Column="2">
+                                    <StackPanel VerticalAlignment="Center" Margin="120,18,120,19" Height="27">
+                                        <Button x:Name="CC_btnNapDuLieu" Content="Nạp dữ liệu"></Button>
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+
+
+
+
+
+
+                        <Grid Grid.Row="1">
+                            <ListView  Margin="22,0,22,66" >
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Họ tên" Width="170">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock TextWrapping="Wrap"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="Chức vụ" Width="150">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock  TextWrapping="Wrap"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="Mã Nhân viên" Width="150">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock TextWrapping="Wrap"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="Lương nhận được" Width="150">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock TextWrapping="Wrap"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="Ghi chú" Width="150">
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Grid>
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Name="tabKhenThuong" Header="KHEN THƯỞNG">
@@ -552,16 +712,7 @@
                         </ListView>
                     </Grid>
                 </Grid>
-            </TabItem>
-            <TabItem Header="THỐNG KÊ">
-                <Grid Width="1024" HorizontalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="369*"/>
-                        <ColumnDefinition Width="655*"/>
-                    </Grid.ColumnDefinitions>
-
-                </Grid>
-            </TabItem>
+            </TabItem>            
             <TabItem Name="tabThongKe" Header="THỐNG KÊ">
                 <Grid Width="1024" HorizontalAlignment="Center">
 

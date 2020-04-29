@@ -20,6 +20,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using QuanLyNhanSu.MODULE.XyLuDatabase;
 using ChatAI_Simple;
+using ListView = System.Windows.Controls.ListView;
 
 namespace QuanLyNhanSu
 {
@@ -73,6 +74,7 @@ namespace QuanLyNhanSu
                 listControl.Items.Add(t);
             }
         }
+
         public static void ThongTin<T>(Selector listControl, List<T> source, bool sort)
         {
             if (source == null)
@@ -88,7 +90,32 @@ namespace QuanLyNhanSu
                 listControl.Items.Add(t);
             }
         }
-       
+
+        public static void GroupingListview(ListView listView, string nameGroup)
+        {
+            List<object> tmpList = new List<object>();
+            if (listView.ItemsSource == null)
+            {                
+                foreach (var item in listView.Items)
+                    tmpList.Add(item);
+                listView.Items.Clear();
+                listView.ItemsSource = tmpList;
+            }            
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(listView.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription(nameGroup);
+            view.GroupDescriptions.Add(groupDescription);           
+        }
+
+        public static void GroupingListview(ListView listView, List<object> listData, string nameGroup)
+        {
+            listView.ItemsSource = null;
+            listView.Items.Clear();
+            listView.ItemsSource = listData;
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(listView.ItemsSource);
+            PropertyGroupDescription groupDescription = new PropertyGroupDescription(nameGroup);
+            view.GroupDescriptions.Add(groupDescription);
+        }
+
         public static string TenNguoiDung(Hashtable dsUsers)
         {
             try
@@ -98,6 +125,7 @@ namespace QuanLyNhanSu
             }
             catch { return MainDatabase.idDangNhap; }
         }
+
         public static string TenNguoiDung(string id, Hashtable dsUsers)
         {
             try
@@ -106,6 +134,11 @@ namespace QuanLyNhanSu
                 return nhanSu.HoTen.ToUpper();
             }
             catch { return MainDatabase.idDangNhap.ToUpper(); }
+        }
+
+        public static void ShowError(Exception ex)
+        {
+            new Message("ERROR", ex.Message, false);
         }
 
         /// <summary>

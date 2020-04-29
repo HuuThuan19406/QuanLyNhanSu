@@ -115,12 +115,7 @@ namespace QuanLyNhanSu
             frmTraCuu.Show();
             frmTraCuu.Activate();
         }
-
-        // Create a funtion
-        // Filter by CMND: 1 - Ma NV:2 - SDT: 3
-        // Key
-        //Gio truyen du lieu qua. Roi dung funtion nay chay
-
+                
         public void Filter(int type, string Key)
         {
             // Ham nay dung de xu ly Filter
@@ -196,35 +191,45 @@ namespace QuanLyNhanSu
 
         private void btnThemNhanSu_Click(object sender, RoutedEventArgs e)
         {
-            if (!(KiemTra.Textbox.isNotEmptype(txtHoVaTen, txtSoDienThoai, txtCMND_CCCD) &&
-                  KiemTra.Textbox.isNotEmptype(cboGioiTinh, cboQueQuan, cboBoPhan, cboChucVu)))
+            try
             {
-                new Message("NHĂC NHỞ", "Chưa điền đầy đủ thông tin", false, Message.Options.Warning);
-                return;
+                if (!(KiemTra.Textbox.isNotEmptype(txtHoVaTen, txtSoDienThoai, txtCMND_CCCD) &&
+                      KiemTra.Textbox.isNotEmptype(cboGioiTinh, cboQueQuan, cboBoPhan, cboChucVu)))
+                {
+                    new Message("NHĂC NHỞ", "Chưa điền đầy đủ thông tin", false, Message.Options.Warning);
+                    return;
+                }
+                do
+                {
+                    txtMaNhanVien.Text = createMaNhanVien(12);
+                } while (MainDatabase.dsNhanSu.ContainsKey(txtMaNhanVien.Text));
+                NhanSu nhanSu = new NhanSu();
+                nhanSu.HoTen = txtHoVaTen.Text;
+                nhanSu.CMND = txtCMND_CCCD.Text;
+                nhanSu.MaNhanVien = txtMaNhanVien.Text;
+                nhanSu.GioiTinh = cboGioiTinh.SelectedValue.ToString();
+                nhanSu.NgaySinh = dtpNgaySinh.SelectedDate.Value;
+                nhanSu.NgayVao = dtpNgayVao.SelectedDate.Value;
+                nhanSu.QueQuan = cboQueQuan.SelectedValue.ToString();
+                nhanSu.SoDienThoai = txtSoDienThoai.Text;
+                nhanSu.ChucVu = cboChucVu.Items[cboChucVu.SelectedIndex].ToString();
+                nhanSu.BoPhan = (cboBoPhan.Items[cboBoPhan.SelectedIndex] as PhongBan).TenPhongBan;
+                try { nhanSu.Avatar = ChuyenDoi.Base64(urlAvatar); }
+                catch { nhanSu.Avatar = base64_defaultAvatar; }
+                MainDatabase.dsNhanSu.Add(nhanSu.MaNhanVien, nhanSu);
+                if (lvThongTin.ItemsSource == null) //Non grouping
+                    lvThongTin.Items.Add(nhanSu);
+                else //Grouping
+                    HienThi.GroupingListview(lvThongTin, ChuyenDoi<object>.Hashtable_to_List(MainDatabase.dsNhanSu), "BoPhan");
+                ThongTin_NewLoad();
+                new Message("THÔNG TIN", "Đã thêm thành công nhân sự\n" +
+                                 nhanSu.HoTen + "-" + nhanSu.MaNhanVien + "\n" +
+                                 "Vào mục TỔ CHỨC để thiết lập Phòng ban, Chức vụ", true, Message.Options.Successful);
             }
-            do
+            catch(Exception ex)
             {
-                txtMaNhanVien.Text = createMaNhanVien(12);
-            } while (MainDatabase.dsNhanSu.ContainsKey(txtMaNhanVien.Text));
-            NhanSu nhanSu = new NhanSu();
-            nhanSu.HoTen = txtHoVaTen.Text;
-            nhanSu.CMND = txtCMND_CCCD.Text;
-            nhanSu.MaNhanVien = txtMaNhanVien.Text;
-            nhanSu.GioiTinh = cboGioiTinh.SelectedValue.ToString();
-            nhanSu.NgaySinh = dtpNgaySinh.SelectedDate.Value;
-            nhanSu.NgayVao = dtpNgayVao.SelectedDate.Value;
-            nhanSu.QueQuan = cboQueQuan.SelectedValue.ToString();
-            nhanSu.SoDienThoai = txtSoDienThoai.Text;
-            nhanSu.ChucVu = cboChucVu.Items[cboChucVu.SelectedIndex].ToString();
-            nhanSu.BoPhan = (cboBoPhan.Items[cboBoPhan.SelectedIndex] as PhongBan).TenPhongBan;
-            try { nhanSu.Avatar = ChuyenDoi.Base64(urlAvatar); }
-            catch { nhanSu.Avatar = base64_defaultAvatar; }
-            lvThongTin.Items.Add(nhanSu);
-            MainDatabase.dsNhanSu.Add(nhanSu.MaNhanVien, nhanSu);
-            ThongTin_NewLoad();
-            new Message("THÔNG TIN", "Đã thêm thành công nhân sự\n" +
-                             nhanSu.HoTen + "-" + nhanSu.MaNhanVien + "\n" +
-                             "Vào mục TỔ CHỨC để thiết lập Phòng ban, Chức vụ", true, Message.Options.Successful);            
+                HienThi.ShowError(ex);
+            }
         }
 
         private void btnXoaNhanSu_Click(object sender, RoutedEventArgs e)
@@ -239,10 +244,13 @@ namespace QuanLyNhanSu
                                 nhanSu.HoTen + "-" + txtMaNhanVien.Text);
             if (!MessageYesNo.Yes)
                 return;
-            MainDatabase.dsNhanSu.Remove(txtMaNhanVien.Text);
-            ThongTin_NewLoad();
-            HienThi.ThongTin<NhanSu>(lvThongTin, MainDatabase.dsNhanSu, true);
+            MainDatabase.dsNhanSu.Remove(txtMaNhanVien.Text);            
+            if (lvThongTin.ItemsSource == null)
+                HienThi.ThongTin<NhanSu>(lvThongTin, MainDatabase.dsNhanSu, true);
+            else
+                HienThi.GroupingListview(lvThongTin, ChuyenDoi<object>.Hashtable_to_List(MainDatabase.dsNhanSu), "BoPhan");
             HienThi.ThongTin<NhanSu>(KT_ListBoPhan.listView, MainDatabase.dsNhanSu, true);
+            ThongTin_NewLoad();
         }
 
         private void btnSuaThongTin_Click(object sender, RoutedEventArgs e)
@@ -284,7 +292,10 @@ namespace QuanLyNhanSu
                 nhanSu.Avatar = tmp.Avatar;
             }
             MainDatabase.dsNhanSu[txtMaNhanVien.Text] = nhanSu;
-            HienThi.ThongTin<NhanSu>(lvThongTin, MainDatabase.dsNhanSu, true);
+            if (lvThongTin.ItemsSource == null)
+                HienThi.ThongTin<NhanSu>(lvThongTin, MainDatabase.dsNhanSu, true);
+            else
+                HienThi.GroupingListview(lvThongTin, ChuyenDoi<object>.Hashtable_to_List(MainDatabase.dsNhanSu), "BoPhan");
             lvThongTin.SelectedItem = nhanSu;
         }
        
@@ -294,11 +305,17 @@ namespace QuanLyNhanSu
             txtMaNhanVien.Copy();
             new Message("THÔNG BÁO", "Đã sao chép Mã nhân viên", true, Message.Options.Successful);
         }
+
         private void btnNapLaiNhanSu_Click(object sender, RoutedEventArgs e)
         {
-            HienThi.ThongTin<NhanSu>(lvThongTin, MainDatabase.dsNhanSu, true);
-            new Message("THÔNG BÁO", "Đã nạp lại danh sách", false, Message.Options.Successful);
+            HienThi.ThongTin<NhanSu>(lvThongTin, MainDatabase.dsNhanSu, true);            
         }
+
+        private void btnGroupTheoBoPhan_Click(object sender, RoutedEventArgs e)
+        {
+            HienThi.GroupingListview(lvThongTin, "BoPhan");
+        }
+
         private void btnTTXuatDanhSach_Click(object sender, RoutedEventArgs e)
         {
             XuatFile frmXuatFile = new XuatFile();
@@ -488,8 +505,8 @@ namespace QuanLyNhanSu
             HienThi.NotifySignin(MainDatabase.dsNhanSu);
         }
 
+
         #endregion
-
-
+       
     }
 }

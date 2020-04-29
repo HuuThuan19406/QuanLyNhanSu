@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-D:\D\QuanLyNhanSu\QuanLyNhanSu\QuanLyNhanSu\obj\Debug\
+D:\QuanLyNhanSu\QuanLyNhanSu\obj\Debug\
 QuanLyNhanSu
 none
 false
 DEBUG;TRACE
-D:\D\QuanLyNhanSu\QuanLyNhanSu\QuanLyNhanSu\App.xaml
+D:\QuanLyNhanSu\QuanLyNhanSu\App.xaml
 121257079129
 
 28715033153
-138-737398432
+138-284571315
 DangNhap\DangNhap.xaml;DangNhap\DoiMatKhau.xaml;DangNhap\ThongTinPhanMem.xaml;MainWindow\CaiDat\ThemSuaPhongBan.xaml;MainWindow\MainWindow.xaml;MainWindow\ThongTin\TraCuu.xaml;MainWindow\XuatFile.xaml;ResourceDictionary.xaml;VIEW\Message\MessageYesNo.xaml;VIEW\Message\Message.xaml;VIEW\UserControls\ListPhongBan.xaml;WaitForLoading\WaitForLoading.xaml;
 
 True

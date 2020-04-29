@@ -34,6 +34,7 @@ namespace QuanLyNhanSu
             RemovePackIcon();
             txbContent.Width = 450;
             txbContent.Text = content;
+            lblCaption.Content = "";
             ShowDialog();
         }
         public Message(string caption, string content, bool haveButton)

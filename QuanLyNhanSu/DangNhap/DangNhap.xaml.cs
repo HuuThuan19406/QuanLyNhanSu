@@ -19,6 +19,7 @@ using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.ComponentModel;
 using QuanLyNhanSu.MODULE.XyLuDatabase;
+using System.Windows.Threading;
 
 namespace QuanLyNhanSu
 {
@@ -34,9 +35,39 @@ namespace QuanLyNhanSu
             MainDatabase.LoadData_TaiKhoan();
             MainDatabase.LoadData_SetUp();
             DienThongTin();
+            AddTimers();
             Icon = ChuyenDoi.BitMapImage(MainWindow.base64_defaultAvatar);
         }
 
+        DispatcherTimer timerOpen_lbMenu = new DispatcherTimer();
+        DispatcherTimer timerClose_lbMenu = new DispatcherTimer();
+        double locationTop_lbMenu = 0;
+        private void AddTimers()
+        {            
+            timerOpen_lbMenu.Interval = TimeSpan.FromMilliseconds(5);
+            timerOpen_lbMenu.Tick += (s, a) =>
+            {
+                lbMenu.Margin = new Thickness(0, locationTop_lbMenu, 0, 0);
+                lbMenu.Opacity = locationTop_lbMenu * 2.5 / 100;
+                locationTop_lbMenu++;
+                if (locationTop_lbMenu == 40)
+                    timerOpen_lbMenu.Stop();
+            };
+
+            timerClose_lbMenu.Interval = TimeSpan.FromMilliseconds(5);
+            timerClose_lbMenu.Tick += (s, a) =>
+            {
+                lbMenu.Margin = new Thickness(0, locationTop_lbMenu, 0, 0);
+                lbMenu.Opacity = locationTop_lbMenu * 2.5 / 100;
+                locationTop_lbMenu--;
+                if (locationTop_lbMenu == 0)
+                {
+                    lbMenu.Visibility = Visibility.Hidden;
+                    timerClose_lbMenu.Stop();
+                }
+            };
+        }
+    
         private void DienThongTin()
         {
             txtTaiKhoan.Text = MainDatabase.setUp.DangNhapMacDinh.Id;
@@ -188,6 +219,47 @@ namespace QuanLyNhanSu
             pwbMatKhau.Password = txtHienThiMatKhau.Text;
             btnHienMatKhau.Visibility = Visibility.Visible;
             btnAnMatKhau.Visibility = Visibility.Hidden;
+        }
+
+        private void btnMenuList_Click(object sender, RoutedEventArgs e)
+        {
+            if (lbMenu.Visibility == Visibility.Visible)
+            {
+                locationTop_lbMenu = 40;
+                timerClose_lbMenu.Start();
+            }
+            else
+            {
+                locationTop_lbMenu = 10;
+                lbMenu.Visibility = Visibility.Visible;
+                timerOpen_lbMenu.Start();                            
+            }
+        }
+
+        private void lbMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lbMenu.SelectedIndex == -1)
+                return;
+            switch ((lbMenu.SelectedItem as ListBoxItem).Content.ToString().Trim())
+            {
+                case "Đổi mật khẩu":
+                    lbMenu.SelectedIndex = -1;
+                    DoiMatKhau frmquenMatKhau = new DoiMatKhau();
+                    frmquenMatKhau.ShowDialog();
+                    return;
+                case "Quên mật khẩu":
+                    lbMenu.SelectedIndex = -1;
+                    new Message("Vui lòng liên hệ admin để được cấp lại mật khẩu mới");
+                    return;
+                case "Thông tin":
+                    lbMenu.SelectedIndex = -1;
+                    ThongTinPhanMem frmThongTinPhanMem = new ThongTinPhanMem();
+                    frmThongTinPhanMem.Show();
+                    return;
+                case "Thoát":
+                    Close();
+                    return;
+            }
         }
     }
 }

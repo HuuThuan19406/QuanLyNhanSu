@@ -32,6 +32,7 @@ namespace QuanLyNhanSu
             InitializeComponent();
             btnClose.Click += (s, a) => { Yes = false; Close(); };
             txbContent.Text = content;
+            lblCaption.Content = "";
             ShowDialog();
         }
         public MessageYesNo(string caption, string content)
