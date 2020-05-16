@@ -75,6 +75,15 @@ namespace QuanLyNhanSu
             }
         }
 
+        public static void ThongTin<T>(Selector listControl, ICollection source, bool sort)
+        {
+            //if (sort)
+            //    (listControl as List<T>).Sort();
+            listControl.Items.Clear();
+            listControl.ItemsSource = null;            
+            listControl.ItemsSource = source;           
+        }
+
         public static void ThongTin<T>(Selector listControl, List<T> source, bool sort)
         {
             if (source == null)
@@ -126,11 +135,25 @@ namespace QuanLyNhanSu
             catch { return MainDatabase.idDangNhap; }
         }
 
+        public static string ThongTinNguoiDung(string id, Hashtable dsUsers)
+        {
+            id = id.ToUpper();
+            if (dsUsers.ContainsKey(id))
+            {
+                NhanSu nhanSu = dsUsers[id] as NhanSu;
+                return String.Join(" | ",
+                        nhanSu.HoTen.ToUpper(), nhanSu.MaNhanVien, nhanSu.ChucVu, nhanSu.BoPhan);
+            }
+            else
+                return id.ToLower();
+        }
+
         public static string TenNguoiDung(string id, Hashtable dsUsers)
         {
+            id = id.ToUpper();
             try
             {
-                NhanSu nhanSu = (NhanSu)dsUsers[id.ToLower()];
+                NhanSu nhanSu = (NhanSu)dsUsers[id];
                 return nhanSu.HoTen.ToUpper();
             }
             catch { return MainDatabase.idDangNhap.ToUpper(); }

@@ -44,7 +44,7 @@ namespace QuanLyNhanSu
         double locationTop_lbMenu = 0;
         private void AddTimers()
         {            
-            timerOpen_lbMenu.Interval = TimeSpan.FromMilliseconds(5);
+            timerOpen_lbMenu.Interval = TimeSpan.FromMilliseconds(4);
             timerOpen_lbMenu.Tick += (s, a) =>
             {
                 lbMenu.Margin = new Thickness(0, locationTop_lbMenu, 0, 0);
@@ -54,7 +54,7 @@ namespace QuanLyNhanSu
                     timerOpen_lbMenu.Stop();
             };
 
-            timerClose_lbMenu.Interval = TimeSpan.FromMilliseconds(5);
+            timerClose_lbMenu.Interval = TimeSpan.FromMilliseconds(4);
             timerClose_lbMenu.Tick += (s, a) =>
             {
                 lbMenu.Margin = new Thickness(0, locationTop_lbMenu, 0, 0);
@@ -100,30 +100,30 @@ namespace QuanLyNhanSu
                     }
                     WaitForLoading frmWait = new WaitForLoading();
                     frmWait.Show();
-                    frmWait.timer.Interval = TimeSpan.FromMilliseconds(1);
+                    frmWait.timer.Interval = TimeSpan.FromMilliseconds(5);
                     frmWait.timer.Tick += (s, a) =>
-                    {
+                    {                       
                         try
                         {
-                            FileStream file = new FileStream(MainDatabase.connectSetUp, FileMode.Open);
+                            FileStream file = File.Open(MainDatabase.connectSetUp, FileMode.Open);
                             file.Close();
                         }
                         catch (IOException)
-                        {
+                        {                            
                             frmWait.txbThongTin.Text = "Đang lưu Thông tin đăng nhập mặc định ....";
                         }
                         try
                         {
-                            FileStream file = new FileStream(MainDatabase.connectNhanSu, FileMode.Open);
+                            FileStream file = File.Open(MainDatabase.connectNhanSu, FileMode.Open);
                             file.Close();
                         }
                         catch (IOException)
-                        {
+                        {  
                             frmWait.txbThongTin.Text = "Đang tải Danh sách nhân sự ....";
                         }
                         try
                         {
-                            FileStream file = new FileStream(MainDatabase.connectPhongBan, FileMode.Open);
+                            FileStream file = File.Open(MainDatabase.connectPhongBan, FileMode.Open);
                             file.Close();
                         }
                         catch (IOException)
@@ -155,7 +155,7 @@ namespace QuanLyNhanSu
                 else
                 {
                     new Message("LỖI", "Sai mật khẩu", true, Message.Options.Warning);
-                    pwbMatKhau.Clear();
+                    pwbMatKhau.Clear();  
                     new Message("NHẮC NHỞ", "THÔNG TIN MẶC ĐỊNH" +
                                     "\nTài khoản: tester" +
                                     "\nMật khẩu: 123456", false, Message.Options.Information);
@@ -168,30 +168,13 @@ namespace QuanLyNhanSu
                                     "\nTài khoản: tester" +
                                     "\nMật khẩu: 123456", false, Message.Options.Information);
             }
-        }    
-                
-        private void menuItem_Thoat_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
         }
 
         private void lblQuenMatKhau_MouseDown(object sender, MouseButtonEventArgs e)
         {
             DoiMatKhau frmquenMatKhau = new DoiMatKhau();
             frmquenMatKhau.ShowDialog();
-        }       
-
-        private void menuItem_DoiMatKhau_Click(object sender, RoutedEventArgs e)
-        {
-            DoiMatKhau frmquenMatKhau = new DoiMatKhau();
-            frmquenMatKhau.ShowDialog();
-        }
-
-        private void menuItem_ThongTinPhanMem_Click(object sender, RoutedEventArgs e)
-        {
-            ThongTinPhanMem frmThongTinPhanMem = new ThongTinPhanMem();
-            frmThongTinPhanMem.Show();            
-        }
+        }  
 
         private void lblTaiKhoanKhac_MouseDown(object sender, MouseButtonEventArgs e)
         {

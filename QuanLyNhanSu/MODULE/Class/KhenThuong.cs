@@ -8,24 +8,31 @@ namespace QuanLyNhanSu
 {
     class KhenThuong
     {
-        public string MaNhanSu { get; set; }
+        public NhanSu NhanSu { get; set; }
         public DateTime NgayXet { get; set; }
         public string LyDoXet { get; set; }
         public string HinhThuc { get; set; }
-        public string SoVaoSo { get; set; }       
+        public string SoVaoSo { get; set; }
+        public bool CoQuyetDinh { get; set; }
 
         public KhenThuong()
         {
 
         }
 
-        public KhenThuong(string maNhanSu, DateTime ngayXet, string lyDoXet, string hinhThuc, string soVaoSo)
+        public KhenThuong(NhanSu nhanSu, DateTime ngayXet, string lyDoXet, string hinhThuc, string soVaoSo)
         {
-            MaNhanSu = maNhanSu;
+            NhanSu = nhanSu;
             NgayXet = ngayXet;
             LyDoXet = lyDoXet;
             HinhThuc = hinhThuc;
             SoVaoSo = soVaoSo;
+        }
+
+        public override string ToString()
+        {
+            return String.Join(",",
+                    NhanSu.HoTen, NhanSu.MaNhanVien, NgayXet.ToString("dd/MM/yyyy"), SoVaoSo, LyDoXet, HinhThuc, CoQuyetDinh);
         }
 
     }

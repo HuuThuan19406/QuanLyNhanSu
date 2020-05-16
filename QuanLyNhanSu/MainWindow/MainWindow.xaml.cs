@@ -168,9 +168,7 @@ namespace QuanLyNhanSu
             {
                 NhanSu nhanSu = (NhanSu)lvThongTin.SelectedValue;
                 try { ChuyenDoi.HinhAnh(imgAnhDaiDien, nhanSu.Avatar); } catch { }
-                txtHoVaTen.Text = nhanSu.HoTen;                
-                cboBoPhan.SelectedValue = MainDatabase.dsPhongBan[nhanSu.BoPhan];
-                cboChucVu.SelectedIndex = ((PhongBan)MainDatabase.dsPhongBan[nhanSu.BoPhan]).dsChucVu.IndexOf(nhanSu.ChucVu);
+                txtHoVaTen.Text = nhanSu.HoTen;   
                 cboQueQuan.SelectedValue = nhanSu.QueQuan;
                 cboGioiTinh.SelectedValue = nhanSu.GioiTinh;
                 txtCMND_CCCD.Text = nhanSu.CMND;
@@ -179,6 +177,8 @@ namespace QuanLyNhanSu
                 dtpNgaySinh.SelectedDate = Convert.ToDateTime(nhanSu.NgaySinh);
                 dtpNgayVao.SelectedDate = Convert.ToDateTime(nhanSu.NgayVao);                
                 urlAvatar = "";
+                cboBoPhan.SelectedValue = MainDatabase.dsPhongBan[nhanSu.BoPhan];
+                cboChucVu.SelectedIndex = ((PhongBan)MainDatabase.dsPhongBan[nhanSu.BoPhan]).dsChucVu.IndexOf(nhanSu.ChucVu);
             }
             catch { }
         }
@@ -196,7 +196,7 @@ namespace QuanLyNhanSu
                 if (!(KiemTra.Textbox.isNotEmptype(txtHoVaTen, txtSoDienThoai, txtCMND_CCCD) &&
                       KiemTra.Textbox.isNotEmptype(cboGioiTinh, cboQueQuan, cboBoPhan, cboChucVu)))
                 {
-                    new Message("NHĂC NHỞ", "Chưa điền đầy đủ thông tin", false, Message.Options.Warning);
+                    new Message("NHẮC NHỞ", "Chưa điền đầy đủ thông tin", false, Message.Options.Warning);
                     return;
                 }
                 do
@@ -255,7 +255,7 @@ namespace QuanLyNhanSu
 
         private void btnSuaThongTin_Click(object sender, RoutedEventArgs e)
         {
-            if (lvThongTin.SelectedIndex == -1)
+            if (lvThongTin.SelectedIndex == -1) 
             {
                 new Message("LỖI", "Bạn chưa chọn đối tượng để thao tác", false, Message.Options.Error);
                 return;
@@ -263,7 +263,7 @@ namespace QuanLyNhanSu
             if (!(KiemTra.Textbox.isNotEmptype(txtHoVaTen, txtSoDienThoai, txtCMND_CCCD) &&
                   KiemTra.Textbox.isNotEmptype(cboGioiTinh, cboQueQuan, cboBoPhan, cboChucVu)))
             {
-                new Message("NHĂC NHỞ", "Chưa điền đầy đủ thông tin", false, Message.Options.Warning);
+                new Message("NHẮC NHỞ", "Chưa điền đầy đủ thông tin", false, Message.Options.Warning);
                 return;
             }
             var nhanSu = MainDatabase.dsNhanSu[txtMaNhanVien.Text] as NhanSu;
@@ -313,14 +313,15 @@ namespace QuanLyNhanSu
 
         private void btnGroupTheoBoPhan_Click(object sender, RoutedEventArgs e)
         {
-            HienThi.GroupingListview(lvThongTin, "BoPhan");
+            if (lvThongTin.ItemsSource == null)
+                HienThi.GroupingListview(lvThongTin, "BoPhan");
         }
 
         private void btnTTXuatDanhSach_Click(object sender, RoutedEventArgs e)
         {
             XuatFile frmXuatFile = new XuatFile();
             frmXuatFile.listView = lvThongTin;
-            frmXuatFile.idDangNhap = HienThi.TenNguoiDung(MainDatabase.dsNhanSu);
+            frmXuatFile.loaiDuLieu = XuatFile.Options.ThongTin;           
             frmXuatFile.Show();
         }
         
@@ -352,8 +353,26 @@ namespace QuanLyNhanSu
                 var nhanSu = MainDatabase.dsNhanSu[(KT_ListBoPhan.listView.SelectedValue as NhanSu).MaNhanVien] as NhanSu;
                 KT_txtHoTen.Text = nhanSu.HoTen;
                 KT_txtMaNhanVien.Text = nhanSu.MaNhanVien;
-                KT_txtBoPhan.Text = nhanSu.BoPhan;
+                KT_txtBoPhan.Text = nhanSu.BoPhan;                
             };
+            lvKhenThuong.Items.Add(new KhenThuong()
+            {
+                NhanSu = MainDatabase.dsNhanSu["HW4CS2TME576"] as NhanSu,
+                NgayXet = DateTime.Today,
+                SoVaoSo = "01/KT2020",
+                LyDoXet = "Có thành tích tích cực trong công tác, hoàn thành xuất sắc nhiệm vụ được giao",
+                HinhThuc = "Tiền mặt 20.000.000 (hai mươi triệu) đồng",
+                CoQuyetDinh = true
+            });
+        }
+
+        private void KT_btnXuat_Click(object sender, RoutedEventArgs e)
+        {
+            XuatFile frmXuatFile = new XuatFile();
+            frmXuatFile.listView = lvKhenThuong;
+            frmXuatFile.maNhanVien = KT_txtMaNhanVien.Text;
+            frmXuatFile.loaiDuLieu = XuatFile.Options.KhenThuong;           
+            frmXuatFile.Show();
         }
         #endregion
 
@@ -507,6 +526,7 @@ namespace QuanLyNhanSu
 
 
         #endregion
-       
+
+        
     }
 }

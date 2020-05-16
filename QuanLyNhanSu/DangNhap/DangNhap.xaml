@@ -39,16 +39,6 @@
             <Image Height="165" Width="165"
                    gif:ImageBehavior.AnimatedSource="/PICTURE/IntroPicture.gif" Margin="66,69,65.6,21.8"
                    gif:ImageBehavior.RepeatBehavior="Forever"/>
-            <Menu Height="30" Width="30" Background="{x:Null}" Margin="20,57,246.8,183.4" Visibility="Collapsed"/>
-            <Menu HorizontalAlignment="Left" Height="34"  VerticalAlignment="Top" Width="38" Background="{x:Null}" Visibility="Collapsed">
-                <MenuItem Header="☰" Foreground="White" FontSize="25">
-                    <MenuItem Header="Đổi mật khẩu" Name="menuItem_DoiMatKhau" Click="menuItem_DoiMatKhau_Click"/>
-                    <MenuItem Header="Quên mật khẩu" Name="menuItem_QuenMatKhau"/>
-                    <MenuItem Header="Thông tin phần mềm" Name="menuItem_ThongTinPhanMem" Click="menuItem_ThongTinPhanMem_Click"/>
-                    <Separator/>
-                    <MenuItem Header="Thoát" Name="menuItem_Thoat" Click="menuItem_Thoat_Click"/>
-                </MenuItem>
-            </Menu>
             <materialDesign:ColorZone              
                 Mode="Dark" Background="Transparent"
                 VerticalAlignment="Top" HorizontalAlignment="Left">

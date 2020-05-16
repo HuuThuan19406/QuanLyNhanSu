@@ -11,3 +11,13 @@ D:\D\QuanLyNhanSu\QuanLyNhanSu\TEST_PROGRAM\bin\Debug\ChuyenDoi.dll
 D:\D\QuanLyNhanSu\QuanLyNhanSu\TEST_PROGRAM\bin\Debug\ThaoTacFile.dll
 D:\D\QuanLyNhanSu\QuanLyNhanSu\TEST_PROGRAM\bin\Debug\ChuyenDoi.pdb
 D:\D\QuanLyNhanSu\QuanLyNhanSu\TEST_PROGRAM\bin\Debug\ThaoTacFile.pdb
+D:\QuanLyNhanSu\TEST_PROGRAM\bin\Debug\TEST_PROGRAM.exe.config
+D:\QuanLyNhanSu\TEST_PROGRAM\bin\Debug\TEST_PROGRAM.exe
+D:\QuanLyNhanSu\TEST_PROGRAM\bin\Debug\TEST_PROGRAM.pdb
+D:\QuanLyNhanSu\TEST_PROGRAM\bin\Debug\ChuyenDoi.pdb
+D:\QuanLyNhanSu\TEST_PROGRAM\bin\Debug\MaHoa.pdb
+D:\QuanLyNhanSu\TEST_PROGRAM\bin\Debug\ThaoTacFile.pdb
+D:\QuanLyNhanSu\TEST_PROGRAM\obj\Debug\TEST_PROGRAM.csprojAssemblyReference.cache
+D:\QuanLyNhanSu\TEST_PROGRAM\obj\Debug\TEST_PROGRAM.csproj.CopyComplete
+D:\QuanLyNhanSu\TEST_PROGRAM\obj\Debug\TEST_PROGRAM.exe
+D:\QuanLyNhanSu\TEST_PROGRAM\obj\Debug\TEST_PROGRAM.pdb

@@ -681,7 +681,8 @@
                                         <Label VerticalAlignment="Center">_SỬATHÔNG TIN</Label>
                                     </StackPanel>
                                 </Button>
-                                <Button x:Name="KT_btnXuat" Grid.Column="3" Margin="2.5,0,0,0" Style="{StaticResource LinkButton}">
+                                <Button x:Name="KT_btnXuat" Grid.Column="3" Margin="2.5,0,0,0" Style="{StaticResource LinkButton}"
+                                        Click="KT_btnXuat_Click">
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Height="30" Width="30" Kind="FilePdf" />
                                         <Label VerticalAlignment="Center">_XUẤT THÔNG TIN</Label>
@@ -695,17 +696,24 @@
                         <ListView x:Name="lvKhenThuong" Margin="22,0,22,66">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn Header="Ngày xét" Width="130">
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Số vào sổ" Width="100">
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Bộ phận công tác" Width="180">
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Lý do khen thưởng" Width="300">
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Hình thức khen" Width="200">
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Ghi chú" Width="200">
+                                    <GridViewColumn Header="Ngày xét" Width="130" 
+                                                    DisplayMemberBinding="{Binding NgayXet, StringFormat='dd/MM/yyyy'}"/>
+
+                                    <GridViewColumn Header="Số vào sổ" Width="100"
+                                                    DisplayMemberBinding="{Binding SoVaoSo}"/>
+                                    <GridViewColumn Header="Bộ phận công tác" Width="180"
+                                                    DisplayMemberBinding="{Binding NhanSu.BoPhan}"/>
+                                    <GridViewColumn Header="Lý do khen thưởng" Width="400"
+                                                    DisplayMemberBinding="{Binding LyDoXet}"/>
+                                    <GridViewColumn Header="Hình thức khen" Width="300"
+                                                    DisplayMemberBinding="{Binding HinhThuc}"/>
+                                    <GridViewColumn Header="Ghi chú" Width="100">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox HorizontalAlignment="Center" IsChecked="{Binding CoQuyetDinh}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+
                                     </GridViewColumn>
                                 </GridView>
                             </ListView.View>

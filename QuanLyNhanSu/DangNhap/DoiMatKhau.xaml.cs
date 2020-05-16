@@ -58,7 +58,7 @@ namespace QuanLyNhanSu
                     }
                     MainDatabase.dsTaiKhoan[txtTaiKhoan.Text.ToLower()] = new TaiKhoan()
                     {
-                        ThongTin = ((TaiKhoan)MainDatabase.dsTaiKhoan[txtTaiKhoan.Text.ToLower()]).ThongTin,
+                        User = ((TaiKhoan)MainDatabase.dsTaiKhoan[txtTaiKhoan.Text.ToLower()]).User,
                         Id = ((TaiKhoan)MainDatabase.dsTaiKhoan[txtTaiKhoan.Text.ToLower()]).Id,
                         Password = pwbMatKhau2.Password
                     };

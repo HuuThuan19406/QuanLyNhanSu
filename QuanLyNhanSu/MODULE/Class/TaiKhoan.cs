@@ -12,6 +12,6 @@ namespace QuanLyNhanSu
     {
         public string Id { get; set; }
         public string Password { get; set; }
-        public Person ThongTin { get; set; }
+        public Person User { get; set; }               
     }
 }

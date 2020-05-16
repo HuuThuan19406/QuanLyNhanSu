@@ -56,19 +56,8 @@ namespace QuanLyNhanSu
         }
         public override string ToString()
         {
-            string st = "";
-            st += HoTen + ',';
-            st += CMND + ',';
-            st += MaNhanVien + ',';
-            st += GioiTinh + ',';
-            st += NgaySinh.ToString("dd/MM/yyyy") + ',';
-            st += QueQuan + ',';
-            st += SoDienThoai + ',';
-            st += BoPhan + ',';
-            st += ChucVu + ',';
-            st += NgayVao.ToString("dd/MM/yyyy") + ',';
-            st += Avatar;
-            return st;
+            return String.Join(",", 
+                HoTen, CMND, MaNhanVien, GioiTinh, NgaySinh.ToString("dd/MM/yyyy"), QueQuan, SoDienThoai, BoPhan, ChucVu, NgayVao.ToString("dd/MM/yyyy"), Avatar);            
         }
     }
 }
