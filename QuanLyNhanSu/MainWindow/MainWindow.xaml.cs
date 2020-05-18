@@ -344,9 +344,7 @@ namespace QuanLyNhanSu
         #region tabKhenThuong
         string KTmaNhanVien_Selected = "";
         private void KhenThuong_BootUp()
-        {
-            KT_dtpNgayXet.SelectedDate = DateTime.Today;
-            KT_chkCoQuyetDinh.IsChecked = null;
+        {          
             KT_ListBoPhan.listView.SelectionChanged += (s, a) =>
             {
                 if (KT_ListBoPhan.listView.SelectedIndex == -1)
@@ -379,7 +377,7 @@ namespace QuanLyNhanSu
             foreach (var textBox in Controls.FindVisualChildren<TextBox>(tabKhenThuong))
                 textBox.Clear();
             KT_dtpNgayXet.SelectedDate = DateTime.Today;
-            KT_chkCoQuyetDinh.IsChecked = null;
+            KT_chkCoQuyetDinh.IsChecked = false;
             if (KT_ListBoPhan.listView.SelectedIndex != -1)
             {
                 NhanSu nhanSu = MainDatabase.dsNhanSu[KTmaNhanVien_Selected] as NhanSu;
@@ -387,23 +385,7 @@ namespace QuanLyNhanSu
                 KT_txtMaNhanVien.Text = nhanSu.MaNhanVien;
                 KT_txtBoPhan.Text = nhanSu.BoPhan;
             }
-        }
-
-        //private void lvKhenThuong_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    try
-        //    {
-        //        KhenThuong khenThuong = (KhenThuong)lvKhenThuong.SelectedValue;
-
-        //        KT_txtMaNhanVien.Text = khenThuong.NhanSu.MaNhanVien;
-        //        KT_txtLiDo.Text = khenThuong.LyDoXet;
-        //        KT_txtHinhThucKhen.Text = khenThuong.HinhThuc;
-        //        KT_txtSoVaoSo.Text = khenThuong.SoVaoSo;
-        //        KT_dtpNgayXet.SelectedDate = khenThuong.NgayXet;
-        //        KT_chkCoQuyetDinh.IsChecked = khenThuong.CoQuyetDinh;
-        //    }
-        //    catch { }
-        //}       
+        }               
 
         private void lvKhenThuong_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -437,7 +419,7 @@ namespace QuanLyNhanSu
             khenThuong.CoQuyetDinh = (bool)KT_chkCoQuyetDinh.IsChecked;
             khenThuong.NgayXet = KT_dtpNgayXet.SelectedDate.Value;
             khenThuong.SoVaoSo = KT_txtSoVaoSo.Text;            
-            khenThuong.NhanSu = MainDatabase.dsNhanSu[KT_txtMaNhanVien] as NhanSu;
+            khenThuong.NhanSu = MainDatabase.dsNhanSu[KT_txtMaNhanVien.Text] as NhanSu;
             
             lvKhenThuong.Items.Add(khenThuong);          
             new Message("KHEN THƯỞNG", "Đã thêm thành công khen thưởng số " + khenThuong.SoVaoSo, true, Message.Options.Successful);
