@@ -408,7 +408,7 @@ namespace QuanLyNhanSu
 
         private void KT_btnThem_Click(object sender, RoutedEventArgs e)
         {
-            if (!KiemTra.Textbox.isNotEmptype(KT_txtBoPhan, KT_txtHinhThucKhen, KT_txtHoTen, KT_txtLiDo, KT_txtMaNhanVien, KT_txtSoVaoSo))
+            if (!KiemTra.Textbox.isNotEmptype(KT_txtBoPhan, KT_txtHinhThucKhen, KT_txtHoTen, KT_txtLiDo, KT_txtMaNhanVien, KT_txtSoVaoSo) && dtpNgaySinh.SelectedDate == null) 
             {
                 new Message("NHẮC NHỞ", "Chưa điền đầy đủ thông tin", false, Message.Options.Warning);
                 return;
