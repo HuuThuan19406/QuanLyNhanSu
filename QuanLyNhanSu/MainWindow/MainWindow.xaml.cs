@@ -17,6 +17,9 @@ using System.Drawing;
 using Label = System.Windows.Controls.Label;
 using FontFamily = System.Windows.Media.FontFamily;
 using Brushes = System.Windows.Media.Brushes;
+using GiaoDienWPF;
+using HienThi;
+using TextBox = System.Windows.Controls.TextBox;
 
 namespace QuanLyNhanSu
 {
@@ -339,31 +342,136 @@ namespace QuanLyNhanSu
         #endregion
 
         #region tabKhenThuong
+        string KTmaNhanVien_Selected = "";
         private void KhenThuong_BootUp()
         {
+            KT_dtpNgayXet.SelectedDate = DateTime.Today;
+            KT_chkCoQuyetDinh.IsChecked = null;
             KT_ListBoPhan.listView.SelectionChanged += (s, a) =>
             {
                 if (KT_ListBoPhan.listView.SelectedIndex == -1)
                 {
-                    KT_txtHoTen.Text = "";
-                    KT_txtMaNhanVien.Text = "";
-                    KT_txtBoPhan.Text = "";
+                    KhenThuong_ResetEntry();
+                    lvKhenThuong.Items.Clear();
                     return;
                 }
-                var nhanSu = MainDatabase.dsNhanSu[(KT_ListBoPhan.listView.SelectedValue as NhanSu).MaNhanVien] as NhanSu;
+                KTmaNhanVien_Selected = (KT_ListBoPhan.listView.SelectedValue as NhanSu).MaNhanVien;
+                NhanSu nhanSu = MainDatabase.dsNhanSu[KTmaNhanVien_Selected] as NhanSu;
                 KT_txtHoTen.Text = nhanSu.HoTen;
                 KT_txtMaNhanVien.Text = nhanSu.MaNhanVien;
-                KT_txtBoPhan.Text = nhanSu.BoPhan;                
+                KT_txtBoPhan.Text = nhanSu.BoPhan;
+                HienThi.ThongTin<KhenThuong>(lvKhenThuong, MainDatabase.dsKhenThuong[KTmaNhanVien_Selected] as List<KhenThuong>, true);                
             };
-            lvKhenThuong.Items.Add(new KhenThuong()
+            
+            (MainDatabase.dsKhenThuong["HW4CS2TME576"] as List<KhenThuong>).Add(new KhenThuong()
             {
-                NhanSu = MainDatabase.dsNhanSu["HW4CS2TME576"] as NhanSu,
                 NgayXet = DateTime.Today,
-                SoVaoSo = "01/KT2020",
-                LyDoXet = "Có thành tích tích cực trong công tác, hoàn thành xuất sắc nhiệm vụ được giao",
-                HinhThuc = "Tiền mặt 20.000.000 (hai mươi triệu) đồng",
+                SoVaoSo = "01/KT-20",
+                NhanSu = MainDatabase.dsNhanSu["HW4CS2TME576"] as NhanSu,
+                HinhThuc = "Tiền mặt 5.000.000 đồng",
+                LyDoXet = "Hoàn thành xuất sắc nhiệm vụ được giao",
                 CoQuyetDinh = true
             });
+        }
+
+        private void KhenThuong_ResetEntry()
+        {
+            foreach (var textBox in Controls.FindVisualChildren<TextBox>(tabKhenThuong))
+                textBox.Clear();
+            KT_dtpNgayXet.SelectedDate = DateTime.Today;
+            KT_chkCoQuyetDinh.IsChecked = null;
+            if (KT_ListBoPhan.listView.SelectedIndex != -1)
+            {
+                NhanSu nhanSu = MainDatabase.dsNhanSu[KTmaNhanVien_Selected] as NhanSu;
+                KT_txtHoTen.Text = nhanSu.HoTen;
+                KT_txtMaNhanVien.Text = nhanSu.MaNhanVien;
+                KT_txtBoPhan.Text = nhanSu.BoPhan;
+            }
+        }
+
+        //private void lvKhenThuong_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        KhenThuong khenThuong = (KhenThuong)lvKhenThuong.SelectedValue;
+
+        //        KT_txtMaNhanVien.Text = khenThuong.NhanSu.MaNhanVien;
+        //        KT_txtLiDo.Text = khenThuong.LyDoXet;
+        //        KT_txtHinhThucKhen.Text = khenThuong.HinhThuc;
+        //        KT_txtSoVaoSo.Text = khenThuong.SoVaoSo;
+        //        KT_dtpNgayXet.SelectedDate = khenThuong.NgayXet;
+        //        KT_chkCoQuyetDinh.IsChecked = khenThuong.CoQuyetDinh;
+        //    }
+        //    catch { }
+        //}       
+
+        private void lvKhenThuong_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count == 0)
+                return;
+            KhenThuong khenThuong = e.AddedItems[0] as KhenThuong;
+            KT_txtSoVaoSo.Text = khenThuong.SoVaoSo;
+            KT_txtBoPhan.Text = khenThuong.NhanSu.BoPhan;
+            KT_txtLiDo.Text = khenThuong.LyDoXet;
+            KT_txtHinhThucKhen.Text = khenThuong.HinhThuc;
+            KT_chkCoQuyetDinh.IsChecked = khenThuong.CoQuyetDinh;
+            KT_dtpNgayXet.SelectedDate = khenThuong.NgayXet;
+        }
+
+        private void lvKhenThuong_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            lvKhenThuong.SelectedIndex = -1;
+            KhenThuong_ResetEntry();            
+        }       
+
+        private void KT_btnThem_Click(object sender, RoutedEventArgs e)
+        {
+            if (!KiemTra.Textbox.isNotEmptype(KT_txtBoPhan, KT_txtHinhThucKhen, KT_txtHoTen, KT_txtLiDo, KT_txtMaNhanVien, KT_txtSoVaoSo))
+            {
+                new Message("NHẮC NHỞ", "Chưa điền đầy đủ thông tin", false, Message.Options.Warning);
+                return;
+            }
+            KhenThuong khenThuong = new KhenThuong();
+            khenThuong.HinhThuc = KT_txtHinhThucKhen.Text;
+            khenThuong.LyDoXet = KT_txtLiDo.Text;
+            khenThuong.CoQuyetDinh = (bool)KT_chkCoQuyetDinh.IsChecked;
+            khenThuong.NgayXet = KT_dtpNgayXet.SelectedDate.Value;
+            khenThuong.SoVaoSo = KT_txtSoVaoSo.Text;            
+            khenThuong.NhanSu = MainDatabase.dsNhanSu[KT_txtMaNhanVien] as NhanSu;
+            
+            lvKhenThuong.Items.Add(khenThuong);          
+            new Message("KHEN THƯỞNG", "Đã thêm thành công khen thưởng số " + khenThuong.SoVaoSo, true, Message.Options.Successful);
+        }
+
+        private void KT_btnXoa_Click(object sender, RoutedEventArgs e)
+        {
+            if (lvKhenThuong.SelectedIndex == -1)
+                return;
+            new MessageYesNo("XÁC NHẬN", "Bạn xác nhận xóa khen thưởng số " + (lvKhenThuong.Items[lvKhenThuong.SelectedIndex] as KhenThuong).SoVaoSo);
+            if (!MessageYesNo.Yes)
+                return;
+            (MainDatabase.dsKhenThuong[KTmaNhanVien_Selected] as List<KhenThuong>).RemoveAt(lvKhenThuong.SelectedIndex);
+            lvKhenThuong.Items.RemoveAt(lvKhenThuong.SelectedIndex);
+        }
+
+        private void KT_btnSua_Click(object sender, RoutedEventArgs e)
+        {
+            if (!KiemTra.Textbox.isNotEmptype(KT_txtBoPhan, KT_txtHinhThucKhen, KT_txtHoTen, KT_txtLiDo, KT_txtMaNhanVien, KT_txtSoVaoSo))
+            {
+                new Message("NHẮC NHỞ", "Chưa điền đầy đủ thông tin", false, Message.Options.Warning);
+                return;
+            }
+            new MessageYesNo("XÁC NHẬN", "Bạn xác nhận sửa khen thưởng số " + (lvKhenThuong.Items[lvKhenThuong.SelectedIndex] as KhenThuong).SoVaoSo);
+            if (!MessageYesNo.Yes)
+                return;
+            KhenThuong khenThuong = new KhenThuong();
+            khenThuong.SoVaoSo = KT_txtSoVaoSo.Text;
+            khenThuong.NhanSu = MainDatabase.dsNhanSu[KT_txtMaNhanVien] as NhanSu;
+            khenThuong.LyDoXet = KT_txtLiDo.Text;
+            khenThuong.HinhThuc = KT_txtHinhThucKhen.Text;
+            khenThuong.CoQuyetDinh = (bool)KT_chkCoQuyetDinh.IsChecked;
+            (MainDatabase.dsKhenThuong[KTmaNhanVien_Selected] as List<KhenThuong>)[lvKhenThuong.SelectedIndex] = khenThuong;
+            lvKhenThuong.Items[lvKhenThuong.SelectedIndex] = khenThuong;
         }
 
         private void KT_btnXuat_Click(object sender, RoutedEventArgs e)
@@ -507,11 +615,12 @@ namespace QuanLyNhanSu
             HienThi.ThongTin<PhongBan>(cboBoPhan, MainDatabase.dsPhongBan, true);
         }
 
-        private void Window_Closed(object sender, EventArgs e)
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             MainDatabase.WriteData_NhanSu();
             MainDatabase.WriteData_PhongBan();
             MainDatabase.WriteData_SetUp();
+            MainDatabase.ClearAllData();
             try
             {
                 frmTraCuu.Close();
@@ -523,10 +632,6 @@ namespace QuanLyNhanSu
         {
             HienThi.NotifySignin(MainDatabase.dsNhanSu);
         }
-
-
-        #endregion
-
-        
+        #endregion        
     }
 }

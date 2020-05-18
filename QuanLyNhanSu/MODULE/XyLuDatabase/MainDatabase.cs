@@ -17,6 +17,7 @@ namespace QuanLyNhanSu.MODULE.XyLuDatabase
         public static string idDangNhap { get; set; }
         public const int levelCode = 10;
         public static Hashtable dsNhanSu { get; set; } = new Hashtable();
+        public static Hashtable dsKhenThuong { get; set; } = new Hashtable();
         public static Hashtable dsPhongBan { get; set; } = new Hashtable();
         public static Hashtable dsTaiKhoan { get; set; } = new Hashtable();
         public static SetUp setUp { get; set; } = new SetUp() { DangNhapMacDinh = dsTaiKhoan["tester"] as TaiKhoan };
@@ -88,6 +89,17 @@ namespace QuanLyNhanSu.MODULE.XyLuDatabase
             tmp.Add(setUp);
             ThaoTacFile.XmlFile<SetUp>.GhiList(connectSetUp, tmp);
             setUp.DangNhapMacDinh.Password = password;
+        }
+        public static void ClearAllData()
+        {
+            dsNhanSu.Clear();
+            dsKhenThuong.Clear();
+            dsPhongBan.Clear();   
+        }
+        public static void FillDataEmtype()
+        {
+            foreach (DictionaryEntry entry in dsNhanSu)
+                dsKhenThuong.Add(entry.Key, new List<KhenThuong>());
         }
         public enum MaHoaOptions
         {

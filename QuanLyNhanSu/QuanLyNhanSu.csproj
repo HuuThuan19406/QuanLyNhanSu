@@ -58,6 +58,12 @@
     <Reference Include="ChatAI_Simple">
       <HintPath>..\..\..\Học C#\Library\ChatAI_Simple\ChatAI_Simple\bin\Debug\ChatAI_Simple.dll</HintPath>
     </Reference>
+    <Reference Include="GiaoDienWPF">
+      <HintPath>..\..\D\Học C#\Library\GiaoDienWPF\GiaoDienWPF\bin\Debug\GiaoDienWPF.dll</HintPath>
+    </Reference>
+    <Reference Include="HienThi">
+      <HintPath>..\..\D\Học C#\Library\HienThi\HienThi\bin\Debug\HienThi.dll</HintPath>
+    </Reference>
     <Reference Include="IdentityModel, Version=4.1.1.0, Culture=neutral, PublicKeyToken=e7877f4675df049f, processorArchitecture=MSIL">
       <HintPath>..\packages\IdentityModel.4.1.1\lib\net472\IdentityModel.dll</HintPath>
     </Reference>

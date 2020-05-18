@@ -69,3 +69,7 @@ D:\QuanLyNhanSu\QuanLyNhanSu\obj\Debug\QuanLyNhanSu.csproj.CopyComplete
 D:\QuanLyNhanSu\QuanLyNhanSu\obj\Debug\QuanLyNhanSu.exe
 D:\QuanLyNhanSu\QuanLyNhanSu\obj\Debug\QuanLyNhanSu.pdb
 D:\QuanLyNhanSu\QuanLyNhanSu\obj\Debug\QuanLyNhanSu.csprojAssemblyReference.cache
+D:\QuanLyNhanSu\QuanLyNhanSu\bin\Debug\GiaoDienWPF.dll
+D:\QuanLyNhanSu\QuanLyNhanSu\bin\Debug\GiaoDienWPF.pdb
+D:\QuanLyNhanSu\QuanLyNhanSu\bin\Debug\HienThi.dll
+D:\QuanLyNhanSu\QuanLyNhanSu\bin\Debug\HienThi.pdb

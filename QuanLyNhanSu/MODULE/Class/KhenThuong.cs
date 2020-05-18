@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace QuanLyNhanSu
 {
-    class KhenThuong
+    class KhenThuong : IComparable
     {
-        public NhanSu NhanSu { get; set; }
+        public NhanSu NhanSu { get; set; } = new NhanSu();
         public DateTime NgayXet { get; set; }
         public string LyDoXet { get; set; }
         public string HinhThuc { get; set; }
@@ -35,6 +35,10 @@ namespace QuanLyNhanSu
                     NhanSu.HoTen, NhanSu.MaNhanVien, NgayXet.ToString("dd/MM/yyyy"), SoVaoSo, LyDoXet, HinhThuc, CoQuyetDinh);
         }
 
+        public int CompareTo(object obj)
+        {
+            return NgayXet.CompareTo(obj);
+        }
     }
 
 }

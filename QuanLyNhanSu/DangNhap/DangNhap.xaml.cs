@@ -100,13 +100,13 @@ namespace QuanLyNhanSu
                     }
                     WaitForLoading frmWait = new WaitForLoading();
                     frmWait.Show();
-                    frmWait.timer.Interval = TimeSpan.FromMilliseconds(5);
+                    frmWait.timer.Interval = TimeSpan.FromMilliseconds(4);
                     frmWait.timer.Tick += (s, a) =>
                     {                       
                         try
                         {
-                            FileStream file = File.Open(MainDatabase.connectSetUp, FileMode.Open);
-                            file.Close();
+                            using (FileStream file = File.Open(MainDatabase.connectSetUp, FileMode.Open))
+                                file.Close();
                         }
                         catch (IOException)
                         {                            
@@ -114,8 +114,8 @@ namespace QuanLyNhanSu
                         }
                         try
                         {
-                            FileStream file = File.Open(MainDatabase.connectNhanSu, FileMode.Open);
-                            file.Close();
+                            using (FileStream file = File.Open(MainDatabase.connectNhanSu, FileMode.Open))
+                                file.Close();
                         }
                         catch (IOException)
                         {  
@@ -123,22 +123,24 @@ namespace QuanLyNhanSu
                         }
                         try
                         {
-                            FileStream file = File.Open(MainDatabase.connectPhongBan, FileMode.Open);
-                            file.Close();
+                            using (FileStream file = File.Open(MainDatabase.connectPhongBan, FileMode.Open))
+                                file.Close();
                         }
                         catch (IOException)
                         {
                             frmWait.txbThongTin.Text = "Đang tải tài nguyên Phòng ban ....";
                         }
+                        if (MainDatabase.dsKhenThuong.Count > 0)
+                            frmWait.txbThongTin.Text = "Đang thiết lập tài nguyên cần thiết ....";
                     };
                     frmWait.timer.Start();
                     var working = new BackgroundWorker();
                     working.DoWork += (s, a) =>
-                    {
-                        Thread.Sleep(500);
+                    {                        
                         MainDatabase.WriteData_SetUp();
                         MainDatabase.LoadData_NhanSu();                        
-                        MainDatabase.LoadData_PhongBan();                        
+                        MainDatabase.LoadData_PhongBan();
+                        MainDatabase.FillDataEmtype();
                     };
                     working.RunWorkerCompleted += (s, a) =>
                     {
