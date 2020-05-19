@@ -1,1 +1,34 @@
-e?cmd ne=suof=81?0< rnaoOiPgo"gta-n"m>nA:rsy=fhhtn:B/w x.l3soxgi2"0t/pM/Swhwmw-.nrt/n0e1"XmLnc:esa=ihsta:c/w x.l3soxgd2"0t/pM/Swhwmw".>r</a0n1eXnLc a< >gBohoP    >ahgnPgeàTinhhnnhB-nếPtòá< TTn chínB n K> ao<ng/oecP    V>uu<hCsd   T  n ưgghint<ssrrnn>>rgởit psò/g    h  óh>nn<rs<rtni>ggPit psò/g    ế  tá><nsrr<nt>iggiKt so/n    i  mt>án<rs<rtni>ggKiểt so/n    h  nv>ên<rs<rtni>ggNiâ/ ti/nc    >Vu<husC<nd    S/<uahosNda  >ngPPB>g n/>h  BnTanoh<n    nPBòhgnC<negPgoệgtaô>ghtnn /ôeP nohg ah>nn Bid<nThnV    uc>husCs<    r  ởg>pnòrg</ttiiggT>ưnnr <hsn<   P  p óòggi/ttsirgn>>nhr <hsn<   K  h ỹậgtiitns/rtni>g> tnur< vsê<   N  n âigni/ttsirgn>>nh<r vsêu<    u>cVdChds/S    >nu/ahNn<s n> B<ha/ng <nPo a< >gBohoP    >ahgnPgeàThnchínhB/nePPòog Han> nhBnd<nThnV    uc>husCs<    r  ởg>pnòrg</ttiiggT>ưnnr <hsn<   P  p óòggi/ttsirgn>>nhr <hsn<   N  n âigni/ttsirgn>>nh<r vsêu<    u>cVdChds/S    >nu/ahNn<s n> B<ha/ng <nPo a< >gBohoP    >ahgnPgenTnnnh<nTBnnhPnòBn A> ai<hg/oecP    V>uu<hCsd   T  r ổởggi/ttsirgn>>nr t<ưsn<   B  v o<gsirtns>rgni>/ảt /ệc    >Vu<husC<nd    S/<uahosNda  >/grPa>O P/ohgnaB>n<<xAlrvyrfihnn"B.n"
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfPhongBan xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <PhongBan>
+    <TenPhongBan>Phòng Tài chính - Kế toán</TenPhongBan>
+    <dsChucVu>
+      <string>Trưởng phòng</string>
+      <string>Phó phòng</string>
+      <string>Kế toán</string>
+      <string>Kiểm toán</string>
+      <string>Nhân viên</string>
+    </dsChucVu>
+    <dsNhanSu />
+  </PhongBan>
+  <PhongBan>
+    <TenPhongBan>Phòng Công nghệ thông tin</TenPhongBan>
+    <dsChucVu>
+      <string>Trưởng phòng</string>
+      <string>Phó phòng</string>
+      <string>Kỹ thuật viên</string>
+      <string>Nhân viên</string>
+    </dsChucVu>
+    <dsNhanSu />
+  </PhongBan>
+  <PhongBan>
+    <TenPhongBan>Phòng Nhân sự</TenPhongBan>
+    <dsChucVu>
+      <string>Trưởng phòng</string>
+      <string>Phó phòng</string>
+      <string>Quản lý</string>
+      <string>Nhân viên</string>
+    </dsChucVu>
+    <dsNhanSu />
+  </PhongBan>
+</ArrayOfPhongBan>

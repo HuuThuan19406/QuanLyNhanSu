@@ -111,6 +111,7 @@ namespace QuanLyNhanSu
                         catch (IOException)
                         {                            
                             frmWait.txbThongTin.Text = "Đang lưu Thông tin đăng nhập mặc định ....";
+                            return;
                         }
                         try
                         {
@@ -120,6 +121,7 @@ namespace QuanLyNhanSu
                         catch (IOException)
                         {  
                             frmWait.txbThongTin.Text = "Đang tải Danh sách nhân sự ....";
+                            return;
                         }
                         try
                         {
@@ -129,18 +131,33 @@ namespace QuanLyNhanSu
                         catch (IOException)
                         {
                             frmWait.txbThongTin.Text = "Đang tải tài nguyên Phòng ban ....";
+                            return;
+                        }
+                        try
+                        {
+                            using (FileStream file = File.Open(MainDatabase.connectKhenThuong, FileMode.Open))
+                                file.Close();
+                        }
+                        catch (IOException)
+                        {
+                            frmWait.txbThongTin.Text = "Đang tải dữ liệu Khen thưởng ....";
+                            return;
                         }
                         if (MainDatabase.dsKhenThuong.Count > 0)
+                        {
                             frmWait.txbThongTin.Text = "Đang thiết lập tài nguyên cần thiết ....";
+                            return;
+                        }
                     };
                     frmWait.timer.Start();
                     var working = new BackgroundWorker();
                     working.DoWork += (s, a) =>
-                    {                        
+                    {
                         MainDatabase.WriteData_SetUp();
-                        MainDatabase.LoadData_NhanSu();                        
-                        MainDatabase.LoadData_PhongBan();
+                        MainDatabase.LoadData_NhanSu();
+                        MainDatabase.LoadData_PhongBan();                        
                         MainDatabase.FillDataEmtype();
+                        MainDatabase.LoadData_KhenThuong();
                     };
                     working.RunWorkerCompleted += (s, a) =>
                     {

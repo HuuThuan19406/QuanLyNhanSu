@@ -51,7 +51,7 @@
                      Foreground="MediumBlue" FontSize="12" Visibility="Hidden"
                      HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,40,0,0">
                 <ListBox.Background>
-                    <SolidColorBrush Color="White" Opacity="0.75"/>
+                    <SolidColorBrush Color="White" Opacity="0.8"/>
                 </ListBox.Background>
                 <ListBoxItem>Đổi mật khẩu</ListBoxItem>
                 <ListBoxItem>Quên mật khẩu</ListBoxItem>

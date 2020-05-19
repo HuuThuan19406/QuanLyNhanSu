@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace QuanLyNhanSu
 {
-    class KhenThuong : IComparable
+    [Serializable]
+    public class KhenThuong : IComparable
     {
         public NhanSu NhanSu { get; set; } = new NhanSu();
         public DateTime NgayXet { get; set; }

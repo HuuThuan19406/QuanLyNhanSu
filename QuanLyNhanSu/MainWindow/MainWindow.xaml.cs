@@ -360,16 +360,6 @@ namespace QuanLyNhanSu
                 KT_txtBoPhan.Text = nhanSu.BoPhan;
                 HienThi.ThongTin<KhenThuong>(lvKhenThuong, MainDatabase.dsKhenThuong[KTmaNhanVien_Selected] as List<KhenThuong>, true);                
             };
-            
-            (MainDatabase.dsKhenThuong["HW4CS2TME576"] as List<KhenThuong>).Add(new KhenThuong()
-            {
-                NgayXet = DateTime.Today,
-                SoVaoSo = "01/KT-20",
-                NhanSu = MainDatabase.dsNhanSu["HW4CS2TME576"] as NhanSu,
-                HinhThuc = "Tiền mặt 5.000.000 đồng",
-                LyDoXet = "Hoàn thành xuất sắc nhiệm vụ được giao",
-                CoQuyetDinh = true
-            });
         }
 
         private void KhenThuong_ResetEntry()
@@ -408,7 +398,8 @@ namespace QuanLyNhanSu
 
         private void KT_btnThem_Click(object sender, RoutedEventArgs e)
         {
-            if (!KiemTra.Textbox.isNotEmptype(KT_txtBoPhan, KT_txtHinhThucKhen, KT_txtHoTen, KT_txtLiDo, KT_txtMaNhanVien, KT_txtSoVaoSo) && dtpNgaySinh.SelectedDate == null) 
+            if (!KiemTra.Textbox.isNotEmptype(KT_txtBoPhan, KT_txtHinhThucKhen, KT_txtHoTen, KT_txtLiDo, KT_txtMaNhanVien, KT_txtSoVaoSo) 
+                || KT_dtpNgayXet.SelectedDate == null) 
             {
                 new Message("NHẮC NHỞ", "Chưa điền đầy đủ thông tin", false, Message.Options.Warning);
                 return;
@@ -421,7 +412,8 @@ namespace QuanLyNhanSu
             khenThuong.SoVaoSo = KT_txtSoVaoSo.Text;            
             khenThuong.NhanSu = MainDatabase.dsNhanSu[KT_txtMaNhanVien.Text] as NhanSu;
             
-            lvKhenThuong.Items.Add(khenThuong);          
+            lvKhenThuong.Items.Add(khenThuong);
+            (MainDatabase.dsKhenThuong[KTmaNhanVien_Selected] as List<KhenThuong>).Add(khenThuong);
             new Message("KHEN THƯỞNG", "Đã thêm thành công khen thưởng số " + khenThuong.SoVaoSo, true, Message.Options.Successful);
         }
 
@@ -601,6 +593,7 @@ namespace QuanLyNhanSu
         {
             MainDatabase.WriteData_NhanSu();
             MainDatabase.WriteData_PhongBan();
+            MainDatabase.WriteData_KhenThuong();
             MainDatabase.WriteData_SetUp();
             MainDatabase.ClearAllData();
             try

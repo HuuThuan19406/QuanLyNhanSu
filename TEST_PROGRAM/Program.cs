@@ -137,30 +137,24 @@ namespace TEST_PROGRAM
         }
         private static void RemoveAccount()
         {
-            string query = "DELETE FROM [dbo].[TaiKhoan] WHERE Id=@Id";
-            SqlConnection con = new SqlConnection();
-            con.ConnectionString = connectString;
-            con.Open();
-            Console.WriteLine("Id need remove: ");
-            SqlCommand cmd = new SqlCommand(query, con);
-            cmd.Parameters.AddWithValue("@Id", Console.ReadLine());
-            cmd.ExecuteNonQuery();
-            con.Close();
+            string id = "";
+            LoadData_TaiKhoan();
+            do
+            {
+                Console.Write("Id: ");
+                id = Console.ReadLine().ToLower();
+                if (!dsTaiKhoan.ContainsKey(id))
+                    Console.WriteLine("Can not find id, try again");
+            }
+            while (!dsTaiKhoan.ContainsKey(id));
+            dsTaiKhoan.Remove(id);
+            WriteData_TaiKhoan();
         }
         private static void ShowListAccounts()
         {
-            SqlConnection con = new SqlConnection();
-            con.ConnectionString = connectString;
-            con.Open();
-            string query = "SELECT * FROM [dbo].[TaiKhoan]";
-            SqlCommand cmd = new SqlCommand(query, con);
-            SqlDataReader dr = cmd.ExecuteReader();
-            int i = 1;
-            Console.WriteLine("List id accounts:");
-            while (dr.Read())
-            {
-                Console.WriteLine("{0}/ {1}", i, dr["Id"]);
-            }
+            LoadData_TaiKhoan();
+            foreach (TaiKhoan taiKhoan in dsTaiKhoan.Values)
+                Console.WriteLine(taiKhoan.Id + "\t" + taiKhoan.Password);
         }
         private static void NewAccount()
         {

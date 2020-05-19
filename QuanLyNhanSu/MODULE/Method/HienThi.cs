@@ -37,7 +37,7 @@ namespace QuanLyNhanSu
                 return result.Remove(result.Length - 2);
             }
         }
-        public static string updateDay { get; } = "4/3/2020";
+        public static string updateDay { get; } = "19/5/2020";
         public static string author { get; } = "AmonCoding Team - K19406";
         public static string hotline { get; } = "090.999.9999";
         public static string email { get; } = "amoncodingteam@gmail.com";

@@ -12,6 +12,7 @@ namespace QuanLyNhanSu.MODULE.XyLuDatabase
     {
         public static string connectNhanSu = @"MODULE\DATABASE\ThongTinNhanSu.xml";
         public static string connectPhongBan = @"MODULE\DATABASE\DanhSachPhongBan.xml";
+        public static string connectKhenThuong = @"MODULE\DATABASE\DanhSachKhenThuong.xml";
         public static string connectTaiKhoan = @"MODULE\DATABASE\DanhSachTaiKhoan.xml";
         public static string connectSetUp = @"MODULE\CaiDat.xml";
         public static string idDangNhap { get; set; }
@@ -24,34 +25,40 @@ namespace QuanLyNhanSu.MODULE.XyLuDatabase
         public static void LoadData_NhanSu()
         {
             if (dsNhanSu.Count > 0)
-                return;
-            GiaiMaFile(connectNhanSu, MaHoaOptions.MixCode, levelCode);
+                return;            
             List<NhanSu> nhanSus = ThaoTacFile.XmlFile<NhanSu>.DocList(connectNhanSu);
             foreach (NhanSu nhanSu in nhanSus)
-                dsNhanSu.Add(nhanSu.MaNhanVien, nhanSu);
-            MaHoaFile(connectNhanSu, MaHoaOptions.MixCode, levelCode);
+                dsNhanSu.Add(nhanSu.MaNhanVien, nhanSu);            
         }
         public static void WriteData_NhanSu()
         {
-            ThaoTacFile.XmlFile<NhanSu>.GhiList(connectNhanSu,
-                                                 ChuyenDoi<NhanSu>.Hashtable_to_List(dsNhanSu));
-            MaHoaFile(connectNhanSu, MaHoaOptions.MixCode, levelCode);
+            ThaoTacFile.XmlFile<NhanSu>.GhiList(connectNhanSu, ChuyenDoi<NhanSu>.Hashtable_to_List(dsNhanSu));            
         }
         public static void LoadData_PhongBan()
         {
             if (dsPhongBan.Count > 0)
-                return;
-            GiaiMaFile(connectPhongBan, MaHoaOptions.MixCode, levelCode);
+                return;           
             List<PhongBan> phongBans = ThaoTacFile.XmlFile<PhongBan>.DocList(connectPhongBan);
             foreach (PhongBan phongBan in phongBans)
-                dsPhongBan.Add(phongBan.TenPhongBan, phongBan);
-            MaHoaFile(connectPhongBan, MaHoaOptions.MixCode, levelCode);
+                dsPhongBan.Add(phongBan.TenPhongBan, phongBan);            
         }
         public static void WriteData_PhongBan()
         {
-            ThaoTacFile.XmlFile<PhongBan>.GhiList(connectPhongBan,
-                                                 ChuyenDoi<PhongBan>.Hashtable_to_List(dsPhongBan));
-            MaHoaFile(connectPhongBan, MaHoaOptions.MixCode, levelCode);
+            ThaoTacFile.XmlFile<PhongBan>.GhiList(connectPhongBan, ChuyenDoi<PhongBan>.Hashtable_to_List(dsPhongBan));            
+        }
+        public static void LoadData_KhenThuong()
+        {            
+            List<KhenThuong> khenThuongs = ThaoTacFile.XmlFile<KhenThuong>.DocList(connectKhenThuong);
+            foreach (KhenThuong khenThuong in khenThuongs)
+                (dsKhenThuong[khenThuong.NhanSu.MaNhanVien] as List<KhenThuong>).Add(khenThuong);
+        }
+        public static void WriteData_KhenThuong()
+        {
+            List<KhenThuong> khenThuongs = new List<KhenThuong>();
+            foreach (List<KhenThuong> listKhenThuong in dsKhenThuong.Values)
+                foreach (KhenThuong khenThuong in listKhenThuong)
+                    khenThuongs.Add(khenThuong);
+            ThaoTacFile.XmlFile<KhenThuong>.GhiList(connectKhenThuong, khenThuongs);
         }
         public static void LoadData_TaiKhoan()
         {
