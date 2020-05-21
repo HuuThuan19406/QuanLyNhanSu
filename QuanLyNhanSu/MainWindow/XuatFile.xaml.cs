@@ -168,10 +168,11 @@ namespace QuanLyNhanSu
                         f = new Font(bf, 8, Font.NORMAL);
                         for (int i = 0; i < listView.Items.Count; i++)
                         {
-                            var khenThuong = listView.Items[i] as KhenThuong;
+                            KhenThuong khenThuong = listView.Items[i] as KhenThuong;
+                            NhanSu nhanSu = MainDatabase.dsNhanSu[maNhanVien] as NhanSu;
                             table.AddCell(new Phrase((i + 1).ToString(), f));
-                            table.AddCell(new Phrase(khenThuong.NhanSu.HoTen, f));                            
-                            table.AddCell(new Phrase(khenThuong.NhanSu.MaNhanVien, f));
+                            table.AddCell(new Phrase(nhanSu.HoTen, f));                            
+                            table.AddCell(new Phrase(nhanSu.MaNhanVien, f));
                             table.AddCell(new Phrase(khenThuong.NgayXet.ToString("dd/MM/yyyy"), f));
                             table.AddCell(new Phrase(khenThuong.SoVaoSo, f));
                             table.AddCell(new Phrase(khenThuong.LyDoXet, f));

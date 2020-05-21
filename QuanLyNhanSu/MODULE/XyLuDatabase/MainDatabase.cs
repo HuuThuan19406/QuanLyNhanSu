@@ -50,7 +50,7 @@ namespace QuanLyNhanSu.MODULE.XyLuDatabase
         {            
             List<KhenThuong> khenThuongs = ThaoTacFile.XmlFile<KhenThuong>.DocList(connectKhenThuong);
             foreach (KhenThuong khenThuong in khenThuongs)
-                (dsKhenThuong[khenThuong.NhanSu.MaNhanVien] as List<KhenThuong>).Add(khenThuong);
+                (dsKhenThuong[khenThuong.MaNhanVien] as List<KhenThuong>).Add(khenThuong);
         }
         public static void WriteData_KhenThuong()
         {

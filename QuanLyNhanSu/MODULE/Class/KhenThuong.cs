@@ -1,4 +1,5 @@
-﻿﻿using System;
+﻿using QuanLyNhanSu.MODULE.XyLuDatabase;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,8 @@ namespace QuanLyNhanSu
     [Serializable]
     public class KhenThuong : IComparable
     {
-        public NhanSu NhanSu { get; set; } = new NhanSu();
+        public string MaNhanVien { get; set; }
+        public string BoPhanCongTac { get; set; }
         public DateTime NgayXet { get; set; }
         public string LyDoXet { get; set; }
         public string HinhThuc { get; set; }
@@ -21,9 +23,10 @@ namespace QuanLyNhanSu
 
         }
 
-        public KhenThuong(NhanSu nhanSu, DateTime ngayXet, string lyDoXet, string hinhThuc, string soVaoSo)
+        public KhenThuong(string maNhanVien, string boPhanCongTac, DateTime ngayXet, string lyDoXet, string hinhThuc, string soVaoSo)
         {
-            NhanSu = nhanSu;
+            MaNhanVien = maNhanVien;
+            BoPhanCongTac = boPhanCongTac;
             NgayXet = ngayXet;
             LyDoXet = lyDoXet;
             HinhThuc = hinhThuc;
@@ -32,8 +35,9 @@ namespace QuanLyNhanSu
 
         public override string ToString()
         {
+            NhanSu nhanSu = MainDatabase.dsNhanSu[MaNhanVien] as NhanSu;
             return String.Join(",",
-                    NhanSu.HoTen, NhanSu.MaNhanVien, NgayXet.ToString("dd/MM/yyyy"), SoVaoSo, LyDoXet, HinhThuc, CoQuyetDinh);
+                    nhanSu.HoTen, nhanSu.MaNhanVien, NgayXet.ToString("dd/MM/yyyy"), SoVaoSo, LyDoXet, HinhThuc, CoQuyetDinh);
         }
 
         public int CompareTo(object obj)

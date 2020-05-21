@@ -325,7 +325,7 @@ namespace QuanLyNhanSu
             XuatFile frmXuatFile = new XuatFile();
             frmXuatFile.listView = lvThongTin;
             frmXuatFile.loaiDuLieu = XuatFile.Options.ThongTin;           
-            frmXuatFile.Show();
+            frmXuatFile.ShowDialog();
         }
         
         private void cboBoPhan_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -344,13 +344,16 @@ namespace QuanLyNhanSu
         #region tabKhenThuong
         string KTmaNhanVien_Selected = "";
         private void KhenThuong_BootUp()
-        {          
+        {
+            KhenThuong_ResetEntry();
             KT_ListBoPhan.listView.SelectionChanged += (s, a) =>
             {
                 if (KT_ListBoPhan.listView.SelectedIndex == -1)
                 {
                     KhenThuong_ResetEntry();
                     lvKhenThuong.Items.Clear();
+                    ChuyenDoi.HinhAnh(KT_imgAvatar, base64_defaultAvatar);
+                    KT_txbChucVu.Text = "";
                     return;
                 }
                 KTmaNhanVien_Selected = (KT_ListBoPhan.listView.SelectedValue as NhanSu).MaNhanVien;
@@ -358,6 +361,8 @@ namespace QuanLyNhanSu
                 KT_txtHoTen.Text = nhanSu.HoTen;
                 KT_txtMaNhanVien.Text = nhanSu.MaNhanVien;
                 KT_txtBoPhan.Text = nhanSu.BoPhan;
+                ChuyenDoi.HinhAnh(KT_imgAvatar, nhanSu.Avatar);
+                KT_txbChucVu.Text = nhanSu.ChucVu.ToUpper();
                 HienThi.ThongTin<KhenThuong>(lvKhenThuong, MainDatabase.dsKhenThuong[KTmaNhanVien_Selected] as List<KhenThuong>, true);                
             };
         }
@@ -373,8 +378,8 @@ namespace QuanLyNhanSu
                 NhanSu nhanSu = MainDatabase.dsNhanSu[KTmaNhanVien_Selected] as NhanSu;
                 KT_txtHoTen.Text = nhanSu.HoTen;
                 KT_txtMaNhanVien.Text = nhanSu.MaNhanVien;
-                KT_txtBoPhan.Text = nhanSu.BoPhan;
-            }
+                KT_txtBoPhan.Text = nhanSu.BoPhan;                
+            }            
         }               
 
         private void lvKhenThuong_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -382,8 +387,7 @@ namespace QuanLyNhanSu
             if (e.AddedItems.Count == 0)
                 return;
             KhenThuong khenThuong = e.AddedItems[0] as KhenThuong;
-            KT_txtSoVaoSo.Text = khenThuong.SoVaoSo;
-            KT_txtBoPhan.Text = khenThuong.NhanSu.BoPhan;
+            KT_txtSoVaoSo.Text = khenThuong.SoVaoSo;            
             KT_txtLiDo.Text = khenThuong.LyDoXet;
             KT_txtHinhThucKhen.Text = khenThuong.HinhThuc;
             KT_chkCoQuyetDinh.IsChecked = khenThuong.CoQuyetDinh;
@@ -405,12 +409,14 @@ namespace QuanLyNhanSu
                 return;
             }
             KhenThuong khenThuong = new KhenThuong();
+            khenThuong.MaNhanVien = KT_txtMaNhanVien.Text;
+            khenThuong.BoPhanCongTac = (MainDatabase.dsNhanSu[KTmaNhanVien_Selected] as NhanSu).BoPhan;
+            khenThuong.NgayXet = KT_dtpNgayXet.SelectedDate.Value;
             khenThuong.HinhThuc = KT_txtHinhThucKhen.Text;
             khenThuong.LyDoXet = KT_txtLiDo.Text;
-            khenThuong.CoQuyetDinh = (bool)KT_chkCoQuyetDinh.IsChecked;
-            khenThuong.NgayXet = KT_dtpNgayXet.SelectedDate.Value;
+            khenThuong.CoQuyetDinh = (bool)KT_chkCoQuyetDinh.IsChecked;            
             khenThuong.SoVaoSo = KT_txtSoVaoSo.Text;            
-            khenThuong.NhanSu = MainDatabase.dsNhanSu[KT_txtMaNhanVien.Text] as NhanSu;
+            
             
             lvKhenThuong.Items.Add(khenThuong);
             (MainDatabase.dsKhenThuong[KTmaNhanVien_Selected] as List<KhenThuong>).Add(khenThuong);
@@ -440,7 +446,7 @@ namespace QuanLyNhanSu
                 return;
             KhenThuong khenThuong = new KhenThuong();
             khenThuong.SoVaoSo = KT_txtSoVaoSo.Text;
-            khenThuong.NhanSu = MainDatabase.dsNhanSu[KT_txtMaNhanVien] as NhanSu;
+            khenThuong.MaNhanVien = KT_txtMaNhanVien.Text;
             khenThuong.LyDoXet = KT_txtLiDo.Text;
             khenThuong.HinhThuc = KT_txtHinhThucKhen.Text;
             khenThuong.CoQuyetDinh = (bool)KT_chkCoQuyetDinh.IsChecked;
@@ -454,7 +460,7 @@ namespace QuanLyNhanSu
             frmXuatFile.listView = lvKhenThuong;
             frmXuatFile.maNhanVien = KT_txtMaNhanVien.Text;
             frmXuatFile.loaiDuLieu = XuatFile.Options.KhenThuong;           
-            frmXuatFile.Show();
+            frmXuatFile.ShowDialog();
         }
         #endregion
 

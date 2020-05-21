@@ -256,7 +256,7 @@ namespace QuanLyNhanSu
                 case "Thông tin":
                     lbMenu.SelectedIndex = -1;
                     ThongTinPhanMem frmThongTinPhanMem = new ThongTinPhanMem();
-                    frmThongTinPhanMem.Show();
+                    frmThongTinPhanMem.ShowDialog();
                     return;
                 case "Thoát":
                     Close();
