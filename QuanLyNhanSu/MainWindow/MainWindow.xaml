@@ -256,7 +256,7 @@
                                             </ToolTip>
                                         </Label.ToolTip>
                                     </Label>
-                                    <TextBox x:Name="txtMaNhanVien" Background="WhiteSmoke" IsEnabled="False" HorizontalAlignment="Right" TextWrapping="Wrap" VerticalAlignment="Center" Width="200">
+                                    <TextBox x:Name="txtMaNhanVien" Background="WhiteSmoke" IsEnabled="False" HorizontalAlignment="Right" TextWrapping="Wrap" VerticalAlignment="Center" Width="180">
                                         <TextBox.ToolTip>
                                             Mã nhân viên được cấp tự động, không thể thay đổi
                                         </TextBox.ToolTip>
@@ -614,7 +614,7 @@
                                                 </ToolTip>
                                             </Label.ToolTip>
                                         </Label>
-                                        <TextBox x:Name="KT_txtMaNhanVien" Background="WhiteSmoke" IsEnabled="False" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Right" Width="180">
+                                        <TextBox x:Name="KT_txtMaNhanVien" Background="WhiteSmoke" IsEnabled="False" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Right" Width="160">
                                             <TextBox.ToolTip>
                                                 Mã nhân viên được cấp tự động, không thể thay đổi
                                             </TextBox.ToolTip>
