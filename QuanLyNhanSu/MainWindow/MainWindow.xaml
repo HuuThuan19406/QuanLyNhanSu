@@ -21,7 +21,7 @@
     </Window.Resources>
     <Grid>      
         <TabControl x:Name="TabMain">
-            <TabItem Name="tabThongTin" Header="THÔNG TIN" IsSelected="True" >
+            <TabItem Name="tabThongTin" Header="THÔNG TIN" IsSelected="True">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"></RowDefinition>
@@ -36,25 +36,23 @@
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Button x:Name="btnThemNhanSu" Click="btnThemNhanSu_Click" Grid.Column="0" Margin="0,0,2.5,0"
+                            <TextBox x:Name="txtTraCuu" Grid.Column="0" Margin="0,0,2.5,0" Padding="50,0,0,0" 
+                                     Height="{Binding ElementName=btnThemNhanSu, Path=ActualHeight}"
+                                     TextChanged="txtTraCuu_TextChanged"/>
+                            <materialDesign:PackIcon Kind="AccountSearch" Grid.Column="0" Foreground="Black" Margin="5,0,0,0"
+                                    Height="{Binding ElementName=btnThemNhanSu, Path=ActualHeight}" Width="{Binding ElementName=btnThemNhanSu, Path=ActualHeight}"/>
+                            <Button x:Name="btnThemNhanSu" Click="btnThemNhanSu_Click" Grid.Column="1" Margin="2.5,0"
                                     Style="{StaticResource LinkButton}" FontWeight="Normal">
                                 <StackPanel Orientation="Horizontal">
                                     <Image Source="pack://application:,,,/QuanLyNhanSu;component/PICTURE/addIcon.png" Height="30"/>
                                     <Label Content="_THÊM NHÂN SỰ" VerticalAlignment="Center"/>
                                 </StackPanel>
                             </Button>
-                            <Button x:Name="btnXoaNhanSu" Click="btnXoaNhanSu_Click" Grid.Column="1" Margin="2.5,0"
+                            <Button x:Name="btnXoaNhanSu" Click="btnXoaNhanSu_Click" Grid.Column="2" Margin="2.5,0"
                                     Style="{StaticResource LinkButton}" FontWeight="Normal">
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Foreground="White" Height="30" Width="30" Kind="DeleteEmpty"/>
                                     <Label VerticalAlignment="Center" Content="_XÓA NHÂN SỰ"/>
-                                </StackPanel>
-                            </Button>
-                            <Button x:Name="btnTraCuuNhanSu" Click="btnTraCuuNhanSu_Click" Grid.Column="2" Margin="2.5,0"
-                                    Style="{StaticResource LinkButton}" FontWeight="Normal">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="pack://application:,,,/QuanLyNhanSu;component/PICTURE/infoIcon.png" Height="30"/>
-                                    <Label VerticalAlignment="Center" Content="TRA CỨU _NHÂN SỰ"/>
                                 </StackPanel>
                             </Button>
                             <Button x:Name="btnSuaThongTin" Click="btnSuaThongTin_Click" Grid.Column="3" Margin="2.5,0"

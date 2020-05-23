@@ -31,4 +31,14 @@
     </dsChucVu>
     <dsNhanSu />
   </PhongBan>
+  <PhongBan>
+    <TenPhongBan>Phòng Hội đồng quản trị</TenPhongBan>
+    <dsChucVu>
+      <string>Chủ tịch</string>
+      <string>Phó chủ tịch</string>
+      <string>Cổ đông</string>
+      <string>Thư ký</string>
+    </dsChucVu>
+    <dsNhanSu />
+  </PhongBan>
 </ArrayOfPhongBan>

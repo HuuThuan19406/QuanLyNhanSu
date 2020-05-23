@@ -37,7 +37,7 @@ namespace QuanLyNhanSu
                 return result.Remove(result.Length - 2);
             }
         }
-        public static string updateDay { get; } = "21/5/2020";
+        public static string updateDay { get; } = "23/5/2020";
         public static string author { get; } = "AmonCoding Team - K19406";
         public static string hotline { get; } = "090.999.9999";
         public static string email { get; } = "amoncodingteam@gmail.com";
@@ -113,6 +113,12 @@ namespace QuanLyNhanSu
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(listView.ItemsSource);
             PropertyGroupDescription groupDescription = new PropertyGroupDescription(nameGroup);
             view.GroupDescriptions.Add(groupDescription);           
+        }
+
+        public static void SetFilterListView(ListView listView, Predicate<object> filter)
+        {
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(listView.ItemsSource);
+            view.Filter = filter;
         }
 
         public static void GroupingListview(ListView listView, List<object> listData, string nameGroup)

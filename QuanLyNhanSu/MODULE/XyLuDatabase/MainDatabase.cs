@@ -18,6 +18,15 @@ namespace QuanLyNhanSu.MODULE.XyLuDatabase
         public static string idDangNhap { get; set; }
         public const int levelCode = 10;
         public static Hashtable dsNhanSu { get; set; } = new Hashtable();
+        public static List<NhanSu> dsNhanSu_Sorted
+        {
+            get
+            {
+                List<NhanSu> temp = dsNhanSu.Values.Cast<NhanSu>().ToList();
+                temp.Sort();
+                return temp;
+            }
+        }
         public static Hashtable dsKhenThuong { get; set; } = new Hashtable();
         public static Hashtable dsPhongBan { get; set; } = new Hashtable();
         public static Hashtable dsTaiKhoan { get; set; } = new Hashtable();
@@ -107,7 +116,7 @@ namespace QuanLyNhanSu.MODULE.XyLuDatabase
         {
             foreach (DictionaryEntry entry in dsNhanSu)
                 dsKhenThuong.Add(entry.Key, new List<KhenThuong>());
-        }
+        }       
         public enum MaHoaOptions
         {
             MixCode,
