@@ -71,3 +71,9 @@ D:\QuanLyNhanSu\QuanLyNhanSu\bin\Debug\GiaoDienWPF.dll
 D:\QuanLyNhanSu\QuanLyNhanSu\bin\Debug\GiaoDienWPF.pdb
 D:\QuanLyNhanSu\QuanLyNhanSu\bin\Debug\HienThi.dll
 D:\QuanLyNhanSu\QuanLyNhanSu\bin\Debug\HienThi.pdb
+D:\QuanLyNhanSu\QuanLyNhanSu\bin\Debug\ChatAI_Simple.dll
+D:\QuanLyNhanSu\QuanLyNhanSu\bin\Debug\ChuyenDoi.dll
+D:\QuanLyNhanSu\QuanLyNhanSu\bin\Debug\KiemTra.dll
+D:\QuanLyNhanSu\QuanLyNhanSu\bin\Debug\MaHoa.dll
+D:\QuanLyNhanSu\QuanLyNhanSu\bin\Debug\ThaoTacFile.dll
+D:\QuanLyNhanSu\QuanLyNhanSu\bin\Debug\ChuyenDoi.pdb

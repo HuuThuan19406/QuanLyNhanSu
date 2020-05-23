@@ -1,1 +1,44 @@
-e?cmd ne=suof=81?0< rnaoOiPgo"gta-n"m>nA:rsy=fhhtn:B/w x.l3soxgi2"0t/pM/Swhwmw-.nrt/n0e1"XmLnc:esa=ihsta:c/w x.l3soxgd2"0t/pM/Swhwmw".>r</a0n1eXnLc a< >gBohoP    >ahgnPgeôTgnnhhnệBhnnPgòi< CTnn hgnB tnô>a t<ng/oecP    V>uu<hCsd   T  n ưgghint<ssrrnn>>rgởit psò/g    h  óh>nn<rs<rtni>ggPit psò/g    h  nv>ên<rs<rtni>ggNiâ/ ti/nc    >Vu<husC<nd    S/<uahosNda  >ngPPB>g n/>h  BnTanoh<n    nPBòhgnT<nehPho-g>an  hhHnc<ổTcnứh n Bàn> caí<hg/oecP    V>uu<hCsd   T  n ưgghint<ssrrnn>>rgởit psò/g    h  óh>nn<rs<rtni>ggPit psò/g    h  nv>ên<rs<rtni>ggNiâ/ ti/nc    >Vu<husC<nd    S/<uahosNda  >ngPPB>g n/>h  BnTanoh<n    nPBòhgnT<aehPtoag-aP>áhpnh <hTnn hrn B nh>a c<ếg/oecP    V>uu<hCsd   T  n ưgghint<ssrrnn>>rgởit psò/g    h  óh>nn<rs<rtni>ggPit psò/g    i  ms>tnvrê<<tsirgnG>ág iát si/n    h  nv>ên<rs<rtni>ggNiâ/ ti/nc    >Vu<husC<nd    S/<uahosNda  >/grPa>O P/ohgnaB>n<<xAlrvyrfihnn"B.n"
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfPhongBan xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <PhongBan>
+    <TenPhongBan>Phòng Tài chính - Kế toán</TenPhongBan>
+    <dsChucVu>
+      <string>Trưởng phòng</string>
+      <string>Phó phòng</string>
+      <string>Kế toán</string>
+      <string>Kiểm toán</string>
+      <string>Nhân viên</string>
+    </dsChucVu>
+    <dsNhanSu />
+  </PhongBan>
+  <PhongBan>
+    <TenPhongBan>Phòng Công nghệ thông tin</TenPhongBan>
+    <dsChucVu>
+      <string>Trưởng phòng</string>
+      <string>Phó phòng</string>
+      <string>Kỹ thuật viên</string>
+      <string>Nhân viên</string>
+    </dsChucVu>
+    <dsNhanSu />
+  </PhongBan>
+  <PhongBan>
+    <TenPhongBan>Phòng Nhân sự</TenPhongBan>
+    <dsChucVu>
+      <string>Trưởng phòng</string>
+      <string>Phó phòng</string>
+      <string>Quản lý</string>
+      <string>Nhân viên</string>
+    </dsChucVu>
+    <dsNhanSu />
+  </PhongBan>
+  <PhongBan>
+    <TenPhongBan>Phòng Hội đồng quản trị</TenPhongBan>
+    <dsChucVu>
+      <string>Chủ tịch</string>
+      <string>Phó chủ tịch</string>
+      <string>Cổ đông</string>
+      <string>Thư ký</string>
+    </dsChucVu>
+    <dsNhanSu />
+  </PhongBan>
+</ArrayOfPhongBan>

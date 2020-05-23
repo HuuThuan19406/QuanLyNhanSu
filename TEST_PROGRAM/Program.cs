@@ -17,6 +17,7 @@ namespace TEST_PROGRAM
         {            
             try
             {
+                ShowCanDo();
                 DoMain();
             }
             catch(Exception e)
@@ -31,6 +32,27 @@ namespace TEST_PROGRAM
                 Console.ReadKey();
             }
         }
+
+        private static void ShowCanDo()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\n" +
+                              "                            FUNCTIONS LIST                            \n" +
+                              "                      Mean                                Key         \n" +
+                              "1/Add staff to the list                           add staff           \n\n" +
+                              "2/Remove staff from the list                      remove staff        \n" +
+                              "                                                  delete staff        \n\n" +
+                              "3/Create account                                  new account         \n\n" +
+                              "4/Display information all accounts                show list accounts  \n" +
+                              "                                                  list accounts       \n" +
+                              "                                                  information accounts\n\n" +
+                              "5/Remove account from the list                    remove account      \n" +
+                              "                                                  delete account      \n\n");
+
+
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
         private static void DoMain()
         {
             try
@@ -43,12 +65,12 @@ namespace TEST_PROGRAM
                     Console.WriteLine("Loading....");
                     switch (key.ToLower())
                     {
-                        case "add":
+                        case "add staff":
                             Add();
                             Console.WriteLine("Done!");
                             break;
-                        case "remove staffs":
-                        case "delete staffs":
+                        case "remove staff":
+                        case "delete staff":
                             RemoveStaffs();
                             Console.WriteLine("Done!");
                             break;
@@ -57,7 +79,8 @@ namespace TEST_PROGRAM
                             Console.WriteLine("Done!");
                             break;
                         case "show list accounts":
-                        case "list id":
+                        case "list accounts":
+                        case "information accounts":
                             ShowListAccounts();
                             Console.WriteLine("Done!");
                             break;

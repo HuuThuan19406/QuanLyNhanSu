@@ -495,7 +495,7 @@ namespace QuanLyNhanSu
         private void btnLuuCauHinh_Click(object sender, RoutedEventArgs e)
         {
             MainDatabase.setUp.FontChu = this.FontFamily.ToString();
-            new Message("THÔNG BÁO", "Lưu cấu hình thành công! ", false, Message.Options.Successful);
+            new Message("THÔNG BÁO", "Lưu cấu hình thành công! ", true, Message.Options.Successful);
         }        
         
         private void cboKieuChu_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -529,11 +529,7 @@ namespace QuanLyNhanSu
                 fontChu.FontFamily = fontFamily;
                 cboKieuChu.Items.Add(fontChu);
             }
-        }
-
-        private void cboPhongBan_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-        }
+        }        
 
         private void btnThemPhongBan_Click(object sender, RoutedEventArgs e)
         {
@@ -575,6 +571,18 @@ namespace QuanLyNhanSu
             new Message("THÔNG BÁO", "Xóa phòng ban thành công!", false, Message.Options.Error);
         }
 
+        private void btn_QuayLaiFontMacDinh_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.FontFamily.ToString() == MainDatabase.setUp.FontChu) 
+            {
+                new Message("THÔNG BÁO", "Phông chữ " + this.FontFamily.ToString() + " hiện tại đã là phông chữ mặc định", true, Message.Options.Information);
+            }
+            this.FontFamily = new FontFamily(MainDatabase.setUp.FontChu);
+            foreach (Label item in cboKieuChu.Items)
+                if (item.Content.ToString() == MainDatabase.setUp.FontChu)
+                    cboKieuChu.SelectedItem = item;
+        }
+
         private void btnSuaPhongBan_Click(object sender, RoutedEventArgs e)
         {
 
@@ -605,7 +613,6 @@ namespace QuanLyNhanSu
         {
             HienThi.NotifySignin(MainDatabase.dsNhanSu);
         }
-        #endregion
-        
+        #endregion        
     }
 }
