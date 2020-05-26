@@ -423,7 +423,10 @@ namespace QuanLyNhanSu
         private void KT_btnXoa_Click(object sender, RoutedEventArgs e)
         {
             if (lvKhenThuong.SelectedIndex == -1)
+            {
+                new Message("LỖI", "Bạn chưa chọn đối tượng để thao tác", false, Message.Options.Warning);
                 return;
+            }
             new MessageYesNo("XÁC NHẬN", "Bạn xác nhận xóa khen thưởng số " + (lvKhenThuong.Items[lvKhenThuong.SelectedIndex] as KhenThuong).SoVaoSo);
             if (!MessageYesNo.Yes)
                 return;
@@ -613,6 +616,16 @@ namespace QuanLyNhanSu
         {
             HienThi.NotifySignin(MainDatabase.dsNhanSu);
         }
-        #endregion        
+        #endregion
+
+        private void CC_btnXuat_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CC_btnXuat_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -66,8 +66,8 @@
                                     Click="btnTTXuatDanhSach_Click"
                                     Style="{StaticResource LinkButton}" FontWeight="Normal">
                                 <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Foreground="White" Height="30" Width="30" Kind="FilePdf"/>
-                                    <Label VerticalAlignment="Center" Content="_XUẤT DANH SÁCH"/>
+                                    <materialDesign:PackIcon Foreground="White" Height="30" Width="30" Kind="FileExport"/>
+                                    <Label VerticalAlignment="Center" Content="XUẤT _DANH SÁCH"/>
                                 </StackPanel>
                             </Button>
                         </Grid>
@@ -379,7 +379,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <!--dòng lớn 0-->
-                            <RowDefinition/>
+                            <RowDefinition Height="1.5*"/>
                             <!--dòng lớn 1-->
                         </Grid.RowDefinitions>
                         <Grid Grid.Row="0">
@@ -387,8 +387,7 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                                 <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
+                                <RowDefinition/>                                
                             </Grid.RowDefinitions>
                             <Grid Grid.Row="0">
                                 <Grid.ColumnDefinitions>
@@ -396,50 +395,37 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Grid Grid.Column="0" >
-                                    <StackPanel Orientation="Horizontal" Grid.Row="0">
-                                        <Label Foreground="Black" VerticalAlignment="Center">Họ tên</Label>
-                                        <TextBox x:Name="CC_txtHoTen" HorizontalAlignment="Right" Background="WhiteSmoke" TextWrapping="Wrap" VerticalAlignment="Center" Width="304" Margin="0,14,0,22" IsEnabled="False"/>
-                                    </StackPanel>
-                                </Grid>
-                                <Grid Grid.Column="1" >
-                                    <StackPanel Orientation="Horizontal" Grid.Row="0">
-                                        <Label Foreground="Black" VerticalAlignment="Center">Lương Cơ Bản</Label>
-                                        <TextBox x:Name="CC_txtLuongCoBan" HorizontalAlignment="Right" Background="WhiteSmoke" TextWrapping="Wrap" VerticalAlignment="Center" Width="267"  Margin="0,14,0,19" IsEnabled="False"/>
-                                    </StackPanel>
-                                </Grid>
-                                <Grid Grid.Column="2" >
-                                    <StackPanel Orientation="Horizontal" Grid.Row="0">
-                                        <Label Foreground="Black" VerticalAlignment="Center">Trợ cấp hàng tháng</Label>
-                                        <TextBox x:Name="CC_txtTroCapHangThang" HorizontalAlignment="Right" Background="WhiteSmoke" TextWrapping="Wrap" VerticalAlignment="Center" Width="260" IsEnabled="False"/>
-                                    </StackPanel>
-                                </Grid>
-
+                                <DockPanel Grid.Column="0" Width="350" HorizontalAlignment="Left">
+                                    <Label Foreground="Black" VerticalAlignment="Center">Họ tên</Label>
+                                    <TextBox x:Name="CC_txtHoTen" Background="WhiteSmoke" TextWrapping="Wrap" VerticalAlignment="Center" IsEnabled="False"  />
+                                </DockPanel>
+                                <DockPanel Grid.Column="1" Width="350" HorizontalAlignment="Center">
+                                    <Label Foreground="Black" VerticalAlignment="Center">Lương Cơ Bản</Label>
+                                    <TextBox x:Name="CC_txtLuongCoBan" Background="WhiteSmoke" TextWrapping="Wrap" VerticalAlignment="Center" IsEnabled="False"/>
+                                </DockPanel>
+                                <DockPanel Grid.Column="2" Width="350" HorizontalAlignment="Right">
+                                    <Label Foreground="Black" VerticalAlignment="Center">Trợ cấp hàng tháng</Label>
+                                    <TextBox x:Name="CC_txtTroCapHangThang" Background="WhiteSmoke" TextWrapping="Wrap" VerticalAlignment="Center" IsEnabled="False"/>
+                                </DockPanel>
                             </Grid>
-                            <Grid Grid.Row="1">
+                            <Grid Grid.Row="1" >
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Grid Grid.Column="0">
-                                    <StackPanel Orientation="Horizontal" Grid.Row="0">
-                                        <Label Foreground="Black" VerticalAlignment="Center">Chức vụ</Label>
-                                        <TextBox x:Name="CC_txtChucVu" HorizontalAlignment="Right" Background="WhiteSmoke" TextWrapping="Wrap" VerticalAlignment="Center" Width="295"  Margin="0,19,0,20" IsEnabled="False"/>
-                                    </StackPanel>
-                                </Grid>
-                                <Grid Grid.Column="1">
-                                    <StackPanel Orientation="Horizontal" Grid.Row="0">
-                                        <Label Foreground="Black" VerticalAlignment="Center">Số ngày đi sớm</Label>
-                                        <TextBox x:Name="CC_txtSoNgayDiSom" HorizontalAlignment="Right" Background="WhiteSmoke" TextWrapping="Wrap" VerticalAlignment="Center" Width="260" IsEnabled="False"/>
-                                    </StackPanel>
-                                </Grid>
-                                <Grid Grid.Column="2">
-                                    <StackPanel Orientation="Horizontal" Grid.Row="0">
-                                        <Label Foreground="Black" VerticalAlignment="Center">Số ngày đi muộn</Label>
-                                        <TextBox x:Name="CC_txtSoNgayDiMuon" HorizontalAlignment="Right" Background="WhiteSmoke"  TextWrapping="Wrap" VerticalAlignment="Center" Width="278"  Margin="0,14,0,20" IsEnabled="False"/>
-                                    </StackPanel>
-                                </Grid>
+                                <DockPanel Grid.Column="0" Width="350" HorizontalAlignment="Left">
+                                    <Label Foreground="Black" VerticalAlignment="Center">Chức vụ</Label>
+                                    <TextBox x:Name="CC_txtChucVu" Background="WhiteSmoke" TextWrapping="Wrap" VerticalAlignment="Center" IsEnabled="False"/>
+                                </DockPanel>
+                                <DockPanel Grid.Column="1" Width="350" HorizontalAlignment="Center">
+                                    <Label Foreground="Black" VerticalAlignment="Center">Số ngày đi sớm</Label>
+                                    <TextBox x:Name="CC_txtSoNgayDiSom" Background="WhiteSmoke" TextWrapping="Wrap" VerticalAlignment="Center" IsEnabled="False"/>
+                                </DockPanel>
+                                <DockPanel Grid.Column="2" Width="350" HorizontalAlignment="Right">
+                                    <Label Foreground="Black" VerticalAlignment="Center">Số ngày đi muộn</Label>
+                                    <TextBox x:Name="CC_txtSoNgayDiMuon" Background="WhiteSmoke"  TextWrapping="Wrap" VerticalAlignment="Center" IsEnabled="False"/>
+                                </DockPanel>
                             </Grid>
                             <Grid Grid.Row="2">
                                 <Grid.ColumnDefinitions>
@@ -447,24 +433,18 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Grid Grid.Column="0">
-                                    <StackPanel Orientation="Horizontal" Grid.Row="0">
-                                        <Label Foreground="Black" VerticalAlignment="Center">Mã nhân viên</Label>
-                                        <TextBox x:Name="CC_txtMaNhanVien" HorizontalAlignment="Right" Background="WhiteSmoke" TextWrapping="Wrap" VerticalAlignment="Center" Width="256" Margin="0,17,0,18"  />
-                                    </StackPanel>
-                                </Grid>
-                                <Grid Grid.Column="1">
-                                    <StackPanel Orientation="Horizontal" Grid.Row="0">
-                                        <Label Foreground="Black" VerticalAlignment="Center">Số giờ tăng ca</Label>
-                                        <TextBox x:Name="CC_txtSoGioTangCa" HorizontalAlignment="Right" Background="WhiteSmoke"  TextWrapping="Wrap" VerticalAlignment="Center" Width="268"  Margin="0,15,0,20"/>
-                                    </StackPanel>
-                                </Grid>
-                                <Grid Grid.Column="2">
-                                    <StackPanel Orientation="Horizontal" Grid.Row="0">
-                                        <Label Foreground="Black" VerticalAlignment="Center" Margin="0,17" Width="108">Ghi chú</Label>
-                                        <TextBox x:Name="CC_txtGhiChu" HorizontalAlignment="Right" Background="WhiteSmoke"  TextWrapping="Wrap" VerticalAlignment="Center" Width="298" Margin="0,11,0,22"/>
-                                    </StackPanel>
-                                </Grid>
+                                <DockPanel Grid.Column="0" Width="350" HorizontalAlignment="Left">
+                                    <Label Foreground="Black" VerticalAlignment="Center">Mã nhân viên</Label>
+                                    <TextBox x:Name="CC_txtMaNhanVien" TextWrapping="Wrap" VerticalAlignment="Center" ToolTip="Tra cứu chấm công"/>
+                                </DockPanel>
+                                <DockPanel Grid.Column="1" Width="350" HorizontalAlignment="Center">
+                                    <Label Foreground="Black" VerticalAlignment="Center">Số giờ tăng ca</Label>
+                                    <TextBox x:Name="CC_txtSoGioTangCa" Background="WhiteSmoke" TextWrapping="Wrap" VerticalAlignment="Center" IsEnabled="False"/>
+                                </DockPanel>
+                                <DockPanel Grid.Column="2" Width="350" HorizontalAlignment="Right">
+                                    <Label Foreground="Black" VerticalAlignment="Center">Ghi chú</Label>
+                                    <TextBox x:Name="CC_txtGhiChu" Background="WhiteSmoke" IsEnabled="False"  TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                </DockPanel>
                             </Grid>
                             <Grid Grid.Row="3">
                                 <Grid.ColumnDefinitions>
@@ -472,53 +452,53 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <Grid Grid.Column="0">
+                                <StackPanel Orientation="Horizontal" Grid.Column="0" VerticalAlignment="Center">
+                                    <ComboBox x:Name="CC_cbThang"  Margin="2.5,0" Width="100">
+                                        <ComboBoxItem Content="Tháng 1"/>
+                                        <ComboBoxItem Content="Tháng 2"/>
+                                        <ComboBoxItem Content="Tháng 3"/>
+                                        <ComboBoxItem Content="Tháng 4"/>
+                                        <ComboBoxItem Content="Tháng 5"/>
+                                        <ComboBoxItem Content="Tháng 6"/>
+                                        <ComboBoxItem Content="Tháng 7"/>
+                                        <ComboBoxItem Content="Tháng 8"/>
+                                        <ComboBoxItem Content="Tháng 9"/>
+                                        <ComboBoxItem Content="Tháng 10"/>
+                                        <ComboBoxItem Content="Tháng 11"/>
+                                        <ComboBoxItem Content="Tháng 12"/>
+                                    </ComboBox>
+                                    <ComboBox x:Name="CC_btnNam" Margin="2.5,0" Width="100">
+                                        <ComboBoxItem Content="2016"/>
+                                        <ComboBoxItem Content="2017"/>
+                                        <ComboBoxItem Content="2018"/>
+                                        <ComboBoxItem Content="2019"/>
+                                        <ComboBoxItem Content="2020"/>
+                                    </ComboBox>
+                                </StackPanel>
+                                <Grid Grid.Column="1" Width="350" HorizontalAlignment="Center">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition/>
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
-                                    <Grid Grid.Column="0">
-                                        <StackPanel>
-                                            <ComboBox x:Name="CC_cbThang" Height="44" Margin="10">
-                                                <ComboBoxItem Content="Tháng 1"/>
-                                                <ComboBoxItem Content="Tháng 2"/>
-                                                <ComboBoxItem Content="Tháng 3"/>
-                                                <ComboBoxItem Content="Tháng 4"/>
-                                                <ComboBoxItem Content="Tháng 5"/>
-                                                <ComboBoxItem Content="Tháng 6"/>
-                                                <ComboBoxItem Content="Tháng 7"/>
-                                                <ComboBoxItem Content="Tháng 8"/>
-                                                <ComboBoxItem Content="Tháng 9"/>
-                                                <ComboBoxItem Content="Tháng 10"/>
-                                                <ComboBoxItem Content="Tháng 11"/>
-                                                <ComboBoxItem Content="Tháng 12"/>
-                                            </ComboBox>
+                                    <Button x:Name="CC_btnNap" Grid.Column="0" Margin="0,0,2.5,0" Style="{StaticResource LinkButton}"
+                                        Click="CC_btnXuat_Click_1">
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Height="30" Width="30" Kind="FileImport" />
+                                            <Label VerticalAlignment="Center">_NẠP DỮ LIỆU</Label>
                                         </StackPanel>
-                                    </Grid>
-                                    <Grid Grid.Column="1">
-                                        <ComboBox x:Name="CC_btnNam" Margin="10">
-                                            <ComboBoxItem Content="2016"/>
-                                            <ComboBoxItem Content="2017"/>
-                                            <ComboBoxItem Content="2018"/>
-                                            <ComboBoxItem Content="2019"/>
-                                            <ComboBoxItem Content="2020"/>
-                                        </ComboBox>
-                                    </Grid>
-                                </Grid>
-                                <Grid Grid.Column="1">
-                                    <StackPanel VerticalAlignment="Center" Margin="120,18,120,19" >
-                                        <Button x:Name="CC_btnXuatDuLieu" Content="Xuất dữ liệu"></Button>
-                                    </StackPanel>
-                                </Grid>
-                                <Grid Grid.Column="2">
-                                    <StackPanel VerticalAlignment="Center" Margin="120,18,120,19">
-                                        <Button x:Name="CC_btnNapDuLieu" Content="Nạp dữ liệu"></Button>
-                                    </StackPanel>
-                                </Grid>
+                                    </Button>
+                                    <Button x:Name="CC_btnXuat" Grid.Column="1" Margin="2.5,0,0,0" Style="{StaticResource LinkButton}"
+                                        Click="CC_btnXuat_Click">
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Height="30" Width="30" Kind="FileExport" />
+                                            <Label VerticalAlignment="Center">_XUẤT DỮ LIỆU</Label>
+                                        </StackPanel>
+                                    </Button>
+                                </Grid>                               
                             </Grid>
                         </Grid>
                         <Grid Grid.Row="1">
-                            <ListView  Margin="22,0,22,66" >
+                            <ListView Margin="0,10,0,44">
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn Header="Họ tên" Width="170">
@@ -531,7 +511,7 @@
                                         <GridViewColumn Header="Chức vụ" Width="150">
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock  TextWrapping="Wrap"/>
+                                                    <TextBlock TextWrapping="Wrap"/>
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
@@ -650,7 +630,7 @@
                                     </DockPanel>
                                     <DockPanel Grid.Row="2" Margin="0,20,0,0">
                                         <Label Foreground="Black">Lí do</Label>
-                                        <TextBox VerticalAlignment="Stretch" VerticalContentAlignment="Top" 
+                                        <TextBox VerticalAlignment="Stretch" VerticalContentAlignment="Top" TextWrapping="Wrap"
                                                  Height="auto" Width="auto" Margin="0,0,0,22" x:Name="KT_txtLiDo"/>
                                     </DockPanel>
                                 </Grid>
@@ -684,8 +664,8 @@
                                 <Button x:Name="KT_btnXuat" Grid.Column="3" Margin="2.5,0,0,0" Style="{StaticResource LinkButton}"
                                         Click="KT_btnXuat_Click">
                                     <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon Height="30" Width="30" Kind="FilePdf" />
-                                        <Label VerticalAlignment="Center">_XUẤT THÔNG TIN</Label>
+                                        <materialDesign:PackIcon Height="30" Width="30" Kind="FileExport" />
+                                        <Label VerticalAlignment="Center">XUẤT T_HÔNG TIN</Label>
                                     </StackPanel>
                                 </Button>
                             </Grid>

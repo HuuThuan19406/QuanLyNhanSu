@@ -1,12 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ArrayOfKhenThuong xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <KhenThuong>
-    <MaNhanVien>99M0X45651BM</MaNhanVien>
-    <BoPhanCongTac>Phòng Công nghệ thông tin</BoPhanCongTac>
-    <NgayXet>2020-05-21T00:00:00+07:00</NgayXet>
-    <LyDoXet>Hoàn thành xuất sắc, vượt tiến độ dự án 2 tháng</LyDoXet>
-    <HinhThuc>Chuyển khoản 20.000.000 vnd</HinhThuc>
-    <SoVaoSo>01/KT2020</SoVaoSo>
-    <CoQuyetDinh>true</CoQuyetDinh>
-  </KhenThuong>
-</ArrayOfKhenThuong>
+<ArrayOfKhenThuong xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
