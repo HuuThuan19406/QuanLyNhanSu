@@ -415,8 +415,8 @@
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
                                 <DockPanel Grid.Column="0" Width="350" HorizontalAlignment="Left">
-                                    <Label Foreground="Black" VerticalAlignment="Center">Chức vụ</Label>
-                                    <TextBox x:Name="CC_txtChucVu" Background="WhiteSmoke" TextWrapping="Wrap" VerticalAlignment="Center" IsEnabled="False"/>
+                                    <Label Foreground="Black" VerticalAlignment="Center">Bộ phận</Label>
+                                    <TextBox x:Name="CC_txtBoPhan" Background="WhiteSmoke" TextWrapping="Wrap" VerticalAlignment="Center" IsEnabled="False"/>
                                 </DockPanel>
                                 <DockPanel Grid.Column="1" Width="350" HorizontalAlignment="Center">
                                     <Label Foreground="Black" VerticalAlignment="Center">Số ngày đi sớm</Label>
@@ -452,8 +452,8 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <StackPanel Orientation="Horizontal" Grid.Column="0" VerticalAlignment="Center">
-                                    <ComboBox x:Name="CC_cbThang"  Margin="2.5,0" Width="100">
+                                <DockPanel Grid.Column="0" VerticalAlignment="Center" Width="350" HorizontalAlignment="Left">
+                                    <ComboBox x:Name="CC_cbThang"  Margin="0,0,2.5,0" Width="100">
                                         <ComboBoxItem Content="Tháng 1"/>
                                         <ComboBoxItem Content="Tháng 2"/>
                                         <ComboBoxItem Content="Tháng 3"/>
@@ -474,66 +474,64 @@
                                         <ComboBoxItem Content="2019"/>
                                         <ComboBoxItem Content="2020"/>
                                     </ComboBox>
-                                </StackPanel>
-                                <Grid Grid.Column="1" Width="350" HorizontalAlignment="Center">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
-                                    <Button x:Name="CC_btnNap" Grid.Column="0" Margin="0,0,2.5,0" Style="{StaticResource LinkButton}"
+                                    <Button x:Name="CC_btnNap" Grid.Column="0" Margin="2.5,0,0,0" Style="{StaticResource LinkButton}"
                                         Click="CC_btnXuat_Click_1">
                                         <StackPanel Orientation="Horizontal">
                                             <materialDesign:PackIcon Height="30" Width="30" Kind="FileImport" />
                                             <Label VerticalAlignment="Center">_NẠP DỮ LIỆU</Label>
                                         </StackPanel>
                                     </Button>
-                                    <Button x:Name="CC_btnXuat" Grid.Column="1" Margin="2.5,0,0,0" Style="{StaticResource LinkButton}"
-                                        Click="CC_btnXuat_Click">
-                                        <StackPanel Orientation="Horizontal">
-                                            <materialDesign:PackIcon Height="30" Width="30" Kind="FileExport" />
-                                            <Label VerticalAlignment="Center">_XUẤT DỮ LIỆU</Label>
-                                        </StackPanel>
-                                    </Button>
-                                </Grid>                               
+                                </DockPanel>                                                             
                             </Grid>
                         </Grid>
                         <Grid Grid.Row="1">
-                            <ListView Margin="0,10,0,44">
+                            <ListView x:Name="CC_lvDuLieuChamCong" Margin="0,10,0,44">
                                 <ListView.View>
                                     <GridView>
                                         <GridViewColumn Header="Họ tên" Width="170">
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock TextWrapping="Wrap"/>
+                                                    <TextBlock TextWrapping="Wrap" Text="{Binding NhanSu.HoTen}"/>
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
-                                        <GridViewColumn Header="Chức vụ" Width="150">
+                                        <GridViewColumn Header="Bộ phận" Width="150">
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock TextWrapping="Wrap"/>
+                                                    <TextBlock TextWrapping="Wrap" Text="{Binding NhanSu.BoPhan}"/>
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
                                         <GridViewColumn Header="Mã Nhân viên" Width="150">
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock TextWrapping="Wrap"/>
+                                                    <TextBlock TextWrapping="Wrap" Text="{Binding NhanSu.MaNhanVien}"/>
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
                                         <GridViewColumn Header="Lương nhận được" Width="150">
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <TextBlock TextWrapping="Wrap"/>
+                                                    <TextBlock TextWrapping="Wrap" Text="{Binding LuongNhanDuoc}"/>
                                                 </DataTemplate>
                                             </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
                                         <GridViewColumn Header="Ghi chú" Width="150">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock TextWrapping="Wrap" Text="{Binding GhiChu}"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
                                         </GridViewColumn>
                                     </GridView>
                                 </ListView.View>
                             </ListView>
+                            <StackPanel VerticalAlignment="Bottom"
+                            Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Label Foreground="MediumBlue">Hiện tại có dữ liệu chấm công của</Label>
+                                <Label Foreground="MediumBlue" Content="{Binding ElementName=CC_lvDuLieuChamCong, Path=Items.Count, Mode=OneWay}"/>
+                                <Label Foreground="MediumBlue">nhân sự trong danh sách</Label>
+                            </StackPanel>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -673,9 +671,9 @@
                     </Grid>
                     <Grid Grid.Row="2">
                         <!--dòng 3-->
-                        <ListView x:Name="lvKhenThuong" Margin="22,0,22,66"
-                                  SelectionChanged="lvKhenThuong_SelectionChanged"
-                                  MouseDoubleClick="lvKhenThuong_MouseDoubleClick">
+                        <ListView x:Name="KT_lvKhenThuong" Margin="22,0,22,66"
+                                  SelectionChanged="KT_lvKhenThuong_SelectionChanged"
+                                  MouseDoubleClick="KT_lvKhenThuong_MouseDoubleClick">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="Ngày xét" Width="130" 
@@ -692,14 +690,19 @@
                                     <GridViewColumn Header="Ghi chú" Width="100">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <CheckBox HorizontalAlignment="Center" IsChecked="{Binding CoQuyetDinh}"/>
+                                                <CheckBox HorizontalAlignment="Center" IsChecked="{Binding CoQuyetDinh}" IsEnabled="False"/>
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
-
                                     </GridViewColumn>
                                 </GridView>
                             </ListView.View>
                         </ListView>
+                        <StackPanel VerticalAlignment="Bottom" Margin="22"
+                            Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Label Foreground="MediumBlue">Hiện tại có</Label>
+                            <Label Foreground="MediumBlue" Content="{Binding ElementName=KT_lvKhenThuong, Path=Items.Count, Mode=OneWay}"/>
+                            <Label Foreground="MediumBlue">mục khen thưởng trong danh sách</Label>
+                        </StackPanel>
                     </Grid>
                 </Grid>
             </TabItem>            

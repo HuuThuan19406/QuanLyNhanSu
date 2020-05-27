@@ -14,12 +14,14 @@ namespace QuanLyNhanSu
 
     class ChamCong
     {        
+        public NhanSu NhanSu { get; set; }
         public ThangNam ThoiGianChamCong { get; set; }        
         public double LuongCoBan { get; set; }
         public double SoGioTangCa { get; set; }
         public double SoNgayVeSom { get; set; }
         public double SoNgayDiMuon { get; set; }
         public double TroCapHangThang { get; set; }
+        public double LuongNhanDuoc { get; set; }
 
         public ChamCong()
         {

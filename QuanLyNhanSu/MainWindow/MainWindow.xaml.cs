@@ -348,7 +348,7 @@ namespace QuanLyNhanSu
                 if (KT_ListBoPhan.listView.SelectedIndex == -1)
                 {
                     KhenThuong_ResetEntry();
-                    lvKhenThuong.Items.Clear();
+                    KT_lvKhenThuong.Items.Clear();
                     ChuyenDoi.HinhAnh(KT_imgAvatar, base64_defaultAvatar);
                     KT_txbChucVu.Text = "";
                     return;
@@ -360,7 +360,7 @@ namespace QuanLyNhanSu
                 KT_txtBoPhan.Text = nhanSu.BoPhan;
                 ChuyenDoi.HinhAnh(KT_imgAvatar, nhanSu.Avatar);
                 KT_txbChucVu.Text = nhanSu.ChucVu.ToUpper();
-                HienThi.ThongTin<KhenThuong>(lvKhenThuong, MainDatabase.dsKhenThuong[KTmaNhanVien_Selected] as List<KhenThuong>, true);                
+                HienThi.ThongTin<KhenThuong>(KT_lvKhenThuong, MainDatabase.dsKhenThuong[KTmaNhanVien_Selected] as List<KhenThuong>, true);                
             };
         }
 
@@ -379,7 +379,7 @@ namespace QuanLyNhanSu
             }            
         }               
 
-        private void lvKhenThuong_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void KT_lvKhenThuong_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems.Count == 0)
                 return;
@@ -391,9 +391,9 @@ namespace QuanLyNhanSu
             KT_dtpNgayXet.SelectedDate = khenThuong.NgayXet;
         }
 
-        private void lvKhenThuong_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void KT_lvKhenThuong_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            lvKhenThuong.SelectedIndex = -1;
+            KT_lvKhenThuong.SelectedIndex = -1;
             KhenThuong_ResetEntry();            
         }       
 
@@ -415,23 +415,23 @@ namespace QuanLyNhanSu
             khenThuong.SoVaoSo = KT_txtSoVaoSo.Text;            
             
             
-            lvKhenThuong.Items.Add(khenThuong);
+            KT_lvKhenThuong.Items.Add(khenThuong);
             (MainDatabase.dsKhenThuong[KTmaNhanVien_Selected] as List<KhenThuong>).Add(khenThuong);
             new Message("KHEN THƯỞNG", "Đã thêm thành công khen thưởng số " + khenThuong.SoVaoSo, true, Message.Options.Successful);
         }
 
         private void KT_btnXoa_Click(object sender, RoutedEventArgs e)
         {
-            if (lvKhenThuong.SelectedIndex == -1)
+            if (KT_lvKhenThuong.SelectedIndex == -1)
             {
                 new Message("LỖI", "Bạn chưa chọn đối tượng để thao tác", false, Message.Options.Warning);
                 return;
             }
-            new MessageYesNo("XÁC NHẬN", "Bạn xác nhận xóa khen thưởng số " + (lvKhenThuong.Items[lvKhenThuong.SelectedIndex] as KhenThuong).SoVaoSo);
+            new MessageYesNo("XÁC NHẬN", "Bạn xác nhận xóa khen thưởng số " + (KT_lvKhenThuong.Items[KT_lvKhenThuong.SelectedIndex] as KhenThuong).SoVaoSo);
             if (!MessageYesNo.Yes)
                 return;
-            (MainDatabase.dsKhenThuong[KTmaNhanVien_Selected] as List<KhenThuong>).RemoveAt(lvKhenThuong.SelectedIndex);
-            lvKhenThuong.Items.RemoveAt(lvKhenThuong.SelectedIndex);
+            (MainDatabase.dsKhenThuong[KTmaNhanVien_Selected] as List<KhenThuong>).RemoveAt(KT_lvKhenThuong.SelectedIndex);
+            KT_lvKhenThuong.Items.RemoveAt(KT_lvKhenThuong.SelectedIndex);
         }
 
         private void KT_btnSua_Click(object sender, RoutedEventArgs e)
@@ -441,7 +441,7 @@ namespace QuanLyNhanSu
                 new Message("NHẮC NHỞ", "Chưa điền đầy đủ thông tin", false, Message.Options.Warning);
                 return;
             }
-            new MessageYesNo("XÁC NHẬN", "Bạn xác nhận sửa khen thưởng số " + (lvKhenThuong.Items[lvKhenThuong.SelectedIndex] as KhenThuong).SoVaoSo);
+            new MessageYesNo("XÁC NHẬN", "Bạn xác nhận sửa khen thưởng số " + (KT_lvKhenThuong.Items[KT_lvKhenThuong.SelectedIndex] as KhenThuong).SoVaoSo);
             if (!MessageYesNo.Yes)
                 return;
             KhenThuong khenThuong = new KhenThuong();
@@ -450,14 +450,14 @@ namespace QuanLyNhanSu
             khenThuong.LyDoXet = KT_txtLiDo.Text;
             khenThuong.HinhThuc = KT_txtHinhThucKhen.Text;
             khenThuong.CoQuyetDinh = (bool)KT_chkCoQuyetDinh.IsChecked;
-            (MainDatabase.dsKhenThuong[KTmaNhanVien_Selected] as List<KhenThuong>)[lvKhenThuong.SelectedIndex] = khenThuong;
-            lvKhenThuong.Items[lvKhenThuong.SelectedIndex] = khenThuong;
+            (MainDatabase.dsKhenThuong[KTmaNhanVien_Selected] as List<KhenThuong>)[KT_lvKhenThuong.SelectedIndex] = khenThuong;
+            KT_lvKhenThuong.Items[KT_lvKhenThuong.SelectedIndex] = khenThuong;
         }
 
         private void KT_btnXuat_Click(object sender, RoutedEventArgs e)
         {
             XuatFile frmXuatFile = new XuatFile();
-            frmXuatFile.listView = lvKhenThuong;
+            frmXuatFile.listView = KT_lvKhenThuong;
             frmXuatFile.maNhanVien = KT_txtMaNhanVien.Text;
             frmXuatFile.loaiDuLieu = XuatFile.Options.KhenThuong;           
             frmXuatFile.ShowDialog();
