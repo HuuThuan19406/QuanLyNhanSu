@@ -442,8 +442,8 @@
                                     <TextBox x:Name="CC_txtSoGioTangCa" Background="WhiteSmoke" TextWrapping="Wrap" VerticalAlignment="Center" IsEnabled="False"/>
                                 </DockPanel>
                                 <DockPanel Grid.Column="2" Width="350" HorizontalAlignment="Right">
-                                    <Label Foreground="Black" VerticalAlignment="Center">Ghi chú</Label>
-                                    <TextBox x:Name="CC_txtGhiChu" Background="WhiteSmoke" IsEnabled="False"  TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                    <Label Foreground="Black" VerticalAlignment="Center">Tiền thưởng</Label>
+                                    <TextBox x:Name="CC_txtTienThuong" Background="WhiteSmoke" IsEnabled="False" TextWrapping="Wrap" VerticalAlignment="Center"/>
                                 </DockPanel>
                             </Grid>
                             <Grid Grid.Row="3">
@@ -614,8 +614,9 @@
                                 </Grid>
                                 <Grid Grid.Column="2" Width="320" HorizontalAlignment="Right">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="0.52*"/>
-                                        <RowDefinition Height="0.52*"/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
                                         <RowDefinition/>
                                     </Grid.RowDefinitions>
                                     <DockPanel Grid.Row="0">
@@ -623,13 +624,18 @@
                                         <DatePicker VerticalAlignment="Center" x:Name="KT_dtpNgayXet"/>
                                     </DockPanel>
                                     <DockPanel Grid.Row="1">
-                                        <Label Foreground="Black" VerticalAlignment="Center" >Hình thức khen</Label>
-                                        <TextBox TextWrapping="Wrap" VerticalAlignment="Center" x:Name="KT_txtHinhThucKhen"/>
+                                        <Label Foreground="Black" VerticalAlignment="Center" >Hình thức khen thưởng</Label>
+                                        <ComboBox VerticalAlignment="Center" x:Name="KT_cboHinhThucKhen">
+                                            <TextBox x:Name="KT_cboHinhThucKhen_txtItem0" TextWrapping="Wrap" Width="{Binding ElementName=KT_cboHinhThucKhen, Path=ActualWidth}"/>                                          
+                                        </ComboBox>
                                     </DockPanel>
-                                    <DockPanel Grid.Row="2" Margin="0,20,0,0">
-                                        <Label Foreground="Black">Lí do</Label>
-                                        <TextBox VerticalAlignment="Stretch" VerticalContentAlignment="Top" TextWrapping="Wrap"
-                                                 Height="auto" Width="auto" Margin="0,0,0,22" x:Name="KT_txtLiDo"/>
+                                    <DockPanel Grid.Row="2">
+                                        <Label Foreground="Black" VerticalAlignment="Center">Giá trị khen thưởng</Label>
+                                        <TextBox x:Name="KT_txtGiaTri" VerticalAlignment="Stretch" TextWrapping="Wrap" HorizontalContentAlignment="Right"/>
+                                    </DockPanel>
+                                    <DockPanel Grid.Row="3">
+                                        <Label Foreground="Black" VerticalAlignment="Center">Lí do</Label>
+                                        <TextBox x:Name="KT_txtLiDo" VerticalAlignment="Stretch" TextWrapping="Wrap"/>
                                     </DockPanel>
                                 </Grid>
                             </Grid>
@@ -683,10 +689,12 @@
                                                     DisplayMemberBinding="{Binding SoVaoSo}"/>
                                     <GridViewColumn Header="Bộ phận công tác" Width="180"
                                                     DisplayMemberBinding="{Binding BoPhanCongTac}"/>
-                                    <GridViewColumn Header="Lý do khen thưởng" Width="400"
+                                    <GridViewColumn Header="Lý do khen thưởng" Width="200"
                                                     DisplayMemberBinding="{Binding LyDoXet}"/>
-                                    <GridViewColumn Header="Hình thức khen" Width="300"
+                                    <GridViewColumn Header="Hình thức khen thưởng" Width="300"
                                                     DisplayMemberBinding="{Binding HinhThuc}"/>
+                                    <GridViewColumn Header="Giá trị khen thưởng" Width="200"
+                                                    DisplayMemberBinding="{Binding GiaTri, StringFormat='#,###'}"/>
                                     <GridViewColumn Header="Ghi chú" Width="100">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>

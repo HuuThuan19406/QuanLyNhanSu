@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MaHoa;
+using ThaoTacFile;
 
 namespace QuanLyNhanSu.MODULE.XyLuDatabase
 {
@@ -14,6 +15,7 @@ namespace QuanLyNhanSu.MODULE.XyLuDatabase
         public static string connectPhongBan = @"MODULE\DATABASE\DanhSachPhongBan.xml";
         public static string connectKhenThuong = @"MODULE\DATABASE\DanhSachKhenThuong.xml";
         public static string connectTaiKhoan = @"MODULE\DATABASE\DanhSachTaiKhoan.xml";
+        public static string connectHinhThucKhenThuong = @"MODULE\DATABASE\HinhThucKhenThuong.xml";
         public static string connectSetUp = @"MODULE\CaiDat.xml";
         public static string idDangNhap { get; set; }
         public const int levelCode = 10;
@@ -31,6 +33,7 @@ namespace QuanLyNhanSu.MODULE.XyLuDatabase
         public static Hashtable dsPhongBan { get; set; } = new Hashtable();
         public static Hashtable dsTaiKhoan { get; set; } = new Hashtable();
         public static SetUp setUp { get; set; } = new SetUp() { DangNhapMacDinh = dsTaiKhoan["tester"] as TaiKhoan };
+        public static List<string> HinhThucKhenThuong { get; private set; }
         public static void LoadData_NhanSu()
         {
             if (dsNhanSu.Count > 0)
@@ -103,8 +106,12 @@ namespace QuanLyNhanSu.MODULE.XyLuDatabase
                     setUp.DangNhapMacDinh.Password = BinaryCode.MaHoa(setUp.DangNhapMacDinh.Password);
             List<SetUp> tmp = new List<SetUp>();
             tmp.Add(setUp);
-            ThaoTacFile.XmlFile<SetUp>.GhiList(connectSetUp, tmp);
+            XmlFile<SetUp>.GhiList(connectSetUp, tmp);
             setUp.DangNhapMacDinh.Password = password;
+        }
+        public static void LoadData_HinhThucKhenThuong()
+        {
+            HinhThucKhenThuong = XmlFile<string>.DocList(connectHinhThucKhenThuong);
         }
         public static void ClearAllData()
         {

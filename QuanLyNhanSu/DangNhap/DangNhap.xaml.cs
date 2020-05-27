@@ -143,6 +143,16 @@ namespace QuanLyNhanSu
                             frmWait.txbThongTin.Text = "Đang tải dữ liệu Khen thưởng ....";
                             return;
                         }
+                        try
+                        {
+                            using (FileStream file = File.Open(MainDatabase.connectHinhThucKhenThuong, FileMode.Open))
+                                file.Close();
+                        }
+                        catch (IOException)
+                        {
+                            frmWait.txbThongTin.Text = "Đang tải dữ liệu hình thức Khen thưởng ....";
+                            return;
+                        }
                         if (MainDatabase.dsKhenThuong.Count > 0)
                         {
                             frmWait.txbThongTin.Text = "Đang thiết lập tài nguyên cần thiết ....";
@@ -155,9 +165,10 @@ namespace QuanLyNhanSu
                     {
                         MainDatabase.WriteData_SetUp();
                         MainDatabase.LoadData_NhanSu();
-                        MainDatabase.LoadData_PhongBan();                        
+                        MainDatabase.LoadData_PhongBan();
                         MainDatabase.FillDataEmtype();
-                        MainDatabase.LoadData_KhenThuong();
+                        MainDatabase.LoadData_KhenThuong();                       
+                        MainDatabase.LoadData_HinhThucKhenThuong();
                     };
                     working.RunWorkerCompleted += (s, a) =>
                     {

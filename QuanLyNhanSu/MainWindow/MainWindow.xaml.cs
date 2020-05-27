@@ -343,6 +343,10 @@ namespace QuanLyNhanSu
         private void KhenThuong_BootUp()
         {
             KhenThuong_ResetEntry();
+            KiemTra.Textbox.isChiChuaSo(new List<char>() { ',', '.' }, KT_txtGiaTri);
+            Controls.StringFormat("#,###", KT_txtGiaTri);
+            foreach (string content in MainDatabase.HinhThucKhenThuong)
+                KT_cboHinhThucKhen.Items.Add(content);           
             KT_ListBoPhan.listView.SelectionChanged += (s, a) =>
             {
                 if (KT_ListBoPhan.listView.SelectedIndex == -1)
@@ -386,7 +390,14 @@ namespace QuanLyNhanSu
             KhenThuong khenThuong = e.AddedItems[0] as KhenThuong;
             KT_txtSoVaoSo.Text = khenThuong.SoVaoSo;            
             KT_txtLiDo.Text = khenThuong.LyDoXet;
-            KT_txtHinhThucKhen.Text = khenThuong.HinhThuc;
+            if (MainDatabase.HinhThucKhenThuong.IndexOf(khenThuong.HinhThuc) >= 0)
+                KT_cboHinhThucKhen.SelectedIndex = MainDatabase.HinhThucKhenThuong.IndexOf(khenThuong.HinhThuc) + 1;
+            else
+            {                
+                KT_cboHinhThucKhen_txtItem0.Text = khenThuong.HinhThuc;
+                KT_cboHinhThucKhen.SelectedIndex = 0;
+            }
+            KT_txtGiaTri.Text = khenThuong.GiaTri.ToString();
             KT_chkCoQuyetDinh.IsChecked = khenThuong.CoQuyetDinh;
             KT_dtpNgayXet.SelectedDate = khenThuong.NgayXet;
         }
@@ -399,7 +410,8 @@ namespace QuanLyNhanSu
 
         private void KT_btnThem_Click(object sender, RoutedEventArgs e)
         {
-            if (!KiemTra.Textbox.isNotEmptype(KT_txtBoPhan, KT_txtHinhThucKhen, KT_txtHoTen, KT_txtLiDo, KT_txtMaNhanVien, KT_txtSoVaoSo) 
+            if (!(KiemTra.Textbox.isNotEmptype(KT_txtBoPhan, KT_txtHoTen, KT_txtLiDo, KT_txtMaNhanVien, KT_txtSoVaoSo, KT_txtGiaTri) 
+                && KiemTra.Textbox.isNotEmptype(KT_cboHinhThucKhen))
                 || KT_dtpNgayXet.SelectedDate == null) 
             {
                 new Message("NHẮC NHỞ", "Chưa điền đầy đủ thông tin", false, Message.Options.Warning);
@@ -409,7 +421,11 @@ namespace QuanLyNhanSu
             khenThuong.MaNhanVien = KT_txtMaNhanVien.Text;
             khenThuong.BoPhanCongTac = (MainDatabase.dsNhanSu[KTmaNhanVien_Selected] as NhanSu).BoPhan;
             khenThuong.NgayXet = KT_dtpNgayXet.SelectedDate.Value;
-            khenThuong.HinhThuc = KT_txtHinhThucKhen.Text;
+            if (KT_cboHinhThucKhen.SelectedIndex == 0)
+                khenThuong.HinhThuc = (KT_cboHinhThucKhen.SelectedValue as TextBox).Text.ToString();
+            else
+                khenThuong.HinhThuc = (KT_cboHinhThucKhen.SelectedValue as ComboBoxItem).Content.ToString();
+            khenThuong.GiaTri = double.Parse(KT_txtGiaTri.Text);
             khenThuong.LyDoXet = KT_txtLiDo.Text;
             khenThuong.CoQuyetDinh = (bool)KT_chkCoQuyetDinh.IsChecked;            
             khenThuong.SoVaoSo = KT_txtSoVaoSo.Text;            
@@ -436,7 +452,9 @@ namespace QuanLyNhanSu
 
         private void KT_btnSua_Click(object sender, RoutedEventArgs e)
         {
-            if (!KiemTra.Textbox.isNotEmptype(KT_txtBoPhan, KT_txtHinhThucKhen, KT_txtHoTen, KT_txtLiDo, KT_txtMaNhanVien, KT_txtSoVaoSo))
+            if (!(KiemTra.Textbox.isNotEmptype(KT_txtBoPhan, KT_txtHoTen, KT_txtLiDo, KT_txtMaNhanVien, KT_txtSoVaoSo, KT_txtGiaTri)
+                && KiemTra.Textbox.isNotEmptype(KT_cboHinhThucKhen))
+                || KT_dtpNgayXet.SelectedDate == null)
             {
                 new Message("NHẮC NHỞ", "Chưa điền đầy đủ thông tin", false, Message.Options.Warning);
                 return;
@@ -448,7 +466,11 @@ namespace QuanLyNhanSu
             khenThuong.SoVaoSo = KT_txtSoVaoSo.Text;
             khenThuong.MaNhanVien = KT_txtMaNhanVien.Text;
             khenThuong.LyDoXet = KT_txtLiDo.Text;
-            khenThuong.HinhThuc = KT_txtHinhThucKhen.Text;
+            if (KT_cboHinhThucKhen.SelectedIndex == 0)
+                khenThuong.HinhThuc = (KT_cboHinhThucKhen.SelectedValue as TextBox).Text.ToString();
+            else
+                khenThuong.HinhThuc = (KT_cboHinhThucKhen.SelectedValue as ComboBoxItem).Content.ToString();
+            khenThuong.GiaTri = double.Parse(KT_txtGiaTri.Text);
             khenThuong.CoQuyetDinh = (bool)KT_chkCoQuyetDinh.IsChecked;
             (MainDatabase.dsKhenThuong[KTmaNhanVien_Selected] as List<KhenThuong>)[KT_lvKhenThuong.SelectedIndex] = khenThuong;
             KT_lvKhenThuong.Items[KT_lvKhenThuong.SelectedIndex] = khenThuong;

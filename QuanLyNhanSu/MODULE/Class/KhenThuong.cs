@@ -15,6 +15,7 @@ namespace QuanLyNhanSu
         public DateTime NgayXet { get; set; }
         public string LyDoXet { get; set; }
         public string HinhThuc { get; set; }
+        public double GiaTri { get; set; }
         public string SoVaoSo { get; set; }
         public bool CoQuyetDinh { get; set; }
 
@@ -42,7 +43,7 @@ namespace QuanLyNhanSu
 
         public int CompareTo(object obj)
         {
-            return NgayXet.CompareTo(obj);
+            return NgayXet.CompareTo((obj as KhenThuong).NgayXet);
         }
     }
 
