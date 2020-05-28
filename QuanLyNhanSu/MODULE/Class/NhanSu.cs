@@ -54,6 +54,19 @@ namespace QuanLyNhanSu
         {
             Ten = hoTen.Split(' ')[hoTen.Split(' ').Length - 1];
         }
+        public static string createMaNhanVien(int length)
+        {
+            Random rd = new Random();
+            string maNhanVien = "";
+            for (int i = 1; i <= length; i++)
+            {
+                if (rd.Next(2) == 0)
+                    maNhanVien += Convert.ToChar(rd.Next(65, 91));
+                else
+                    maNhanVien += Convert.ToChar(rd.Next(48, 58));
+            }
+            return maNhanVien;
+        }
         public override string ToString()
         {
             return String.Join(",", 

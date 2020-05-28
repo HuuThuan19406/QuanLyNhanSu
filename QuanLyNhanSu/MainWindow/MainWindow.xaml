@@ -374,8 +374,8 @@
                 </Grid>
             </TabItem>           
             <TabItem Name="tabChamCong" Header="CHẤM CÔNG">
-                <Grid>
-                    <Grid Margin="22">
+                <Grid Margin="22">                    
+                    <Grid IsEnabled="False">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
                             <!--dòng lớn 0-->
@@ -474,8 +474,7 @@
                                         <ComboBoxItem Content="2019"/>
                                         <ComboBoxItem Content="2020"/>
                                     </ComboBox>
-                                    <Button x:Name="CC_btnNap" Grid.Column="0" Margin="2.5,0,0,0" Style="{StaticResource LinkButton}"
-                                        Click="CC_btnXuat_Click_1">
+                                    <Button x:Name="CC_btnNap" Grid.Column="0" Margin="2.5,0,0,0" Style="{StaticResource LinkButton}">
                                         <StackPanel Orientation="Horizontal">
                                             <materialDesign:PackIcon Height="30" Width="30" Kind="FileImport" />
                                             <Label VerticalAlignment="Center">_NẠP DỮ LIỆU</Label>
@@ -534,6 +533,7 @@
                             </StackPanel>
                         </Grid>
                     </Grid>
+                    <Image Source="/PICTURE/ComingSoon.jpg" Stretch="UniformToFill" Margin="0,-350,0,0" Opacity="0.8"/>
                 </Grid>
             </TabItem>
             <TabItem Name="tabKhenThuong" Header="KHEN THƯỞNG">
@@ -714,11 +714,11 @@
                     </Grid>
                 </Grid>
             </TabItem>            
-            <TabItem Name="tabThongKe" Header="THỐNG KÊ">
+            <!--<TabItem Name="tabThongKe" Header="THỐNG KÊ">
                 <Grid Width="1024" HorizontalAlignment="Center">
 
                 </Grid>
-            </TabItem>
+            </TabItem>-->
             <TabItem Name="tabCauHinh" Header="CẤU HÌNH">
                 <Grid>
                     <!--<Label Content="Kích cỡ chữ" Foreground="Black" HorizontalAlignment="Left" Margin="144,111,0,0" VerticalAlignment="Top"/>

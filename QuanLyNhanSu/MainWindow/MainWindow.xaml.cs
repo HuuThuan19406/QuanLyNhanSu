@@ -108,53 +108,7 @@ namespace QuanLyNhanSu
         private void txtTraCuu_TextChanged(object sender, TextChangedEventArgs e)
         {
             CollectionViewSource.GetDefaultView(lvThongTin.ItemsSource).Refresh();
-        }    
-                
-        public void Filter(int type, string Key)
-        {
-            // Ham nay dung de xu ly Filter
-
-            ObservableCollection<NhanSu> ListFilter = new ObservableCollection<NhanSu>();
-            switch (type)
-            {
-                case 1:
-                    ListFilter = new ObservableCollection<NhanSu>(
-                        MainDatabase.dsNhanSu.Values.Cast<NhanSu>().Where(k => k.CMND.Contains(Key)));
-
-                    // Cho nay neu so sanh dung la dung ==
-                    // Con contains la so sanh gan dung
-                    break;
-                case 2:
-                    ListFilter = new ObservableCollection<NhanSu>(
-                        MainDatabase.dsNhanSu.Values.Cast<NhanSu>().Where(k => k.MaNhanVien.Contains(Key)));
-                    break;
-                case 3:
-                    ListFilter = new ObservableCollection<NhanSu>(
-                        MainDatabase.dsNhanSu.Values.Cast<NhanSu>().Where(k => k.SoDienThoai.Contains(Key)));
-                    break;
-                default:
-                    break;
-            }
-
-            // Cái này là dùng Event để truyền dữ liệu qua lại
-            lvThongTin.ItemsSource = null;
-            lvThongTin.Items.Clear();
-            lvThongTin.ItemsSource = ListFilter;
-        }
-        
-        static string createMaNhanVien(int length)
-        {
-            Random rd = new Random();
-            string maNhanVien = "";
-            for (int i = 1; i <= length; i++)
-            {
-                if (rd.Next(2) == 0)
-                    maNhanVien += Convert.ToChar(rd.Next(65, 91));
-                else
-                    maNhanVien += Convert.ToChar(rd.Next(48, 58));
-            }
-            return maNhanVien;
-        }
+        }   
 
         private void lstvThongTin_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -195,7 +149,7 @@ namespace QuanLyNhanSu
                 }
                 do
                 {
-                    txtMaNhanVien.Text = createMaNhanVien(12);
+                    txtMaNhanVien.Text = NhanSu.createMaNhanVien(12);
                 } while (MainDatabase.dsNhanSu.ContainsKey(txtMaNhanVien.Text));
                 NhanSu nhanSu = new NhanSu();
                 nhanSu.HoTen = txtHoVaTen.Text;
@@ -408,9 +362,9 @@ namespace QuanLyNhanSu
             KhenThuong_ResetEntry();            
         }       
 
-        private void KT_btnThem_Click(object sender, RoutedEventArgs e)
+        private void KT_btnThem_Click(object sender, RoutedEventArgs e) 
         {
-            if (!(KiemTra.Textbox.isNotEmptype(KT_txtBoPhan, KT_txtHoTen, KT_txtLiDo, KT_txtMaNhanVien, KT_txtSoVaoSo, KT_txtGiaTri) 
+            if (!(KiemTra.Textbox.isNotEmptype(KT_txtBoPhan, KT_txtHoTen, KT_txtLiDo, KT_txtMaNhanVien, KT_txtGiaTri) 
                 && KiemTra.Textbox.isNotEmptype(KT_cboHinhThucKhen))
                 || KT_dtpNgayXet.SelectedDate == null) 
             {
@@ -640,16 +594,6 @@ namespace QuanLyNhanSu
         {
             HienThi.NotifySignin(MainDatabase.dsNhanSu);
         }
-        #endregion
-
-        private void CC_btnXuat_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void CC_btnXuat_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
+        #endregion       
     }
 }

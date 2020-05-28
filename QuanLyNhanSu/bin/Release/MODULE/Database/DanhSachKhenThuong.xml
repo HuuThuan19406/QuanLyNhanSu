@@ -10,4 +10,24 @@
     <SoVaoSo>1/KT2020</SoVaoSo>
     <CoQuyetDinh>true</CoQuyetDinh>
   </KhenThuong>
+  <KhenThuong>
+    <MaNhanVien>14541T78AHM2</MaNhanVien>
+    <BoPhanCongTac>Phòng Tài chính - Kế toán</BoPhanCongTac>
+    <NgayXet>2020-05-28T00:00:00+07:00</NgayXet>
+    <LyDoXet>Sáng tạo trong công việc, hoàn thành công việc nhanh.</LyDoXet>
+    <HinhThuc>Tiền mặt</HinhThuc>
+    <GiaTri>4000000</GiaTri>
+    <SoVaoSo>3/KT2020</SoVaoSo>
+    <CoQuyetDinh>true</CoQuyetDinh>
+  </KhenThuong>
+  <KhenThuong>
+    <MaNhanVien>07094G7BRLV1</MaNhanVien>
+    <BoPhanCongTac>Phòng Nhân sự</BoPhanCongTac>
+    <NgayXet>2020-05-28T00:00:00+07:00</NgayXet>
+    <LyDoXet>Năng nổ, sáng tạo trong công việc.</LyDoXet>
+    <HinhThuc>Tiền mặt</HinhThuc>
+    <GiaTri>5000000</GiaTri>
+    <SoVaoSo>2/KT2020</SoVaoSo>
+    <CoQuyetDinh>true</CoQuyetDinh>
+  </KhenThuong>
 </ArrayOfKhenThuong>
