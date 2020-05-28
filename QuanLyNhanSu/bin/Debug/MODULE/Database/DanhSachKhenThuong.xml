@@ -2,31 +2,12 @@
 <ArrayOfKhenThuong xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <KhenThuong>
     <MaNhanVien>99M0X45651BM</MaNhanVien>
-    <NgayXet>0001-01-01T00:00:00</NgayXet>
-    <LyDoXet>Hoàn thành xuất sắc, vượt tiến độ dự án 2 tháng</LyDoXet>
-    <HinhThuc>Chuyển khoản 20.000.000 vnd</HinhThuc>
-    <GiaTri>0</GiaTri>
-    <SoVaoSo>01/KT2020</SoVaoSo>
-    <CoQuyetDinh>true</CoQuyetDinh>
-  </KhenThuong>
-  <KhenThuong>
-    <MaNhanVien>99M0X45651BM</MaNhanVien>
     <BoPhanCongTac>Phòng Công nghệ thông tin</BoPhanCongTac>
     <NgayXet>2020-05-27T00:00:00+07:00</NgayXet>
     <LyDoXet>Hoàn thành xuất sắc nhiệm vụ được giao</LyDoXet>
     <HinhThuc>Tiền mặt</HinhThuc>
     <GiaTri>20000000</GiaTri>
-    <SoVaoSo>02/KT2020</SoVaoSo>
-    <CoQuyetDinh>true</CoQuyetDinh>
-  </KhenThuong>
-  <KhenThuong>
-    <MaNhanVien>99M0X45651BM</MaNhanVien>
-    <BoPhanCongTac>Phòng Công nghệ thông tin</BoPhanCongTac>
-    <NgayXet>2020-05-27T00:00:00+07:00</NgayXet>
-    <LyDoXet>Hoàn thành xuất sắc nhiệm vụ được giao</LyDoXet>
-    <HinhThuc>Quỹ đen</HinhThuc>
-    <GiaTri>100000000</GiaTri>
-    <SoVaoSo>03/KT2020</SoVaoSo>
+    <SoVaoSo>1/KT2020</SoVaoSo>
     <CoQuyetDinh>true</CoQuyetDinh>
   </KhenThuong>
 </ArrayOfKhenThuong>

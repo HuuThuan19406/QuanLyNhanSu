@@ -10,6 +10,7 @@ namespace QuanLyNhanSu
     public class SetUp
     {
         public string FontChu { get; set; }
+        public string HauToSoKhenThuong { get; set; }
         public TaiKhoan DangNhapMacDinh { get; set; } = new TaiKhoan();
         public static bool operator ==(SetUp setUp1,SetUp setUp2)
         {

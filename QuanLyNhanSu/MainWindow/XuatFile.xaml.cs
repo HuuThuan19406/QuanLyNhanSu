@@ -60,15 +60,15 @@ namespace QuanLyNhanSu
                     for (int i = 0; i < listView.Items.Count; i++)
                     {
                         var nhanSu = listView.Items[i] as NhanSu;
-                        data += "\n" + nhanSu.ToString();
+                        data += "\n" + (i + 1) + ',' + nhanSu.ToString();                        
                     }
                     break;
                 case Options.KhenThuong:
-                    data = "STT,Họ và tên,Mã nhân viên,Ngày xét,Số vào sổ,Lý do xét,Hình thức";
+                    data = "STT,Họ và tên,Mã nhân viên,Ngày xét,Số vào sổ,Lý do xét,Hình thức,Giá trị,Có quyết định";
                     for (int i = 0; i < listView.Items.Count; i++)
                     {
                         var khenThuong = listView.Items[i] as KhenThuong;
-                        data += "\n" + khenThuong.ToString();
+                        data += "\n" + (i + 1) + ',' + khenThuong.ToString();
                     }
                     break;
             }
@@ -176,7 +176,7 @@ namespace QuanLyNhanSu
                             table.AddCell(new Phrase(khenThuong.NgayXet.ToString("dd/MM/yyyy"), f));
                             table.AddCell(new Phrase(khenThuong.SoVaoSo, f));
                             table.AddCell(new Phrase(khenThuong.LyDoXet, f));
-                            table.AddCell(new Phrase(khenThuong.HinhThuc, f));
+                            table.AddCell(new Phrase(khenThuong.HinhThuc + " - " + khenThuong.GiaTri.ToString("#,### đồng"), f));
                             table.AddCell(new Phrase(khenThuong.CoQuyetDinh.ToString(), f));
                         }
                         document.Add(table);

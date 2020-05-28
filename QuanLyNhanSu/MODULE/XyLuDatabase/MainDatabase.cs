@@ -29,11 +29,13 @@ namespace QuanLyNhanSu.MODULE.XyLuDatabase
                 return temp;
             }
         }
-        public static Hashtable dsKhenThuong { get; set; } = new Hashtable();
+        public static Hashtable dsKhenThuong { get; set; } = new Hashtable();  
+        public static List<KhenThuong> khenThuongs { get; private set; }
         public static Hashtable dsPhongBan { get; set; } = new Hashtable();
         public static Hashtable dsTaiKhoan { get; set; } = new Hashtable();
         public static SetUp setUp { get; set; } = new SetUp() { DangNhapMacDinh = dsTaiKhoan["tester"] as TaiKhoan };
-        public static List<string> HinhThucKhenThuong { get; private set; }
+        public static List<string> HinhThucKhenThuong { get; private set; }        
+
         public static void LoadData_NhanSu()
         {
             if (dsNhanSu.Count > 0)
@@ -60,9 +62,9 @@ namespace QuanLyNhanSu.MODULE.XyLuDatabase
         }
         public static void LoadData_KhenThuong()
         {            
-            List<KhenThuong> khenThuongs = ThaoTacFile.XmlFile<KhenThuong>.DocList(connectKhenThuong);
+            khenThuongs = ThaoTacFile.XmlFile<KhenThuong>.DocList(connectKhenThuong);            
             foreach (KhenThuong khenThuong in khenThuongs)
-                (dsKhenThuong[khenThuong.MaNhanVien] as List<KhenThuong>).Add(khenThuong);
+                (dsKhenThuong[khenThuong.MaNhanVien] as List<KhenThuong>).Add(khenThuong);            
         }
         public static void WriteData_KhenThuong()
         {

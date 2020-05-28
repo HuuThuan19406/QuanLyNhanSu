@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ArrayOfKhenThuong xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+<ArrayOfKhenThuong xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <KhenThuong>
+    <MaNhanVien>99M0X45651BM</MaNhanVien>
+    <BoPhanCongTac>Phòng Công nghệ thông tin</BoPhanCongTac>
+    <NgayXet>2020-05-27T00:00:00+07:00</NgayXet>
+    <LyDoXet>Hoàn thành xuất sắc nhiệm vụ được giao</LyDoXet>
+    <HinhThuc>Tiền mặt</HinhThuc>
+    <GiaTri>20000000</GiaTri>
+    <SoVaoSo>1/KT2020</SoVaoSo>
+    <CoQuyetDinh>true</CoQuyetDinh>
+  </KhenThuong>
+</ArrayOfKhenThuong>

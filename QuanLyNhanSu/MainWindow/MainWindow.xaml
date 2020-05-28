@@ -608,8 +608,8 @@
                                     </StackPanel>
                                     <StackPanel Orientation ="Horizontal" Grid.Row="3" HorizontalAlignment="Right">
                                         <Label Foreground="Black" VerticalAlignment="Center" >Số vào sổ</Label>
-                                        <TextBox HorizontalAlignment="Right" TextWrapping="Wrap" VerticalAlignment="Center" Width="90" 
-                                                 Foreground="Red" FontWeight="Bold" x:Name="KT_txtSoVaoSo" />
+                                        <TextBox HorizontalAlignment="Right" TextWrapping="Wrap" VerticalAlignment="Center" Width="90" ToolTip="Số được đánh tự động" 
+                                                 Foreground="Red" FontWeight="Bold" x:Name="KT_txtSoVaoSo" Background="WhiteSmoke" IsEnabled="False"/>
                                     </StackPanel>
                                 </Grid>
                                 <Grid Grid.Column="2" Width="320" HorizontalAlignment="Right">
@@ -777,8 +777,13 @@
                                     </Button>
                                 </StackPanel>
                             </Grid>
+                            <Grid Margin="0,20,0,0">
+                                <Label Foreground="Black">Hậu tố số vào sổ khen thưởng: </Label>
+                                <TextBox x:Name="txtHauToKhenThuong" Width="334" HorizontalAlignment="Right" Foreground="Red" FontWeight="SemiBold"
+                                         ToolTip="Hậu tố chỉ áp dụng cho số được đánh từ thời điểm sau khi áp dụng (Lưu)"/>
+                            </Grid>
                         </StackPanel>
-                        <Button x:Name="btnLuuCauHinh" Margin="0,200" Height="40" Width="140"
+                        <Button x:Name="btnLuuCauHinh" Height="40" Width="140" Margin="0,120"
                                 Style="{StaticResource LinkButton}" Foreground="White"
                                 Click="btnLuuCauHinh_Click">LƯU CẤU HÌNH</Button>
                     </StackPanel>

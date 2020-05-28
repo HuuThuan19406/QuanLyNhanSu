@@ -57,7 +57,7 @@ namespace QuanLyNhanSu
         public override string ToString()
         {
             return String.Join(",", 
-                HoTen, CMND, MaNhanVien, GioiTinh, NgaySinh.ToString("dd/MM/yyyy"), QueQuan, SoDienThoai, BoPhan, ChucVu, NgayVao.ToString("dd/MM/yyyy"), Avatar);            
+                HoTen, CMND, MaNhanVien, GioiTinh, NgaySinh.ToString("dd/MM/yyyy"), QueQuan, SoDienThoai, BoPhan, ChucVu, NgayVao.ToString("dd/MM/yyyy"));            
         }
     }
 }

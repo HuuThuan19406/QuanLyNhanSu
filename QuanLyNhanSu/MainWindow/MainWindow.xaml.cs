@@ -417,22 +417,23 @@ namespace QuanLyNhanSu
                 new Message("NHẮC NHỞ", "Chưa điền đầy đủ thông tin", false, Message.Options.Warning);
                 return;
             }
-            KhenThuong khenThuong = new KhenThuong();
-            khenThuong.MaNhanVien = KT_txtMaNhanVien.Text;
-            khenThuong.BoPhanCongTac = (MainDatabase.dsNhanSu[KTmaNhanVien_Selected] as NhanSu).BoPhan;
-            khenThuong.NgayXet = KT_dtpNgayXet.SelectedDate.Value;
+            KhenThuong khenThuong = new KhenThuong(KhenThuong.getSoTrongMa(MainDatabase.khenThuongs[MainDatabase.khenThuongs.Count - 1].SoVaoSo) + 1
+                                                   + MainDatabase.setUp.HauToSoKhenThuong,
+                                                   (DateTime)KT_dtpNgayXet.SelectedDate,
+                                                   KT_txtMaNhanVien.Text,
+                                                   KT_txtBoPhan.Text,
+                                                   KT_txtLiDo.Text,
+                                                   "",
+                                                   double.Parse(KT_txtGiaTri.Text),
+                                                   (bool)KT_chkCoQuyetDinh.IsChecked);
             if (KT_cboHinhThucKhen.SelectedIndex == 0)
                 khenThuong.HinhThuc = (KT_cboHinhThucKhen.SelectedValue as TextBox).Text.ToString();
             else
-                khenThuong.HinhThuc = (KT_cboHinhThucKhen.SelectedValue as ComboBoxItem).Content.ToString();
-            khenThuong.GiaTri = double.Parse(KT_txtGiaTri.Text);
-            khenThuong.LyDoXet = KT_txtLiDo.Text;
-            khenThuong.CoQuyetDinh = (bool)KT_chkCoQuyetDinh.IsChecked;            
-            khenThuong.SoVaoSo = KT_txtSoVaoSo.Text;            
-            
-            
+                khenThuong.HinhThuc = KT_cboHinhThucKhen.SelectedValue.ToString();
+
             KT_lvKhenThuong.Items.Add(khenThuong);
             (MainDatabase.dsKhenThuong[KTmaNhanVien_Selected] as List<KhenThuong>).Add(khenThuong);
+            MainDatabase.khenThuongs.Add(khenThuong);
             new Message("KHEN THƯỞNG", "Đã thêm thành công khen thưởng số " + khenThuong.SoVaoSo, true, Message.Options.Successful);
         }
 
@@ -446,8 +447,9 @@ namespace QuanLyNhanSu
             new MessageYesNo("XÁC NHẬN", "Bạn xác nhận xóa khen thưởng số " + (KT_lvKhenThuong.Items[KT_lvKhenThuong.SelectedIndex] as KhenThuong).SoVaoSo);
             if (!MessageYesNo.Yes)
                 return;
+            MainDatabase.khenThuongs.Remove(KT_lvKhenThuong.SelectedItem as KhenThuong);
             (MainDatabase.dsKhenThuong[KTmaNhanVien_Selected] as List<KhenThuong>).RemoveAt(KT_lvKhenThuong.SelectedIndex);
-            KT_lvKhenThuong.Items.RemoveAt(KT_lvKhenThuong.SelectedIndex);
+            KT_lvKhenThuong.Items.RemoveAt(KT_lvKhenThuong.SelectedIndex);            
         }
 
         private void KT_btnSua_Click(object sender, RoutedEventArgs e)
@@ -462,18 +464,20 @@ namespace QuanLyNhanSu
             new MessageYesNo("XÁC NHẬN", "Bạn xác nhận sửa khen thưởng số " + (KT_lvKhenThuong.Items[KT_lvKhenThuong.SelectedIndex] as KhenThuong).SoVaoSo);
             if (!MessageYesNo.Yes)
                 return;
-            KhenThuong khenThuong = new KhenThuong();
-            khenThuong.SoVaoSo = KT_txtSoVaoSo.Text;
-            khenThuong.MaNhanVien = KT_txtMaNhanVien.Text;
-            khenThuong.LyDoXet = KT_txtLiDo.Text;
+            KhenThuong khenThuong = new KhenThuong(KT_txtSoVaoSo.Text,
+                                                   (DateTime)KT_dtpNgayXet.SelectedDate,
+                                                   KT_txtMaNhanVien.Text,
+                                                   KT_txtBoPhan.Text,
+                                                   KT_txtLiDo.Text,
+                                                   "",
+                                                   double.Parse(KT_txtGiaTri.Text),
+                                                   (bool)KT_chkCoQuyetDinh.IsChecked);            
             if (KT_cboHinhThucKhen.SelectedIndex == 0)
                 khenThuong.HinhThuc = (KT_cboHinhThucKhen.SelectedValue as TextBox).Text.ToString();
             else
-                khenThuong.HinhThuc = (KT_cboHinhThucKhen.SelectedValue as ComboBoxItem).Content.ToString();
-            khenThuong.GiaTri = double.Parse(KT_txtGiaTri.Text);
-            khenThuong.CoQuyetDinh = (bool)KT_chkCoQuyetDinh.IsChecked;
+                khenThuong.HinhThuc = KT_cboHinhThucKhen.SelectedValue.ToString();            
             (MainDatabase.dsKhenThuong[KTmaNhanVien_Selected] as List<KhenThuong>)[KT_lvKhenThuong.SelectedIndex] = khenThuong;
-            KT_lvKhenThuong.Items[KT_lvKhenThuong.SelectedIndex] = khenThuong;
+            KT_lvKhenThuong.Items[KT_lvKhenThuong.SelectedIndex] = khenThuong;            
         }
 
         private void KT_btnXuat_Click(object sender, RoutedEventArgs e)
@@ -503,6 +507,7 @@ namespace QuanLyNhanSu
         {
             HienThi.ThongTin<PhongBan>(cboPhongBan, MainDatabase.dsPhongBan, true);
             txtDangNhapHienTai.FontSize++;
+            txtHauToKhenThuong.Text = MainDatabase.setUp.HauToSoKhenThuong;
         }
 
         private void SetCauHinh()
@@ -520,6 +525,7 @@ namespace QuanLyNhanSu
         private void btnLuuCauHinh_Click(object sender, RoutedEventArgs e)
         {
             MainDatabase.setUp.FontChu = this.FontFamily.ToString();
+            MainDatabase.setUp.HauToSoKhenThuong = txtHauToKhenThuong.Text.Trim();
             new Message("THÔNG BÁO", "Lưu cấu hình thành công! ", true, Message.Options.Successful);
         }        
         
@@ -608,10 +614,6 @@ namespace QuanLyNhanSu
                     cboKieuChu.SelectedItem = item;
         }
 
-        private void btnSuaPhongBan_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
         #endregion
 
         #region XuLyGiaoDienChung
